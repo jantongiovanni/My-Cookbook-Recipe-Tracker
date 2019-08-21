@@ -1,6 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
+  TextInput,
   Image,
   Platform,
   ScrollView,
@@ -9,15 +10,44 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Video } from 'expo-av';
 
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
+    <Video
+        //../assets/videos/Chinese.mp4
+        //http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4
+        //https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4
+          //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
+          source={require('../assets/videos/Chinese.mp4')}
+          rate={0.1}
+          volume={1.0}
+          isMuted={true}
+          resizeMode="cover"
+          shouldPlay
+          isLooping
+          style={{ position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,}}
+        />
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
+        
+        <TextInput
+          style={styles.textinput}
+          placeholder="Enter name"
+          multiline={false}
+          //onChangeText={(name) => this.setState({name})}
+          value={"test"}//this.state.name}
+        />
+
+
         <View style={styles.welcomeContainer}>
           <Image
             source={
@@ -52,26 +82,31 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
     </View>
   );
 }
 
+      //
+      //<View style={styles.tabBarInfoContainer}>
+      //   <Text style={styles.tabBarInfoText}>
+      //     This is a tab bar. You can edit it in:
+      //   </Text>
+
+      //   <View
+      //     style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+      //     <MonoText style={styles.codeHighlightText}>
+      //       navigation/MainTabNavigator.js
+      //     </MonoText>
+      //   </View>
+      // </View>
+
 HomeScreen.navigationOptions = {
   header: null,
 };
+
+// state = {
+//   name: 'test'
+// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
@@ -111,7 +146,19 @@ function handleHelpPress() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+   
+  },
+  textinput: {
+    height: 40,
+    padding: 10,
+    margin: 24,
+    width: 360, 
+    borderColor: 'gray', 
+    borderWidth: 1,
+    alignItems: 'center',
+    textAlign: 'center',
+    color: 'lightgray',
+    fontSize: 20,
   },
   developmentModeText: {
     marginBottom: 20,
