@@ -9,21 +9,25 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
 } from 'react-native';
 import { Video } from 'expo-av';
 
 import { MonoText } from '../components/StyledText';
+import { PlayfairText } from '../components/StyledText';
+import { RobotoText } from '../components/StyledText';
+
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
     <Video
         //../assets/videos/Chinese.mp4
-        //http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4
+       // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
         //https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4
           //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
           source={require('../assets/videos/Chinese.mp4')}
-          rate={0.1}
+          rate={1.0}
           volume={1.0}
           isMuted={true}
           resizeMode="cover"
@@ -35,6 +39,12 @@ export default function HomeScreen() {
           bottom: 0,
           right: 0,}}
         />
+        <View style={{ position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0, backgroundColor: 'rgba(52, 52, 52, 0.2)'
+        }}></View>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
@@ -44,7 +54,7 @@ export default function HomeScreen() {
           placeholder="Enter name"
           multiline={false}
           //onChangeText={(name) => this.setState({name})}
-          value={"test"}//this.state.name}
+          value={"Search Recipes"}//this.state.name}
         />
 
 
@@ -61,25 +71,9 @@ export default function HomeScreen() {
 
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload!
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
+          <PlayfairText style={{fontSize: 40, color: 'white'}}>Pumpkin Soup with Garnet</PlayfairText>         
+          <RobotoText style={{fontSize: 14, color: 'white'}}>This is a classic, easy pumpkin soup made with fresh pumpkin that is very fast to make.</RobotoText>         
+          <Button style = {{borderRadius: 30, borderColor: 'black'}} title="Read Me" color="rgba(246, 166, 37, 1)" />
         </View>
       </ScrollView>
     </View>
@@ -149,16 +143,16 @@ const styles = StyleSheet.create({
    
   },
   textinput: {
-    height: 40,
+    flex: 1,
     padding: 10,
-    margin: 24,
-    width: 360, 
-    borderColor: 'gray', 
-    borderWidth: 1,
+    margin: 10,
+    backgroundColor: 'white',
+    borderColor: 'lightgray', 
+    borderWidth: .5,
     alignItems: 'center',
     textAlign: 'center',
     color: 'lightgray',
-    fontSize: 20,
+    fontSize: 18,
   },
   developmentModeText: {
     marginBottom: 20,
@@ -184,7 +178,7 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
-    marginHorizontal: 50,
+    marginHorizontal: 10,
   },
   homeScreenFilename: {
     marginVertical: 7,
