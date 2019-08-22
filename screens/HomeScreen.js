@@ -12,8 +12,6 @@ import {
   Button,
 } from 'react-native';
 import { Video } from 'expo-av';
-
-import { MonoText } from '../components/StyledText';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
@@ -48,7 +46,7 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-        
+
         <TextInput
           style={styles.textinput}
           placeholder="Enter name"
@@ -71,8 +69,8 @@ export default function HomeScreen() {
 
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
-          <PlayfairText style={{fontSize: 40, color: 'white'}}>Pumpkin Soup with Garnet</PlayfairText>         
-          <RobotoText style={{fontSize: 14, color: 'white'}}>This is a classic, easy pumpkin soup made with fresh pumpkin that is very fast to make.</RobotoText>         
+          <PlayfairText style={{fontSize: 40, color: 'white'}}>Pumpkin Soup with Garnet</PlayfairText>
+          <RobotoText style={{fontSize: 14, color: 'white'}}>This is a classic, easy pumpkin soup made with fresh pumpkin that is very fast to make.</RobotoText>
           <Button style = {{borderRadius: 30, borderColor: 'black'}} title="Read Me" color="rgba(246, 166, 37, 1)" />
         </View>
       </ScrollView>
@@ -140,14 +138,14 @@ function handleHelpPress() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
+
   },
   textinput: {
     flex: 1,
     padding: 10,
     margin: 10,
     backgroundColor: 'white',
-    borderColor: 'lightgray', 
+    borderColor: 'lightgray',
     borderWidth: .5,
     alignItems: 'center',
     textAlign: 'center',
