@@ -14,14 +14,12 @@ import {
 import { Video } from 'expo-av';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-
-
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
     <Video
         //../assets/videos/Chinese.mp4
-       // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+        //source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
         //https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4
           //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
           source={require('../assets/videos/Chinese.mp4')}
@@ -43,9 +41,7 @@ export default function HomeScreen() {
           bottom: 0,
           right: 0, backgroundColor: 'rgba(52, 52, 52, 0.2)'
         }}></View>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
+      <View style={styles.container}>
 
         <TextInput
           style={styles.textinput}
@@ -54,26 +50,14 @@ export default function HomeScreen() {
           //onChangeText={(name) => this.setState({name})}
           value={"Search Recipes"}//this.state.name}
         />
-
-
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
         <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-          <PlayfairText style={{fontSize: 40, color: 'white'}}>Pumpkin Soup with Garnet</PlayfairText>
-          <RobotoText style={{fontSize: 14, color: 'white'}}>This is a classic, easy pumpkin soup made with fresh pumpkin that is very fast to make.</RobotoText>
-          <Button style = {{borderRadius: 30, borderColor: 'black'}} title="Read Me" color="rgba(246, 166, 37, 1)" />
+            <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
+            <RobotoText style={{fontSize: 16, color: 'white', paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}> Read More </Text>
+            </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }
@@ -91,6 +75,21 @@ export default function HomeScreen() {
       //     </MonoText>
       //   </View>
       // </View>
+
+
+              {/*<View style={styles.welcomeContainer}>
+                <Image
+                  source={
+                    __DEV__
+                      ? require('../assets/images/robot-dev.png')
+                      : require('../assets/images/robot-prod.png')
+                  }
+                  style={styles.welcomeImage}
+                />
+
+                // <DevelopmentModeNotice />
+
+              </View>*/}
 
 HomeScreen.navigationOptions = {
   header: null,
@@ -138,10 +137,23 @@ function handleHelpPress() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 12,
 
   },
+
+  button: {
+    alignItems: 'center',
+    padding: 12,
+    width: 120,
+    borderRadius: 30,
+    backgroundColor: "#f6b425",
+
+  },
+  buttonText: {
+    fontSize: 16,
+    color: 'white',
+  },
   textinput: {
-    flex: 1,
     padding: 10,
     margin: 10,
     backgroundColor: 'white',
@@ -152,6 +164,12 @@ const styles = StyleSheet.create({
     color: 'lightgray',
     fontSize: 18,
   },
+  getStartedContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -160,7 +178,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -174,10 +191,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
+
   homeScreenFilename: {
     marginVertical: 7,
   },
