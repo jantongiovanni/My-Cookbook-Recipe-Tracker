@@ -4,12 +4,17 @@ This app is being built using React Native and Expo with the end goal being to d
 
 The app's concept is to be able to store the recipes that you have created in an easy to use way in order to be accessible to everyone.
 
+## GIF Showcase
+
+<img src="/recipe1_1.gif?raw=true" width="300px">
+
 ## Features of the app so far:
 
 - [x] Video loop background
-- [x] Search bar ui
-- [x] Main suggested recipe ui
-- [x] Horizontal scroll suggested recipe cards
+- [x] Search bar
+- [x] Main suggested recipe
+- [x] Horizontal scroll recipe cards
+- [x] Tab bar controls
 - [x] Custom fonts
 
 ## To-Do:
