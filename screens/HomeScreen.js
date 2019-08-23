@@ -10,10 +10,63 @@ import {
   TouchableOpacity,
   View,
   Button,
+  SafeAreaView,
+  Dimensions,
 } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import { Video } from 'expo-av';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
+const { width: screenWidth } = Dimensions.get('window')
+
+export class App extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            carouselItems: [
+            {
+                title:"Item 1"
+            },
+            {
+                title:"Item 2"
+            },
+            {
+                title:"Item 3"
+            },
+            {
+                title:"Item 4"
+            },
+            {
+                title:"Item 5"
+            }
+        ]}
+    }
+
+    _renderItem({item,index}){
+        return (
+            <View style={{flex:1,justifyContent:'center',alignItems:'center', borderColor: 'lightgray',
+            borderWidth: .5,backgroundColor: 'white'}}>
+                <Text style={{color:'black', paddingBottom:10}} >{item.title}</Text>
+            </View>
+        )
+    }
+  
+    render() {
+        return (
+        <SafeAreaView style={styles.container}>
+            <Carousel
+                    data={this.state.carouselItems}
+                    sliderWidth={screenWidth}
+                    itemWidth={screenWidth - 60}
+                    renderItem={this._renderItem}
+                />
+        </SafeAreaView>
+        );
+    }
+}
+
+
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
@@ -57,6 +110,7 @@ export default function HomeScreen() {
               <Text style={styles.buttonText}> Read More </Text>
             </TouchableOpacity>
         </View>
+        <App/>
       </View>
     </View>
   );
@@ -95,9 +149,6 @@ HomeScreen.navigationOptions = {
   header: null,
 };
 
-// state = {
-//   name: 'test'
-// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
@@ -138,16 +189,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 12,
-
   },
-
   button: {
     alignItems: 'center',
     padding: 12,
     width: 120,
     borderRadius: 30,
     backgroundColor: "#f6b425",
-
   },
   buttonText: {
     fontSize: 16,
@@ -165,7 +213,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   getStartedContainer: {
-    flex: 1,
+    flex: 3,
     flexDirection: 'column',
     justifyContent: 'center',
     paddingHorizontal: 20,
