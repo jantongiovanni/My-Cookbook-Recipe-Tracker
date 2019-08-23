@@ -4,12 +4,10 @@ import {
   TextInput,
   Image,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Button,
   SafeAreaView,
   Dimensions,
 } from 'react-native';
@@ -45,13 +43,16 @@ export class App extends React.Component {
 
     _renderItem({item,index}){
         return (
-            <View style={{flex:1,justifyContent:'center',alignItems:'center', borderColor: 'lightgray',
-            borderWidth: .5,backgroundColor: 'white'}}>
-                <Text style={{color:'black', paddingBottom:10}} >{item.title}</Text>
+            <View style={{flex:1, borderColor: 'lightgray',
+            borderWidth: .5,backgroundColor: 'lightgray', flexDirection:'row'}}>
+            <Image
+                source={require('../assets/images/robot-prod.png')} style={{alignSelf:'flex-start'}}
+                />
+                <Text style={{color:'black', paddingBottom:10, alignSelf:'center'}} >{item.title}</Text>
             </View>
         )
     }
-  
+
     render() {
         return (
         <SafeAreaView style={styles.container}>
@@ -116,35 +117,6 @@ export default function HomeScreen() {
   );
 }
 
-      //
-      //<View style={styles.tabBarInfoContainer}>
-      //   <Text style={styles.tabBarInfoText}>
-      //     This is a tab bar. You can edit it in:
-      //   </Text>
-
-      //   <View
-      //     style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-      //     <MonoText style={styles.codeHighlightText}>
-      //       navigation/MainTabNavigator.js
-      //     </MonoText>
-      //   </View>
-      // </View>
-
-
-              {/*<View style={styles.welcomeContainer}>
-                <Image
-                  source={
-                    __DEV__
-                      ? require('../assets/images/robot-dev.png')
-                      : require('../assets/images/robot-prod.png')
-                  }
-                  style={styles.welcomeImage}
-                />
-
-                // <DevelopmentModeNotice />
-
-              </View>*/}
-
 HomeScreen.navigationOptions = {
   header: null,
 };
@@ -189,6 +161,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 12,
+    paddingBottom: 8,
   },
   button: {
     alignItems: 'center',
@@ -297,3 +270,33 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+
+//
+//<View style={styles.tabBarInfoContainer}>
+//   <Text style={styles.tabBarInfoText}>
+//     This is a tab bar. You can edit it in:
+//   </Text>
+
+//   <View
+//     style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+//     <MonoText style={styles.codeHighlightText}>
+//       navigation/MainTabNavigator.js
+//     </MonoText>
+//   </View>
+// </View>
+
+
+        {/*<View style={styles.welcomeContainer}>
+          <Image
+            source={
+              __DEV__
+                ? require('../assets/images/robot-dev.png')
+                : require('../assets/images/robot-prod.png')
+            }
+            style={styles.welcomeImage}
+          />
+
+          // <DevelopmentModeNotice />
+
+        </View>*/}
