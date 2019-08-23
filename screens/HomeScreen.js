@@ -24,31 +24,43 @@ export class App extends React.Component {
         this.state = {
             carouselItems: [
             {
-                title:"Item 1"
+                title:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
             },
             {
-                title:"Item 2"
+                title:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
             },
             {
-                title:"Item 3"
+                title:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
             },
             {
-                title:"Item 4"
+                title:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
             },
             {
-                title:"Item 5"
+                title:"Sesame Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/sesame.jpg')
             }
         ]}
     }
 
     _renderItem({item,index}){
         return (
-            <View style={{flex:1, borderColor: 'lightgray',
-            borderWidth: .5,backgroundColor: 'lightgray', flexDirection:'row'}}>
-            <Image
-                source={require('../assets/images/robot-prod.png')} style={{alignSelf:'flex-start'}}
-                />
-                <Text style={{color:'black', paddingBottom:10, alignSelf:'center'}} >{item.title}</Text>
+            <View style={{flex:1, backgroundColor: 'white', flexDirection:'row'}}>
+                <Image
+                    source={item.image} style={{flex:2,  width: undefined, height: undefined}}
+                    resizeMode="cover"/>
+              <View style={{flex:3, justifyContent: 'center'}}>
+                <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
+                <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
+              </View>
             </View>
         )
     }
@@ -106,7 +118,7 @@ export default function HomeScreen() {
         />
         <View style={styles.getStartedContainer}>
             <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
-            <RobotoText style={{fontSize: 16, color: 'white', paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
+            <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}> Read More </Text>
             </TouchableOpacity>
