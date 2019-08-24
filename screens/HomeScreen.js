@@ -55,7 +55,7 @@ export class App extends React.Component {
 
     _renderItem({item,index}){
         return (
-            <View style={{flex:1, backgroundColor: 'white', flexDirection:'row'}}>
+            <View style={{flex:1, maxHeight: 120, backgroundColor: 'white', flexDirection:'row'}}>
                 <Image
                     source={item.image} style={{flex:2,  width: undefined, height: undefined}}
                     resizeMode="cover"/>
@@ -81,6 +81,157 @@ export class App extends React.Component {
     }
 }
 
+export class FlatListBasics extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+        //TODO: fix title/key inconsistency for data type
+        //faltlist requires key to index correctly so changed title to key
+          data={[
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Sesame Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/sesame.jpg')
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Sesame Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/sesame.jpg')
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Sesame Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/sesame.jpg')
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Sesame Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/sesame.jpg')
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Sesame Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/sesame.jpg')
+            },
+          ]}
+          renderItem={({item, index}) =>
+          //<Text style={styles.item}>{item.key}</Text>
+          <View style={{height: 100, borderBottomWidth: .5, backgroundColor: 'white', flexDirection:'row'}}>
+              <Image
+                  source={item.image} style={{flex:2,  width: undefined, height: undefined}}
+                  resizeMode="cover"/>
+            <View style={{flex:3, justifyContent: 'center'}}>
+              <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.key}</PlayfairText>
+              <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
+            </View>
+          </View>
+        }
+        />
+      </View>
+    );
+  }
+}
 
 export default function HomeScreen() {
   return (
@@ -130,7 +281,7 @@ export default function HomeScreen() {
       </View>
       <View style={styles.container}>
         <FlatListBasics/>
-        <App/>
+
       </View>
     </Swiper>
   );
@@ -139,31 +290,6 @@ export default function HomeScreen() {
 HomeScreen.navigationOptions = {
   header: null,
 };
-
-
-export class FlatListBasics extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={[
-            {key: 'Devin'},
-            {key: 'Dan'},
-            {key: 'Dominic'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
-      </View>
-    );
-  }
-}
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
@@ -204,7 +330,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 12,
-    paddingBottom: 8,
   },
   item: {
     padding: 10,
@@ -238,6 +363,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingHorizontal: 20,
+
   },
   developmentModeText: {
     marginBottom: 20,
