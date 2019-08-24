@@ -10,6 +10,7 @@ import {
   View,
   SafeAreaView,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Video } from 'expo-av';
@@ -134,6 +135,30 @@ HomeScreen.navigationOptions = {
 };
 
 
+export class FlatListBasics extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={[
+            {key: 'Devin'},
+            {key: 'Dan'},
+            {key: 'Dominic'},
+            {key: 'Jackson'},
+            {key: 'James'},
+            {key: 'Joel'},
+            {key: 'John'},
+            {key: 'Jillian'},
+            {key: 'Jimmy'},
+            {key: 'Julie'},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        />
+      </View>
+    );
+  }
+}
+
 function DevelopmentModeNotice() {
   if (__DEV__) {
     const learnMoreButton = (
@@ -174,6 +199,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 12,
     paddingBottom: 8,
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
   button: {
     alignItems: 'center',
