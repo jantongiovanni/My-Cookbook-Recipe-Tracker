@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Video } from 'expo-av';
+import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 const { width: screenWidth } = Dimensions.get('window')
@@ -83,50 +84,55 @@ export class App extends React.Component {
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-    <Video
-        //../assets/videos/Chinese.mp4
-        //source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-        //https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4
-          //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
-          source={require('../assets/videos/Chinese.mp4')}
-          rate={1.0}
-          volume={1.0}
-          isMuted={true}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
-          style={{ position: 'absolute',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,}}
-        />
-        <View style={{ position: 'absolute',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0, backgroundColor: 'rgba(52, 52, 52, 0.2)'
-        }}></View>
+    <Swiper showsButtons={false} horizontal={true} index={0} loop={false} showsPagination={false}>
       <View style={styles.container}>
-
-        <TextInput
-          style={styles.textinput}
-          placeholder="Enter name"
-          multiline={false}
-          //onChangeText={(name) => this.setState({name})}
-          value={"Search Recipes"}//this.state.name}
-        />
-        <View style={styles.getStartedContainer}>
-            <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
-            <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}> Read More </Text>
-            </TouchableOpacity>
+        <Video
+            //../assets/videos/Chinese.mp4
+            //source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+            //https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4
+              //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
+              source={require('../assets/videos/Chinese.mp4')}
+              rate={1.0}
+              volume={1.0}
+              isMuted={true}
+              resizeMode="cover"
+              shouldPlay
+              isLooping
+              style={{ position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,}}
+            />
+          <View style={{ position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0, backgroundColor: 'rgba(52, 52, 52, 0.2)'
+          }}></View>
+        <View style={styles.container}>
+          <TextInput
+            style={styles.textinput}
+            placeholder="Enter name"
+            multiline={false}
+            //onChangeText={(name) => this.setState({name})}
+            value={"Search Recipes"}//this.state.name}
+          />
+          <View style={styles.getStartedContainer}>
+              <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
+              <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}> Read More </Text>
+              </TouchableOpacity>
+          </View>
+          <App/>
         </View>
+      </View>
+      <View style={styles.container}>
+        <FlatListBasics/>
         <App/>
       </View>
-    </View>
+    </Swiper>
   );
 }
 
