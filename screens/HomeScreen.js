@@ -119,7 +119,67 @@ export class FlatListBasics extends React.Component {
                 key:"Sesame Chicken",
                 prep:"25 minutes",
                 image: require('../assets/images/sesame.jpg')
-            }
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
+            {
+                key:"Italian Sausage Poutine",
+                prep:"30 minutes",
+                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
+            },
+            {
+                key:"Garlic-Herb Chicken",
+                prep:"25 minutes",
+                image: require('../assets/images/chicken.jpg')
+            },
+            {
+                key:"Curried Lamb Tacos",
+                prep:"35 minutes",
+                image: require('../assets/images/lamb.jpg')
+            },
+            {
+                key:"Seared Steak",
+                prep:"30 minutes",
+                image: require('../assets/images/steak.jpg')
+            },
           ]}
           renderItem={({item, index}) =>
           //<Text style={styles.item}>{item.key}</Text>
@@ -140,8 +200,17 @@ export class FlatListBasics extends React.Component {
 }
 
 export default function HomeScreen() {
+  const scrollOffset = [screenHeight];
+
   return (
- <ScrollView>
+ <ScrollView
+        decelerationRate= {0.998}
+        snapToOffsets = {scrollOffset}
+        snapToEnd = {false}
+
+        >
+
+
     <Swiper  containerStyle={{ width: screenWidth, height: screenHeight }} showsButtons={false} horizontal={true} index={0} loop={false} showsPagination={false}>
       <View style={styles.container}>
         <Video
@@ -202,6 +271,18 @@ export default function HomeScreen() {
 HomeScreen.navigationOptions = {
   header: null,
 };
+
+
+
+// onScroll={event => {
+//     if(event.nativeEvent.contentOffset.y < screenHeight){
+//       console.log("here");
+//       ScrollView.snapToInterval={screenHeight};
+//     }
+//   }
+// }
+
+
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
