@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Dimensions,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Video } from 'expo-av';
@@ -18,6 +19,7 @@ import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 const { width: screenWidth } = Dimensions.get('window')
+const { height: screenHeight} = Dimensions.get('window')
 
 export class App extends React.Component {
 
@@ -88,6 +90,10 @@ export class FlatListBasics extends React.Component {
         <FlatList
         //TODO: fix title/key inconsistency for data type
         //faltlist requires key to index correctly so changed title to key
+          ListHeaderComponent = {
+            <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
+          }
+
           data={[
             {
                 key:"Italian Sausage Poutine",
@@ -113,115 +119,15 @@ export class FlatListBasics extends React.Component {
                 key:"Sesame Chicken",
                 prep:"25 minutes",
                 image: require('../assets/images/sesame.jpg')
-            },
-            {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Sesame Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            },
-            {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Sesame Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            },
-            {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Sesame Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            },
-            {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Sesame Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            },
+            }
           ]}
           renderItem={({item, index}) =>
           //<Text style={styles.item}>{item.key}</Text>
-          <View style={{height: 100, borderBottomWidth: .5, backgroundColor: 'white', flexDirection:'row'}}>
+          <View style={{height: 100, marginBottom: 16, marginLeft:10, marginRight:10, backgroundColor: 'white', flexDirection:'row'}}>
               <Image
                   source={item.image} style={{flex:2,  width: undefined, height: undefined}}
                   resizeMode="cover"/>
-            <View style={{flex:3, justifyContent: 'center'}}>
+            <View style={{flex:4, justifyContent: 'center'}}>
               <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.key}</PlayfairText>
               <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
             </View>
@@ -235,7 +141,8 @@ export class FlatListBasics extends React.Component {
 
 export default function HomeScreen() {
   return (
-    <Swiper showsButtons={false} horizontal={true} index={0} loop={false} showsPagination={false}>
+ <ScrollView>
+    <Swiper  containerStyle={{ width: screenWidth, height: screenHeight }} showsButtons={false} horizontal={true} index={0} loop={false} showsPagination={false}>
       <View style={styles.container}>
         <Video
             //../assets/videos/Chinese.mp4
@@ -284,6 +191,11 @@ export default function HomeScreen() {
 
       </View>
     </Swiper>
+    <View style={styles.container}>
+      <FlatListBasics/>
+
+    </View>
+  </ScrollView>
   );
 }
 
