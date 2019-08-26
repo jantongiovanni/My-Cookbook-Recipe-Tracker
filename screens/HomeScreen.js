@@ -121,64 +121,19 @@ export class FlatListBasics extends React.Component {
                 image: require('../assets/images/sesame.jpg')
             },
             {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
+                key:"Curried Lamb Tacos 2",
                 prep:"35 minutes",
                 image: require('../assets/images/lamb.jpg')
             },
             {
-                key:"Seared Steak",
+                key:"Seared Steak 2",
                 prep:"30 minutes",
                 image: require('../assets/images/steak.jpg')
             },
             {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
+                key:"Sesame Chicken 2",
                 prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
+                image: require('../assets/images/sesame.jpg')
             },
           ]}
           renderItem={({item, index}) =>
@@ -200,27 +155,28 @@ export class FlatListBasics extends React.Component {
 }
 
 export default function HomeScreen() {
-  const scrollOffset = [screenHeight];
+  const homeOffset = [screenHeight];
 
   return (
  <ScrollView
-        decelerationRate= {0.998}
-        snapToOffsets = {scrollOffset}
+        decelerationRate= {"normal"}
+        snapToOffsets = {homeOffset}
         snapToEnd = {false}
-
+        snapToStart = {false}
         >
-
-
-    <Swiper  containerStyle={{ width: screenWidth, height: screenHeight }} showsButtons={false} horizontal={true} index={0} loop={false} showsPagination={false}>
+    <Swiper
+      containerStyle={{ width: screenWidth, height: screenHeight }}
+      showsButtons={false}
+      horizontal={true}
+      index={0}
+      loop={false}
+      showsPagination={false}
+      >
       <View style={styles.container}>
         <Video
-            //../assets/videos/Chinese.mp4
-            //source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-            //https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4
               //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
               source={require('../assets/videos/Chinese.mp4')}
               rate={1.0}
-              volume={1.0}
               isMuted={true}
               resizeMode="cover"
               shouldPlay
@@ -235,7 +191,7 @@ export default function HomeScreen() {
             top: 0,
             left: 0,
             bottom: 0,
-            right: 0, backgroundColor: 'rgba(52, 52, 52, 0.2)'
+            right: 0, backgroundColor: 'rgba(52, 52, 52, 0.15)'
           }}></View>
         <View style={styles.container}>
           <TextInput
@@ -257,12 +213,10 @@ export default function HomeScreen() {
       </View>
       <View style={styles.container}>
         <FlatListBasics/>
-
       </View>
     </Swiper>
     <View style={styles.container}>
       <FlatListBasics/>
-
     </View>
   </ScrollView>
   );
@@ -271,18 +225,6 @@ export default function HomeScreen() {
 HomeScreen.navigationOptions = {
   header: null,
 };
-
-
-
-// onScroll={event => {
-//     if(event.nativeEvent.contentOffset.y < screenHeight){
-//       console.log("here");
-//       ScrollView.snapToInterval={screenHeight};
-//     }
-//   }
-// }
-
-
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
