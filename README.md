@@ -14,18 +14,19 @@ The app's concept is to be able to store the recipes that you have created in an
 - [x] Search bar
 - [x] Main suggested recipe
 - [x] Horizontal scroll recipe cards
-- [x] Tab bar controls
-- [x] Custom fonts
+- [x] List of recipes
+- [x] Horizontal swipe to new page
+- [x] Vertical swipe to new page
+- [x] Swipe snaps to pages
 
 ## To-Do:
-
+- [ ] Detail screen
 - [ ] Integrate Firebase backend 
   - store recipes
     - pictures
     - ingredients
     - steps
 - [ ] Recipe creation
-- [ ] Recipe list
 - [ ] Recipe follow view
 
 - [ ] Deploy to Android
