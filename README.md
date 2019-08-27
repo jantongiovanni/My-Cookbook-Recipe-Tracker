@@ -6,7 +6,7 @@ The app's concept is to be able to store the recipes that you have created in an
 
 ## GIF Showcase
 
-<img src="/recipe1_1.gif?raw=true" width="300px">
+<img src="/recipe2_1.gif?raw=true" width="300px">
 
 ## Features of the app so far:
 
