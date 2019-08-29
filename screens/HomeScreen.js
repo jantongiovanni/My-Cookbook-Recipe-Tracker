@@ -2,6 +2,7 @@ import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
   TextInput,
+  Button,
   Image,
   Platform,
   StyleSheet,
@@ -18,8 +19,16 @@ import { Video } from 'expo-av';
 import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
+import { withNavigation } from 'react-navigation';
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
+
+
+export class MyDetailButton extends React.Component {
+  render () {
+    return <Button title="Read More" onPress={()=>this.props.navigation.navigate('Detail')}/>
+  }
+}
 
 export class App extends React.Component {
 
@@ -64,6 +73,7 @@ export class App extends React.Component {
               <View style={{flex:3, justifyContent: 'center'}}>
                 <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
                 <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
+                <MyDetailButton/>
               </View>
             </View>
         )
