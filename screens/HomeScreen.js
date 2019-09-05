@@ -20,15 +20,17 @@ import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
+import DetailScreen from '../screens/DetailScreen';
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
 
-export class MyDetailButton extends React.Component {
+class MyDetailButton extends React.Component {
   render () {
     return <Button title="Read More" onPress={()=>this.props.navigation.navigate('Detail')}/>
   }
 }
+//export withNavigation(MyDetailButton);
 
 export class App extends React.Component {
 
@@ -222,7 +224,7 @@ export default function HomeScreen() {
         </View>
       </View>
       <View style={styles.container}>
-        <FlatListBasics/>
+        <DetailScreen/>
       </View>
     </Swiper>
     <View style={styles.container}>
