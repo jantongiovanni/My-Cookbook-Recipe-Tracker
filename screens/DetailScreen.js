@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingBottom: 14
   },
   titleTextSmall:{
-    fontSize: 66,
+    fontSize: 36,
     color: 'black',
     paddingBottom: 14
   },

@@ -1,6 +1,9 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
+  LayoutAnimation,
+  UIManager,
+  Platform,
   TextInput,
   Button,
   Image,
@@ -24,6 +27,20 @@ import DetailScreen from '../screens/DetailScreen';
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
+//Get layout animation to work on android
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
+
+function prepareAnimation() {
+  LayoutAnimation.configureNext({
+    ...LayoutAnimation.Presets.easeInEaseOut,
+    create: {property: "scaleXY"},
+    delete: {property: "scaleXY"},
+  })
+}
 
 class MyDetailButton extends React.Component {
   render () {
