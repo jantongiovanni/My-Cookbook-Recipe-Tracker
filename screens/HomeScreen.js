@@ -7,7 +7,6 @@ import {
   TextInput,
   Button,
   Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -28,19 +27,19 @@ const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
 //Get layout animation to work on android
-if (Platform.OS === 'android') {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-}
-
-function prepareAnimation() {
-  LayoutAnimation.configureNext({
-    ...LayoutAnimation.Presets.easeInEaseOut,
-    create: {property: "scaleXY"},
-    delete: {property: "scaleXY"},
-  })
-}
+// if (Platform.OS === 'android') {
+//   if (UIManager.setLayoutAnimationEnabledExperimental) {
+//     UIManager.setLayoutAnimationEnabledExperimental(true);
+//   }
+// }
+//
+// function prepareAnimation() {
+//   LayoutAnimation.configureNext({
+//     ...LayoutAnimation.Presets.easeInEaseOut,
+//     create: {property: "scaleXY"},
+//     delete: {property: "scaleXY"},
+//   })
+// }
 
 class MyDetailButton extends React.Component {
   render () {
