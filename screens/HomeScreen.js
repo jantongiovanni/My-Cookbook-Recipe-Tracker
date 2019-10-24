@@ -91,7 +91,6 @@ export class App extends React.Component {
               <View style={{flex:3, justifyContent: 'center'}}>
                 <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
                 <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
-                <MyDetailButton/>
               </View>
             </View>
         )
