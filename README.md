@@ -18,16 +18,16 @@ The app's concept is to be able to store the recipes that you have created in an
 - [x] Horizontal swipe to new page
 - [x] Vertical swipe to new page
 - [x] Swipe snaps to pages
+- [x] Detail screen
 
 ## To-Do:
-- [ ] Detail screen
+- [ ] Recipe creation
+- [ ] Recipe follow view
 - [ ] Integrate Firebase backend 
   - store recipes
     - pictures
     - ingredients
     - steps
-- [ ] Recipe creation
-- [ ] Recipe follow view
 
 - [ ] Deploy to Android
 - [ ] Deploy to iOS
