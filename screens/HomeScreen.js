@@ -43,6 +43,7 @@ const { height: screenHeight} = Dimensions.get('window')
 
 class MyDetailButton extends React.Component {
   render () {
+// <MyDetailButton/>
     return <Button title="Read More" onPress={()=>this.props.navigation.navigate('Detail')}/>
   }
 }
@@ -181,9 +182,9 @@ export class FlatListBasics extends React.Component {
   }
 }
 
-export default function HomeScreen() {
+const HomeScreen = ({navigation}) => {
   const homeOffset = [screenHeight];
-
+  //const { navigation } = this.props;
   return (
  <ScrollView
         decelerationRate= {"normal"}
@@ -231,7 +232,10 @@ export default function HomeScreen() {
           <View style={styles.getStartedContainer}>
               <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
               <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                navigation.navigate('Details')}>
                 <Text style={styles.buttonText}> Read More </Text>
               </TouchableOpacity>
           </View>
@@ -247,7 +251,8 @@ export default function HomeScreen() {
     </View>
   </ScrollView>
   );
-}
+};
+export default HomeScreen;
 
 HomeScreen.navigationOptions = {
   header: null

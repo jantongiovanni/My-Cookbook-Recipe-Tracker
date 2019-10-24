@@ -9,21 +9,18 @@ import {
 } from 'react-native';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-// export default function Detail(){
-//   {
-//     return (
-//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//         <Text>Detail</Text>
-//       </View>
-//     );
-//
-//     }
-//   }
+
 
 const { width: screenWidth } = Dimensions.get('window')
+
   export class Detail extends React.Component {
 
+
         render() {
+          //const { navigation } = this.props;
+
+          //const itemId = navigation.getParam('itemId', 'NO-ID');
+          //const otherParam = navigation.getParam('otherParam', 'some default value');
           return (
             <ScrollView>
               <Image source={require('../assets/images/sesame.jpg')} style={styles.topImage} resizeMode="contain"/>
