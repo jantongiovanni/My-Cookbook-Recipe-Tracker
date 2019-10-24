@@ -182,9 +182,17 @@ export class FlatListBasics extends React.Component {
   }
 }
 
-const HomeScreen = ({navigation}) => {
-  const homeOffset = [screenHeight];
+export default class HomeScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+  header: null,
+});
+constructor(props) {
+  super(props);
+}
+
   //const { navigation } = this.props;
+render(){
+    const homeOffset = [screenHeight];
   return (
  <ScrollView
         decelerationRate= {"normal"}
@@ -234,8 +242,12 @@ const HomeScreen = ({navigation}) => {
               <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
               <TouchableOpacity
                 style={styles.button}
-                onPress={() =>
-                navigation.navigate('Details')}>
+                onPress={() => {
+                  this.props.navigation.navigate('Details', {
+                    itemId: 1,
+                    otherParam: 'test param',
+                  });
+                }}>
                 <Text style={styles.buttonText}> Read More </Text>
               </TouchableOpacity>
           </View>
@@ -243,7 +255,7 @@ const HomeScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.container}>
-        <DetailScreen/>
+{/*       <DetailScreen/> */}
       </View>
     </Swiper>
     <View style={styles.container}>
@@ -251,12 +263,13 @@ const HomeScreen = ({navigation}) => {
     </View>
   </ScrollView>
   );
+}
 };
-export default HomeScreen;
+//export default HomeScreen;
 
-HomeScreen.navigationOptions = {
-  header: null
-};
+// HomeScreen.navigationOptions = {
+//   header: null
+// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
