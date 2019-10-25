@@ -21,19 +21,17 @@ import { withNavigation } from 'react-navigation'
 
 class CarouselItem extends Component {
 
-
     render () {
-
-        const { data: { title, prep, image}, navigation } = this.props;    //<------
-        // console.log(title);
-        // console.log(this.props.navigation.navigate);
+        const { data: { title, prep, image}, navigation } = this.props;
         return (
           <TouchableOpacity
             style={{flex:1, maxHeight: 120, backgroundColor: 'white', flexDirection:'row'}}
             onPress={() =>
             navigation.navigate('Details', {
                 itemId: 1,
-                otherParam: 'carousel test',
+                otherParam: "test",
+                title: title,
+                image: image,
               })
             }>
                 <Image

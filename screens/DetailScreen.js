@@ -24,11 +24,15 @@ export default class Detail extends React.Component {
     const { navigation } = this.props
     const itemId = navigation.getParam('itemId', 'NO-ID');
     const otherParam = navigation.getParam('otherParam');
+    const title = navigation.getParam('title', 'no title');
+    const image = navigation.getParam('image', '');
+    // console.log(title);
+    // console.log(image);
     return (
       <ScrollView>
-        <Image source={require('../assets/images/sesame.jpg')} style={styles.topImage} resizeMode="contain"/>
+        <Image source={image} style={styles.topImage} resizeMode="contain"/>
         <View style={styles.container}>
-          <PlayfairText style={styles.titleTextLarge}>Shrimp Hot Pot with Tofu</PlayfairText>
+          <PlayfairText style={styles.titleTextLarge}>{title}</PlayfairText>
           <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
           <Text>{JSON.stringify(itemId)} </Text>
           <Text>{JSON.stringify(otherParam)} </Text>
