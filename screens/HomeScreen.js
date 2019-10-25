@@ -23,34 +23,11 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
 import DetailScreen from '../screens/DetailScreen';
+import CarouselItem from '../components/CarouselItem';
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
-//Get layout animation to work on android
-// if (Platform.OS === 'android') {
-//   if (UIManager.setLayoutAnimationEnabledExperimental) {
-//     UIManager.setLayoutAnimationEnabledExperimental(true);
-//   }
-// }
-//
-// function prepareAnimation() {
-//   LayoutAnimation.configureNext({
-//     ...LayoutAnimation.Presets.easeInEaseOut,
-//     create: {property: "scaleXY"},
-//     delete: {property: "scaleXY"},
-//   })
-// }
-
-class MyDetailButton extends React.Component {
-  render () {
-// <MyDetailButton/>
-    return <Button title="Read More" onPress={()=>this.props.navigation.navigate('Detail')}/>
-  }
-}
-//export withNavigation(MyDetailButton);
-
 export class App extends React.Component {
-
     constructor(props){
         super(props);
         this.state = {
@@ -85,15 +62,9 @@ export class App extends React.Component {
 
     _renderItem({item,index}){
         return (
-            <View style={{flex:1, maxHeight: 120, backgroundColor: 'white', flexDirection:'row'}}>
-                <Image
-                    source={item.image} style={{flex:2,  width: undefined, height: undefined}}
-                    resizeMode="cover"/>
-              <View style={{flex:3, justifyContent: 'center'}}>
-                <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
-                <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
-              </View>
-            </View>
+          <CarouselItem
+            data = {item}
+          />
         )
     }
 
@@ -192,8 +163,8 @@ constructor(props) {
 
   //const { navigation } = this.props;
 render(){
-    const homeOffset = [screenHeight];
-  return (
+const homeOffset = [screenHeight];
+return (
  <ScrollView
         decelerationRate= {"normal"}
         snapToOffsets = {homeOffset}
@@ -255,7 +226,7 @@ render(){
         </View>
       </View>
       <View style={styles.container}>
-{/*       <DetailScreen/> */}
+      {/*       <DetailScreen/> */}
       </View>
     </Swiper>
     <View style={styles.container}>
@@ -265,11 +236,6 @@ render(){
   );
 }
 };
-//export default HomeScreen;
-
-// HomeScreen.navigationOptions = {
-//   header: null
-// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {

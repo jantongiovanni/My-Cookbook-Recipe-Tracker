@@ -12,7 +12,6 @@ import { RobotoText } from '../components/StyledText';
 
 const { width: screenWidth } = Dimensions.get('window')
 
-
 export default class Detail extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -20,11 +19,6 @@ export default class Detail extends React.Component {
       header: null
     };
   };
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
 
   render() {
     const { navigation } = this.props
@@ -38,7 +32,6 @@ export default class Detail extends React.Component {
           <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
           <Text>{JSON.stringify(itemId)} </Text>
           <Text>{JSON.stringify(otherParam)} </Text>
-
           <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
             <View style={{flexDirection:'column'}}>
               <RobotoText style={styles.contentText}>Time:</RobotoText>
@@ -49,7 +42,6 @@ export default class Detail extends React.Component {
               <PlayfairText stlye={styles.titleTextSmall}>4 servings</PlayfairText>
             </View>
           </View>
-
         </View>
       </ScrollView>
     );
