@@ -26,6 +26,7 @@ class CarouselItem extends Component {
         return (
           <TouchableOpacity
             style={{flex:1, maxHeight: 120, backgroundColor: 'white', flexDirection:'row'}}
+            activeOpacity={1}
             onPress={() =>
             navigation.navigate('Details', {
                 itemId: 1,

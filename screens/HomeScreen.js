@@ -24,40 +24,16 @@ import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
 import DetailScreen from '../screens/DetailScreen';
 import CarouselItem from '../components/CarouselItem';
+
+import {recipes} from '../data/DataArray';
+import {flatRecipes} from '../data/DataArray';
+
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
 export class App extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            carouselItems: [
-            {
-                title:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                title:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                title:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                title:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                title:"Sesame Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            }
-        ]}
     }
 
     _renderItem({item,index}){
@@ -72,7 +48,7 @@ export class App extends React.Component {
         return (
         <SafeAreaView style={styles.container}>
             <Carousel
-                    data={this.state.carouselItems}
+                    data={recipes}
                     sliderWidth={screenWidth}
                     itemWidth={screenWidth - 60}
                     renderItem={this._renderItem}
@@ -93,48 +69,7 @@ export class FlatListBasics extends React.Component {
             <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
           }
 
-          data={[
-            {
-                key:"Italian Sausage Poutine",
-                prep:"30 minutes",
-                image: require('../assets/images/Italian-Sausage-Poutine.jpg')
-            },
-            {
-                key:"Garlic-Herb Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/chicken.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Sesame Chicken",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            },
-            {
-                key:"Curried Lamb Tacos 2",
-                prep:"35 minutes",
-                image: require('../assets/images/lamb.jpg')
-            },
-            {
-                key:"Seared Steak 2",
-                prep:"30 minutes",
-                image: require('../assets/images/steak.jpg')
-            },
-            {
-                key:"Sesame Chicken 2",
-                prep:"25 minutes",
-                image: require('../assets/images/sesame.jpg')
-            },
-          ]}
+          data={ flatRecipes }
           renderItem={({item, index}) =>
           //<Text style={styles.item}>{item.key}</Text>
           <View style={{height: 100, marginBottom: 16, marginLeft:10, marginRight:10, backgroundColor: 'white', flexDirection:'row'}}>
