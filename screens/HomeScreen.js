@@ -24,9 +24,9 @@ import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
 import DetailScreen from '../screens/DetailScreen';
 import CarouselItem from '../components/CarouselItem';
+import ListItem from '../components/ListItem';
 
 import {recipes} from '../data/DataArray';
-import {flatRecipes} from '../data/DataArray';
 
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
@@ -96,54 +96,53 @@ constructor(props) {
   super(props);
 }
 
-  //const { navigation } = this.props;
 render(){
 const homeOffset = [screenHeight];
-return (
- <ScrollView
-        decelerationRate= {"normal"}
-        snapToOffsets = {homeOffset}
-        snapToEnd = {false}
-        snapToStart = {false}
-        >
-    <Swiper
-      containerStyle={{ width: screenWidth, height: screenHeight }}
-      showsButtons={false}
-      horizontal={true}
-      index={0}
-      loop={false}
-      showsPagination={false}
+  return (
+   <ScrollView
+      decelerationRate= {"normal"}
+      snapToOffsets = {homeOffset}
+      snapToEnd = {false}
+      snapToStart = {false}
+    >
+      <Swiper
+        containerStyle={{ width: screenWidth, height: screenHeight }}
+        showsButtons={false}
+        horizontal={true}
+        index={0}
+        loop={false}
+        showsPagination={false}
       >
-      <View style={styles.container}>
-        <Video
-              //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
-              source={require('../assets/videos/Chinese.mp4')}
-              rate={1.0}
-              isMuted={true}
-              resizeMode="cover"
-              shouldPlay
-              isLooping
-              style={{ position: 'absolute',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,}}
-            />
-          <View style={{ position: 'absolute',
+        <View style={styles.container}>
+          <Video
+            //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
+            source={require('../assets/videos/Chinese.mp4')}
+            rate={1.0}
+            isMuted={true}
+            resizeMode="cover"
+            shouldPlay
+            isLooping
+            style={{ position: 'absolute',
             top: 0,
             left: 0,
             bottom: 0,
-            right: 0, backgroundColor: 'rgba(52, 52, 52, 0.15)'
-          }}></View>
-        <View style={styles.container}>
-          <TextInput
-            style={styles.textinput}
-            placeholder="Enter name"
-            multiline={false}
-            //onChangeText={(name) => this.setState({name})}
-            value={"Search Recipes"}//this.state.name}
+            right: 0,}}
           />
-          <View style={styles.getStartedContainer}>
+            <View style={{ position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0, backgroundColor: 'rgba(52, 52, 52, 0.15)'}}>
+            </View>
+          <View style={styles.container}>
+            <TextInput
+              style={styles.textinput}
+              placeholder="Enter name"
+              multiline={false}
+              //onChangeText={(name) => this.setState({name})}
+              value={"Search Recipes"}//this.state.name}
+            />
+            <View style={styles.getStartedContainer}>
               <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
               <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
               <TouchableOpacity
@@ -156,56 +155,22 @@ return (
                 }}>
                 <Text style={styles.buttonText}> Read More </Text>
               </TouchableOpacity>
+            </View>
+            <App/>
           </View>
-          <App/>
         </View>
-      </View>
+        <View style={styles.container}>
+        {/*  right swipe screen */}
+        </View>
+      </Swiper>
       <View style={styles.container}>
-      {/*       <DetailScreen/> */}
+        {/* swipe down */}
+        <ListItem/>
       </View>
-    </Swiper>
-    <View style={styles.container}>
-      <FlatListBasics/>
-    </View>
-  </ScrollView>
+    </ScrollView>
   );
 }
 };
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -325,33 +290,3 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
-
-
-//
-//<View style={styles.tabBarInfoContainer}>
-//   <Text style={styles.tabBarInfoText}>
-//     This is a tab bar. You can edit it in:
-//   </Text>
-
-//   <View
-//     style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-//     <MonoText style={styles.codeHighlightText}>
-//       navigation/MainTabNavigator.js
-//     </MonoText>
-//   </View>
-// </View>
-
-
-        {/*<View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-
-          // <DevelopmentModeNotice />
-
-        </View>*/}
