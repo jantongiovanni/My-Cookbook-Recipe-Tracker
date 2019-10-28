@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
+import {SharedElement} from 'react-navigation-shared-element';
+
 
 const { width: screenWidth } = Dimensions.get('window')
 
@@ -30,7 +32,9 @@ export default class Detail extends React.Component {
     // console.log(image);
     return (
       <ScrollView>
-        <Image source={image} style={styles.topImage} resizeMode="contain"/>
+      <SharedElement id="image" >
+          <Image source={image} style={styles.topImage} resizeMode="contain"/>
+        </SharedElement>
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{title}</PlayfairText>
           <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
@@ -52,7 +56,9 @@ export default class Detail extends React.Component {
   }
 }
 
-
+Detail.sharedElements = (navigation, otherNavigation, showing) => [
+  {id: 'image'},
+];
 
 const styles = StyleSheet.create({
   container: {
