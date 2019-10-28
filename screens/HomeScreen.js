@@ -22,7 +22,6 @@ import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
-import DetailScreen from '../screens/DetailScreen';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
 
