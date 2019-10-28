@@ -22,9 +22,10 @@ import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
-import DetailScreen from '../screens/DetailScreen';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
+import TouchableScale from 'react-native-touchable-scale';
+
 
 import {recipes} from '../data/DataArray';
 
@@ -58,35 +59,6 @@ export class App extends React.Component {
     }
 }
 
-export class FlatListBasics extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <FlatList
-        //TODO: fix title/key inconsistency for data type
-        //faltlist requires key to index correctly so changed title to key
-          ListHeaderComponent = {
-            <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
-          }
-
-          data={ flatRecipes }
-          renderItem={({item, index}) =>
-          //<Text style={styles.item}>{item.key}</Text>
-          <View style={{height: 100, marginBottom: 16, marginLeft:10, marginRight:10, backgroundColor: 'white', flexDirection:'row'}}>
-              <Image
-                  source={item.image} style={{flex:2,  width: undefined, height: undefined}}
-                  resizeMode="cover"/>
-            <View style={{flex:4, justifyContent: 'center'}}>
-              <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.key}</PlayfairText>
-              <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>
-            </View>
-          </View>
-        }
-        />
-      </View>
-    );
-  }
-}
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({

@@ -1,10 +1,10 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
-import MainTabNavigator from './MainTabNavigator';
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
-
+import {springyFadeIn} from '../transitions/springyFadeIn';
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -22,6 +22,9 @@ const RootStack = createStackNavigator(
         fontWeight: 'bold',
       },
     },
+  },
+  {
+    transitionConfig: () => springyFadeIn(),
   }
 );
 

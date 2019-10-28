@@ -10,6 +10,7 @@ import {
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
+
 const { width: screenWidth } = Dimensions.get('window')
 
 export default class Detail extends React.Component {
@@ -28,9 +29,10 @@ export default class Detail extends React.Component {
     const image = navigation.getParam('image', '');
     // console.log(title);
     // console.log(image);
+
     return (
       <ScrollView>
-        <Image source={image} style={styles.topImage} resizeMode="contain"/>
+          <Image source={image} style={styles.topImage} resizeMode="contain"/>
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{title}</PlayfairText>
           <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
