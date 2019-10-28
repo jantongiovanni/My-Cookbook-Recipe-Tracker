@@ -21,7 +21,11 @@ export default class Detail extends React.Component {
       header: null
     };
   };
+  static sharedElements = (navigation, otherNavigation, showing) => {
+    const title = navigation.getParam('title', 'no title');
 
+    return [title];
+  };
   render() {
     const { navigation } = this.props
     const itemId = navigation.getParam('itemId', 'NO-ID');
@@ -30,13 +34,14 @@ export default class Detail extends React.Component {
     const image = navigation.getParam('image', '');
     // console.log(title);
     // console.log(image);
+
     return (
       <ScrollView>
-      <SharedElement id="image" >
           <Image source={image} style={styles.topImage} resizeMode="contain"/>
-        </SharedElement>
         <View style={styles.container}>
+        <SharedElement id={title}>
           <PlayfairText style={styles.titleTextLarge}>{title}</PlayfairText>
+          </SharedElement>
           <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
           <Text>{JSON.stringify(itemId)} </Text>
           <Text>{JSON.stringify(otherParam)} </Text>
@@ -56,9 +61,7 @@ export default class Detail extends React.Component {
   }
 }
 
-Detail.sharedElements = (navigation, otherNavigation, showing) => [
-  {id: 'image'},
-];
+
 
 const styles = StyleSheet.create({
   container: {
