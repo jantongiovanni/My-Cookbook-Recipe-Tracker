@@ -24,7 +24,6 @@ import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
-import {SharedElement} from 'react-navigation-shared-element';
 import TouchableScale from 'react-native-touchable-scale';
 
 

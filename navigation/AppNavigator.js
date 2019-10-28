@@ -1,18 +1,11 @@
 import React from 'react';
 import { createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {useScreens} from 'react-native-screens';
-import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import {springyFadeIn} from '../transitions/springyFadeIn';
-
-
-useScreens();
-
-const RootStack = createSharedElementStackNavigator(
-  createStackNavigator,
+const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Details: DetailScreen,

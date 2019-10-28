@@ -15,13 +15,12 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
+import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
 import {recipes} from '../data/DataArray';
 
-import {SharedElement} from 'react-native-shared-element';
-import TouchableScale from 'react-native-touchable-scale';
 
 class ListItem extends Component {
 
@@ -51,9 +50,9 @@ class ListItem extends Component {
                   title: item.title,
                   image: item.image,})}
               >
-                    <Image
-                      source={item.image} style={{flex:2,  width: undefined, height: undefined}}
-                      resizeMode="cover"/>
+                <Image
+                  source={item.image} style={{flex:2,  width: undefined, height: undefined}}
+                  resizeMode="cover"/>
                 <View style={{flex:4, justifyContent: 'center'}}>
                   <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
                   <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.prep}</RobotoText>

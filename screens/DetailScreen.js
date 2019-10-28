@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-import {SharedElement} from 'react-navigation-shared-element';
 
 
 const { width: screenWidth } = Dimensions.get('window')
@@ -21,11 +20,7 @@ export default class Detail extends React.Component {
       header: null
     };
   };
-  static sharedElements = (navigation, otherNavigation, showing) => {
-    const title = navigation.getParam('title', 'no title');
 
-    return [title];
-  };
   render() {
     const { navigation } = this.props
     const itemId = navigation.getParam('itemId', 'NO-ID');
@@ -39,9 +34,7 @@ export default class Detail extends React.Component {
       <ScrollView>
           <Image source={image} style={styles.topImage} resizeMode="contain"/>
         <View style={styles.container}>
-        <SharedElement id={title}>
           <PlayfairText style={styles.titleTextLarge}>{title}</PlayfairText>
-          </SharedElement>
           <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
           <Text>{JSON.stringify(itemId)} </Text>
           <Text>{JSON.stringify(otherParam)} </Text>
