@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
 import {
-  LayoutAnimation,
-  UIManager,
-  Platform,
-  TextInput,
-  Button,
   Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
-  SafeAreaView,
-  Dimensions,
   FlatList,
-  ScrollView,
-} from 'react-native';
+  } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
@@ -48,8 +37,8 @@ class ListItem extends Component {
   );
 
     render () {
-        const recipesArray = getRecipes();
-        console.log(recipesArray);
+      const recipesArray = getRecipes();
+      //console.log(recipesArray);
         return (
           <View style={{flex: 1, paddingTop: 12,}}>
             <FlatList

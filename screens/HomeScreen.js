@@ -1,19 +1,13 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
-  LayoutAnimation,
-  UIManager,
   Platform,
   TextInput,
-  Button,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   SafeAreaView,
   Dimensions,
-  FlatList,
   ScrollView,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
@@ -21,11 +15,8 @@ import { Video } from 'expo-av';
 import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-import { withNavigation } from 'react-navigation';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
-import TouchableScale from 'react-native-touchable-scale';
-
 
 import {recipes} from '../data/DataArray';
 

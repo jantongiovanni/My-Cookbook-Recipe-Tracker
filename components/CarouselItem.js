@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
 import {
-  LayoutAnimation,
-  UIManager,
-  Platform,
-  TextInput,
-  Button,
   Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
-  SafeAreaView,
-  Dimensions,
-  FlatList,
-  ScrollView,
 } from 'react-native';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
