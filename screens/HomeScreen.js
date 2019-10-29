@@ -17,6 +17,7 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
+import NewRecipe from '../screens/NewRecipeScreen';
 
 import {recipes} from '../data/DataArray';
 
@@ -124,6 +125,7 @@ const homeOffset = [screenHeight];
         </View>
         <View style={styles.container}>
         {/*  right swipe screen */}
+        <NewRecipe/>
         </View>
       </Swiper>
       <View style={styles.container}>
