@@ -6,6 +6,8 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
@@ -21,23 +23,49 @@ export default class Detail extends React.Component {
     };
   };
 
+  renderIngredients = ({item}) => (
+    <View>
+      <RobotoText style={styles.contentText}>{item.in}</RobotoText>
+    </View>
+  );
+
+  renderInstructions = ({item}) => (
+    <View>
+      <RobotoText style={styles.contentText}>{item.in}</RobotoText>
+    </View>
+  );
+
   render() {
-    const { navigation } = this.props
-    const itemId = navigation.getParam('itemId', 'NO-ID');
-    const otherParam = navigation.getParam('otherParam');
-    const title = navigation.getParam('title', 'no title');
-    const image = navigation.getParam('image', '');
+     const { navigation } = this.props
+    // const itemId = navigation.getParam('itemId', 'NO-ID');
+    // const otherParam = navigation.getParam('otherParam');
+    // const title = navigation.getParam('title', 'no title');
+    // const image = navigation.getParam('image', '');
     // console.log(title);
     // console.log(image);
 
+    const item = navigation.getParam('item');
+
     return (
       <ScrollView>
-          <Image source={image} style={styles.topImage} resizeMode="contain"/>
+          <Image source={{uri: item.photo_url}} style={styles.topImage} resizeMode="contain" PlaceholderContent={<ActivityIndicator />}/>
         <View style={styles.container}>
-          <PlayfairText style={styles.titleTextLarge}>{title}</PlayfairText>
-          <RobotoText style={styles.contentText}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
-          <Text>{JSON.stringify(itemId)} </Text>
-          <Text>{JSON.stringify(otherParam)} </Text>
+          <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
+          <RobotoText style={styles.contentText}>{item.description}</RobotoText>
+
+          <FlatList
+          data={item.ingredients}
+          renderItem={this.renderIngredients}
+          keyExractor{...item.ingredients.id}
+          />
+
+          <FlatList
+          data={item.instructions}
+          renderItem={this.renderInstructions}
+          keyExractor{...item.instructions.id}
+          />
+
+          <Text></Text>
           <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
             <View style={{flexDirection:'column'}}>
               <RobotoText style={styles.contentText}>Time:</RobotoText>
