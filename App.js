@@ -4,8 +4,7 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import ApiKeys from './constants/ApiKeys';
-import * as firebase from 'firebase';
+//import firebase from './constants/firebase';
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
@@ -28,8 +27,7 @@ export default function App(props) {
     );
   }
 
-  //Initialize Firebase
-  firebase.initializeApp(ApiKeys.firebaseConfig);
+
 }
 
 async function loadResourcesAsync() {
