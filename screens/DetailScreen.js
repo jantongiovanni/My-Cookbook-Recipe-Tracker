@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Text,
   View,
   Image,
   StyleSheet,
@@ -30,8 +29,6 @@ export default class Detail extends React.Component {
   );
 
   renderInstructions = ({item}) => (
-
-
     <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
       <View style={{flexDirection:'column'}}>
         <PlayfairText style={styles.numberText}>{item.id}</PlayfairText>
@@ -81,31 +78,27 @@ export default class Detail extends React.Component {
           <View style={styles.line}/>
 
           <FlatList
-          ListHeaderComponent = {
-            <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>
-          }
-          data={item.ingredients}
-          renderItem={this.renderIngredients}
-          keyExractor{...item.ingredients.id}
+            ListHeaderComponent = {
+              <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
+            data={item.ingredients}
+            renderItem={this.renderIngredients}
+            keyExractor{...item.ingredients.id}
           />
 
           <View style={styles.line}/>
 
           <FlatList
-          ListHeaderComponent = {
-            <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>
-          }
-          data={item.instructions}
-          renderItem={this.renderInstructions}
-          keyExractor{...item.instructions.id}
+            ListHeaderComponent = {
+              <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
+            data={item.instructions}
+            renderItem={this.renderInstructions}
+            keyExractor{...item.instructions.id}
           />
         </View>
       </ScrollView>
     );
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -148,8 +141,9 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight:'400',
     paddingTop: 20,
-    paddingLeft: 10,
+    paddingLeft: 20,
     marginRight:20,
+    paddingRight: 30,
   },
   line:{
     borderBottomColor: '#D3D3D3',
