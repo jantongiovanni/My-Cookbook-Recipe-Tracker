@@ -25,16 +25,18 @@ const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
 //Access Firebase data
-import {db} from '../constants/firebase';
-const itemsRef = db.collection('recipes').get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-    });
-})
-.catch(function(error) {
-    console.log("Error getting documents: ", error);
-});
+// import {db} from '../constants/firebase';
+// const itemsRef = db.collection('recipes').get().then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//         // doc.data() is never undefined for query doc snapshots
+//         console.log(doc.id, " => ", doc.data());
+//         const data = doc.data();
+//         console.log("photo url: " + data.photo_url);
+//     });
+// })
+// .catch(function(error) {
+//     console.log("Error getting documents: ", error);
+// });
 
 
 export class App extends React.Component {

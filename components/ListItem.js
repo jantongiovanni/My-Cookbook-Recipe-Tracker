@@ -11,7 +11,28 @@ import { withNavigation } from 'react-navigation'
 import {recipes, fullRecipes} from '../data/DataArray';
 import {getRecipes} from '../data/MockDataAPI';
 
+//Access Firebase data
+import {db} from '../constants/firebase';
+const itemArr = [];
+
+const itemsRef = db.collection('recipes').get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        const data = doc.data();
+        console.log("photo url: " + data.photo_url);
+    });
+})
+.catch(function(error) {
+    console.log("Error getting documents: ", error);
+});
+console.log("itemsRef Object: " + itemsRef);
+//console.log("itemsRef Json: " + toJson(), itemsRef);
+
+
 class ListItem extends Component {
+
+  state =
 
   onPressRecipe = item => {
     this.props.navigation.navigate('Details', {item});
@@ -37,8 +58,37 @@ class ListItem extends Component {
   );
 
     render () {
-      const recipesArray = getRecipes();
-      //console.log(recipesArray);
+      //const recipesArray = getRecipes();
+
+      // const itemsRef = Object.values(db.collection('recipes').get().then(function(querySnapshot) {
+      //     querySnapshot.forEach(function(doc) {
+      //         // doc.data() is never undefined for query doc snapshots
+      //         //console.log(doc.id, " => ", doc.data());
+      //         //const mydata = doc.data();
+      //         //console.log("photo url: " + doc.data().photo_url);
+      //         //const dataArr = Object.values(mydata);
+      //         //console.log("dataArr " + dataArr);
+      //         //
+      //         itemArr.push({
+      //           recipeId: doc.id,
+      //           title: doc.data().title,
+      //           photo_url: doc.data().photo_url,
+      //           time: doc.data().time,
+      //           ingredients: doc.data().ingredients,
+      //           description: doc.data().description,
+      //           notes: doc.data().notes,
+      //           instructions: doc.data().instructions,
+      //           makes: doc.data().makes,
+      //         });
+      //
+      //         console.log("const: " + itemArr);
+      //     });
+      // })
+      // .catch(function(error) {
+      //     console.log("Error getting documents: ", error);
+      // }));
+
+      console.log("render: " + itemArr);
         return (
           <View style={{flex: 1, paddingTop: 12,}}>
             <FlatList
@@ -46,9 +96,8 @@ class ListItem extends Component {
                 <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
               }
 
-              data={ recipesArray }
+              data={ itemArr }
               renderItem={this.renderRecipes}
-              keyExractor={item => `${item.recipeId}`}
             />
           </View>
         )
