@@ -14,7 +14,12 @@ import { RobotoText } from '../components/StyledText';
 
 const { width: screenWidth } = Dimensions.get('window')
 
+
 export default class Detail extends React.Component {
+
+  state = {
+    count: 0
+  }
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -22,22 +27,30 @@ export default class Detail extends React.Component {
     };
   };
 
-  renderIngredients = ({item}) => (
-    <View>
-      <RobotoText style={styles.contentText}>{item.in}</RobotoText>
-    </View>
-  );
+  renderIngredients = ({item}) => {
+    console.log(item);
 
-  renderInstructions = ({item}) => (
-    <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
-      <View style={{flexDirection:'column'}}>
-        <PlayfairText style={styles.numberText}>{item.id}</PlayfairText>
+    return (
+      <View>
+        <RobotoText style={styles.contentText}>{item}</RobotoText>
       </View>
-      <View style={{flexDirection:'column', paddingLeft: 20}}>
-        <RobotoText style={styles.contentText}>{item.in}</RobotoText>
+    )
+  }
+
+  renderInstructions = ({item}) => {
+    console.log(item);
+    this.state.count++
+  return (
+      <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
+        <View style={{flexDirection:'column'}}>
+          <PlayfairText style={styles.numberText}>{this.state.count}</PlayfairText>
+        </View>
+        <View style={{flexDirection:'column', paddingLeft: 20}}>
+          <RobotoText style={styles.contentText}>{item}</RobotoText>
+        </View>
       </View>
-    </View>
-  );
+    )
+  }
 
   render() {
      const { navigation } = this.props
@@ -49,7 +62,7 @@ export default class Detail extends React.Component {
     // console.log(image);
 
     const item = navigation.getParam('item');
-
+    console.log("item ingredients: " + Object.values(item.ingredients));
     return (
       <ScrollView>
           <Image source={{uri: item.photo_url}}
@@ -62,11 +75,11 @@ export default class Detail extends React.Component {
           <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
             <View style={{flexDirection:'column'}}>
               <RobotoText style={styles.contentText}>Time:</RobotoText>
-              <PlayfairText style={styles.titleTextMin}>45 min</PlayfairText>
+              <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
             </View>
             <View style={{flexDirection:'column', paddingLeft: 20}}>
               <RobotoText style={styles.contentText}>Makes:</RobotoText>
-              <PlayfairText style={styles.titleTextMin}>4 servings</PlayfairText>
+              <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
             </View>
           </View>
 
@@ -82,17 +95,20 @@ export default class Detail extends React.Component {
               <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
             data={item.ingredients}
             renderItem={this.renderIngredients}
-            keyExractor{...item.ingredients.id}
           />
+
+          <View style={styles.line}/>
+
+          <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
+          <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
 
           <View style={styles.line}/>
 
           <FlatList
             ListHeaderComponent = {
               <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
-            data={item.instructions}
+            data={Object.values(item.instructions)}
             renderItem={this.renderInstructions}
-            keyExractor{...item.instructions.id}
           />
         </View>
       </ScrollView>
@@ -143,7 +159,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 20,
     marginRight:20,
-    paddingRight: 30,
+    paddingRight: 20,
   },
   line:{
     borderBottomColor: '#D3D3D3',
