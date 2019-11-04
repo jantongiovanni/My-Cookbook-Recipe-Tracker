@@ -49,7 +49,12 @@ export default class CreateRecipe extends Component {
     const docData = {
       title: this.state.title,
       time: this.state.time,
-      description: this.state.description
+      description: this.state.description,
+      ingredients: ["test 1", "test 2", "test 3"],
+      instructions: ["test 1", "test 2", "test 3"],
+      makes: "makes test",
+      notes: "notes test",
+      photo_url: "https://images.media-allrecipes.com/userphotos/720x405/3779973.jpg",
     }
 
     db.collection('recipes').add(docData).then(function(docRef) {
