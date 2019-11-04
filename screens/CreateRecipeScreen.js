@@ -7,6 +7,8 @@ import {
   ScrollView,
   SafeAreaView,
   Keyboard,
+  Text,
+  KeyboardAvoidingView,
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
@@ -17,15 +19,24 @@ export default class CreateRecipe extends Component {
      super(props);
 
      this.handleTitleChange = this.handleTitleChange.bind(this);
+     this.handleTimeChange = this.handleTimeChange.bind(this);
+     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 
      this.state = {
-       text: '',
-       title: ''
+       title: '',
+       time: '',
+       description: '',
      }
   }
 
   handleTitleChange(title) {
     this.setState({title});
+  }
+  handleTimeChange(time) {
+    this.setState({time});
+  }
+  handleDescriptionChange(description) {
+    this.setState({description});
   }
 
 
@@ -33,33 +44,52 @@ render() {
 
   return(
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-      <View>
-        <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
-      </View>
-      <View style = {styles.inputContainer}>
-      <TextInput
-        type = "text"
-        style={styles.textInput}
-        placeholder = "Title"
-        maxLength = {30}
-        onBlur={Keyboard.dismiss}
-        value={this.state.title}
-        onChangeText={this.handleTitleChange}
-        />
-
-      </View>
-      <TouchableScale
-        style={styles.saveButton}
-        activeScale={0.95}
-        tension={150}
-        friction={7}
-        useNativeDriver
-        onPress={() => this.onPressRecipe(item)}
+      <ScrollView
       >
-      <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
-      </TouchableScale>
-
+        <View>
+          <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
+        </View>
+        <KeyboardAvoidingView style = {styles.inputContainer} behavior="padding" enabled>
+          <TextInput
+            type = "text"
+            style={styles.textInput}
+            placeholder = "Title"
+            maxLength = {30}
+            value={this.state.title}
+            onChangeText={this.handleTitleChange}
+          />
+          <Text>{30 - this.state.title.length}</Text>
+          <TextInput
+            type = "text"
+            style={styles.textInput}
+            placeholder = "Time"
+            maxLength = {20}
+            value={this.state.time}
+            onChangeText={this.handleTimeChange}
+          />
+          <Text>{20 - this.state.time.length}</Text>
+          <TextInput
+            type = "text"
+            style={styles.textInputLong}
+            placeholder = "Description"
+            maxLength = {240}
+            multiline= {true}
+            value={this.state.description}
+            onChangeText={this.handleDescriptionChange}
+            textAlignVertical = "top"
+          />
+          <Text>{240 - this.state.description.length}</Text>
+        </KeyboardAvoidingView>
+        <TouchableScale
+          style={styles.saveButton}
+          activeScale={0.95}
+          tension={150}
+          friction={7}
+          useNativeDriver
+          //onPress={}
+        >
+          <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
+        </TouchableScale>
       </ScrollView>
     </SafeAreaView>
   )
@@ -89,13 +119,27 @@ const styles = StyleSheet.create({
     fontWeight: 'normal'
   },
   textInput: {
+    fontFamily: 'roboto',
     borderColor: '#CCCCCC',
     borderTopWidth: 1,
     borderBottomWidth: 1,
     height: 50,
     fontSize: 25,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    marginBottom: 20,
+  },
+  textInputLong: {
+    fontFamily: 'roboto',
+    borderColor: '#CCCCCC',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    height: 200,
+    fontSize: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    marginBottom: 20,
   },
   titleTextLarge:{
     alignSelf: 'center',
