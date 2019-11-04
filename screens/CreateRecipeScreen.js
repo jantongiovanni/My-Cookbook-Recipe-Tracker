@@ -14,13 +14,17 @@ import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
+import {db} from '../constants/firebase';
+
 export default class CreateRecipe extends Component {
+
   constructor(props){
      super(props);
 
      this.handleTitleChange = this.handleTitleChange.bind(this);
      this.handleTimeChange = this.handleTimeChange.bind(this);
      this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
 
      this.state = {
        title: '',
@@ -37,6 +41,25 @@ export default class CreateRecipe extends Component {
   }
   handleDescriptionChange(description) {
     this.setState({description});
+  }
+
+  handleSubmit() {
+    console.log("save tapped");
+
+    const docData = {
+      title: this.state.title,
+      time: this.state.time,
+      description: this.state.description
+    }
+
+    db.collection('recipes').add(docData).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+    });
+
+    this.props.navigation.goBack();
   }
 
 
@@ -86,7 +109,7 @@ render() {
           tension={150}
           friction={7}
           useNativeDriver
-          //onPress={}
+          onPress={this.handleSubmit}
         >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
         </TouchableScale>
