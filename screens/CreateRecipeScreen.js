@@ -2,75 +2,68 @@ import React, { Component } from 'react';
 import {
   View,
   Image,
+  TextInput,
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Keyboard,
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
 export default class CreateRecipe extends Component {
+  constructor(props){
+     super(props);
+
+     this.handleTitleChange = this.handleTitleChange.bind(this);
+
+     this.state = {
+       text: '',
+       title: ''
+     }
+  }
+
+  handleTitleChange(title) {
+    this.setState({title});
+  }
+
 
 render() {
+
   return(
     <SafeAreaView style={styles.container}>
-    <View>
-      <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
-    </View>
+      <ScrollView>
+      <View>
+        <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
+      </View>
+      <View style = {styles.inputContainer}>
+      <TextInput
+        type = "text"
+        style={styles.textInput}
+        placeholder = "Title"
+        maxLength = {30}
+        onBlur={Keyboard.dismiss}
+        value={this.state.title}
+        onChangeText={this.handleTitleChange}
+        />
+
+      </View>
       <TouchableScale
-        style={styles.card}
+        style={styles.saveButton}
         activeScale={0.95}
         tension={150}
         friction={7}
         useNativeDriver
-        activeOpacity={1}
-        onPress={() =>
-        navigation.navigate('Details', {
-            itemId: 1,
-            otherParam: "test",
-            title: "title",
-            image: "image",
-          })
-        }>
-            <Image
-                source={require('../assets/images/addPhoto.png')} style={{flex:2,  width: undefined, height: undefined}}
-                resizeMode="center"/>
-          <View style={{flex:3, justifyContent: 'center'}}>
-            <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>Basic Photo Recipe</PlayfairText>
-            <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >title(r), photos(r), desc(o), notes(o)</RobotoText>
-          </View>
+        onPress={() => this.onPressRecipe(item)}
+      >
+      <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
       </TouchableScale>
 
-      <TouchableScale
-        style={styles.card}
-        activeScale={0.95}
-        tension={150}
-        friction={7}
-        useNativeDriver
-        activeOpacity={1}
-        onPress={() =>
-        navigation.navigate('Details', {
-            itemId: 1,
-            otherParam: "test",
-            title: "title",
-            image: "image",
-          })
-        }>
-            <Image
-                source={require('../assets/images/addRecipe.png')} style={{flex:2,  width: undefined, height: undefined}}
-                resizeMode="center"/>
-          <View style={{flex:3, justifyContent: 'center'}}>
-            <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>Detailed Recipe</PlayfairText>
-            <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >title(r), photo(o),  desc(o), notes(o), ingredients(r), steps(r)</RobotoText>
-          </View>
-      </TouchableScale>
-      <View></View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
-
-
 }
 
 const styles = StyleSheet.create({
@@ -78,6 +71,31 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 12,
     justifyContent: 'space-around',
+  },
+    inputContainer: {
+    paddingTop: 15
+  },
+    saveButton: {
+    borderWidth: 1,
+    borderColor: '#f6b425',
+    backgroundColor: '#f6b425',
+    padding: 15,
+    margin: 5
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: 'normal'
+  },
+  textInput: {
+    borderColor: '#CCCCCC',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    height: 50,
+    fontSize: 25,
+    paddingLeft: 20,
+    paddingRight: 20
   },
   titleTextLarge:{
     alignSelf: 'center',
