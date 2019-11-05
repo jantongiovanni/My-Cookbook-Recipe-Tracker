@@ -6,11 +6,14 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  Keyboard,
   Text,
   KeyboardAvoidingView,
   FlatList,
 } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
@@ -21,6 +24,7 @@ export default class CreateRecipe extends Component {
 
   constructor(props){
      super(props);
+     this.getPermissionAsync();
 
      this.handleTitleChange = this.handleTitleChange.bind(this);
      this.handleTimeChange = this.handleTimeChange.bind(this);
@@ -39,7 +43,21 @@ export default class CreateRecipe extends Component {
        ingredients: [],
        directionsHolder: '',
        directions: [],
+       image: null
      }
+  }
+
+  componentDidMount() {
+    //this.getPermissionAsync();
+  }
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
   }
 
   handleTitleChange(title) {
@@ -87,7 +105,7 @@ export default class CreateRecipe extends Component {
   }
 
   renderIngredients = ({item}) => {
-    console.log(item);
+  //  console.log(item);
     return (
       <View>
         <RobotoText style={styles.contentText}>{item}</RobotoText>
@@ -101,7 +119,7 @@ export default class CreateRecipe extends Component {
   }
 
   renderDirections = ({item}) => {
-    console.log(item);
+  //  console.log(item);
     return (
       <View>
         <RobotoText style={styles.contentText}>{item}</RobotoText>
@@ -109,9 +127,21 @@ export default class CreateRecipe extends Component {
     )
   }
 
-
+  onChooseImagePress = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+    console.log(result);
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  }
 
 render() {
+
+  let { image } = this.state;
 
   return(
     <SafeAreaView style={styles.container}>
@@ -122,6 +152,18 @@ render() {
           <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
         </View>
         <KeyboardAvoidingView style = {styles.inputContainer} behavior="padding" enabled>
+        <TouchableScale
+          style={styles.saveButton}
+          activeScale={0.95}
+          tension={150}
+          friction={7}
+          useNativeDriver
+          onPress={this.onChooseImagePress}
+        >
+          <RobotoText style = {styles.saveButtonText} > Choose Image </RobotoText>
+        </TouchableScale>
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
           <TextInput
             type = "text"
             style={styles.textInput}
