@@ -27,6 +27,8 @@ export default class CreateRecipe extends Component {
      this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
      this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
      this.joinIngredientData = this.joinIngredientData.bind(this);
+     this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
+     this.joinDirectionsData = this.joinDirectionsData.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
 
      this.state = {
@@ -35,6 +37,8 @@ export default class CreateRecipe extends Component {
        description: '',
        ingredientsHolder: '',
        ingredients: [],
+       directionsHolder: '',
+       directions: [],
      }
   }
 
@@ -50,6 +54,9 @@ export default class CreateRecipe extends Component {
   handleIngredientsChange(ingredientsHolder) {
     this.setState({ingredientsHolder});
   }
+  handleDirectionsChange(directionsHolder){
+    this.setState({directionsHolder});
+  }
 
   handleSubmit() {
     console.log("save tapped");
@@ -59,7 +66,7 @@ export default class CreateRecipe extends Component {
       time: this.state.time,
       description: this.state.description,
       ingredients: this.state.ingredients,
-      instructions: ["test 1", "test 2", "test 3"],
+      instructions: this.state.directions,
       makes: "makes test",
       notes: "notes test",
       photo_url: "https://images.media-allrecipes.com/userphotos/720x405/3779973.jpg",
@@ -87,6 +94,21 @@ export default class CreateRecipe extends Component {
       </View>
     )
   }
+
+  joinDirectionsData = () => {
+    this.state.directions.push(this.state.directionsHolder);
+    this.setState({directionsHolder: ''})
+  }
+
+  renderDirections = ({item}) => {
+    console.log(item);
+    return (
+      <View>
+        <RobotoText style={styles.contentText}>{item}</RobotoText>
+      </View>
+    )
+  }
+
 
 
 render() {
@@ -129,7 +151,7 @@ render() {
             textAlignVertical = "top"
           />
           <Text>{240 - this.state.description.length}</Text>
-
+          {/* ------ Ingredients ------- */}
           <TextInput
             type = "text"
             style={styles.textInput}
@@ -137,7 +159,6 @@ render() {
             maxLength = {30}
             onChangeText={this.handleIngredientsChange}
             value={this.state.ingredientsHolder}
-            id="ingredientsInput"
           />
           <TouchableScale
             style={styles.saveButton}
@@ -147,16 +168,41 @@ render() {
             useNativeDriver
             onPress={this.joinIngredientData}
           >
-          <RobotoText style = {styles.saveButtonText} > Add Ingredient </RobotoText>
-        </TouchableScale>
+            <RobotoText style = {styles.saveButtonText} > Add Ingredient </RobotoText>
+          </TouchableScale>
+          <FlatList
+            inverted
+            data={this.state.ingredients}
+            extraData={this.state}
+            keyExtractor={(index) => index.toString()}
+            renderItem={this.renderIngredients}
+          />
 
-        <FlatList
-          inverted
-          data={this.state.ingredients}
-          extraData={this.state}
-          keyExtractor={(index) => index.toString()}
-          renderItem={this.renderIngredients}
-        />
+          {/* ------ Directions ------- */}
+          <TextInput
+            type = "text"
+            style={styles.textInput}
+            placeholder = "Directions"
+            onChangeText={this.handleDirectionsChange}
+            value={this.state.directionsHolder}
+          />
+          <TouchableScale
+            style={styles.saveButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            onPress={this.joinDirectionsData}
+          >
+            <RobotoText style = {styles.saveButtonText} > Add Direction </RobotoText>
+          </TouchableScale>
+          <FlatList
+            inverted
+            data={this.state.directions}
+            extraData={this.state}
+            keyExtractor={(index) => index.toString()}
+            renderItem={this.renderDirections}
+          />
 
         </KeyboardAvoidingView>
         <TouchableScale
