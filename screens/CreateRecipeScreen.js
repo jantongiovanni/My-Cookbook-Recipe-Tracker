@@ -144,13 +144,13 @@ render() {
 
   return(
     <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" enabled>
       <ScrollView
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps={'handled'}>
         <View>
           <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
         </View>
-        <KeyboardAvoidingView style = {styles.inputContainer} behavior="padding" enabled>
         <TouchableScale
           style={styles.saveButton}
           activeScale={0.95}
@@ -245,7 +245,6 @@ render() {
             renderItem={this.renderDirections}
           />
 
-        </KeyboardAvoidingView>
         <TouchableScale
           style={styles.saveButton}
           activeScale={0.95}
@@ -257,9 +256,8 @@ render() {
         >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
         </TouchableScale>
-
-        <View style={{marginVertical: 300}}></View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
@@ -279,7 +277,8 @@ const styles = StyleSheet.create({
     borderColor: '#f6b425',
     backgroundColor: '#f6b425',
     padding: 15,
-    margin: 5
+    marginHorizontal: 20,
+    marginBottom: 20,
   },
   saveButtonText: {
     color: '#FFFFFF',
@@ -290,10 +289,10 @@ const styles = StyleSheet.create({
   textInput: {
     fontFamily: 'roboto',
     borderColor: '#CCCCCC',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderWidth: 0.5,
     height: 50,
-    fontSize: 25,
+    fontSize: 20,
+    marginHorizontal: 20,
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 20,
@@ -301,12 +300,12 @@ const styles = StyleSheet.create({
   textInputLong: {
     fontFamily: 'roboto',
     borderColor: '#CCCCCC',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderWidth: 0.5,
     height: 200,
-    fontSize: 25,
+    fontSize: 20,
     paddingLeft: 20,
     paddingRight: 20,
+    marginHorizontal: 20,
     paddingTop: 10,
     marginBottom: 20,
   },
