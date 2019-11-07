@@ -24,7 +24,6 @@ export default class CreateRecipe extends Component {
 
   constructor(props){
      super(props);
-     this.getPermissionAsync();
 
      this.handleTitleChange = this.handleTitleChange.bind(this);
      this.handleTimeChange = this.handleTimeChange.bind(this);
@@ -48,7 +47,7 @@ export default class CreateRecipe extends Component {
   }
 
   componentDidMount() {
-    //this.getPermissionAsync();
+    this.getPermissionAsync();
   }
 
   getPermissionAsync = async () => {

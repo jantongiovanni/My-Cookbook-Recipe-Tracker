@@ -22,6 +22,9 @@ class NewRecipe extends Component {
       <View>
         <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
       </View>
+
+      <Image source={require('../assets/images/undraw_Chef.svg')}/>
+
         <TouchableScale
           style={styles.card}
           activeScale={0.95}
