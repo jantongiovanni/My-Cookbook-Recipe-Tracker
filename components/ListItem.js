@@ -8,8 +8,8 @@ import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
-import {recipes, fullRecipes} from '../data/DataArray';
-import {getRecipes} from '../data/MockDataAPI';
+//import {recipes, fullRecipes} from '../data/DataArray';
+//import {getRecipes} from '../data/MockDataAPI';
 
 //Access Firebase data
 import {db} from '../constants/firebase';

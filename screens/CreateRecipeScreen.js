@@ -18,7 +18,7 @@ import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 //import ListItem from '../components/ListItem';
-import {db} from '../constants/firebase';
+import {db, storage} from '../constants/firebase';
 
 export default class CreateRecipe extends Component {
 
@@ -89,14 +89,42 @@ export default class CreateRecipe extends Component {
       photo_url: "https://images.media-allrecipes.com/userphotos/720x405/3779973.jpg",
     }
 
-    db.collection('recipes').add(docData).then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-    });
-    this.props.navigation.goBack();
+    // db.collection('recipes').add(docData).then(function(docRef) {
+    //   console.log("Document written with ID: ", docRef.id);
+    //   this.props.navigation.goBack();
+    //   })
+    //   .catch(function(error) {
+    //       console.error("Error adding document: ", error);
+    // });
+
+    console.log("test upload");
+
+    this.uploadPhotoAsync(this.state.image);
+
   }
+
+  uploadPhotoAsync = async uri => {
+         const path = `photos/${Date.now()}.jpg`;
+
+         return new Promise(async (res, rej) => {
+             const response = await fetch(uri);
+             const file = await response.blob();
+
+             let upload = storage.ref(path).put(file);
+
+             upload.on(
+               "state_changed",
+               snapshot => {},
+               err => {
+                   rej(err);
+               },
+               async () => {
+                   const url = await upload.snapshot.ref.getDownloadURL();
+                   res(url);
+               }
+           );
+       });
+   };
 
   joinIngredientData = () => {
     this.state.ingredients.push(this.state.ingredientsHolder);
@@ -163,15 +191,19 @@ render() {
         </TouchableScale>
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-          <TextInput
-            type = "text"
-            style={styles.textInput}
-            placeholder = "Title"
-            maxLength = {30}
-            value={this.state.title}
-            onChangeText={this.handleTitleChange}
-          />
-          <Text>{30 - this.state.title.length}</Text>
+
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInput}
+              placeholder = "Title"
+              maxLength = {30}
+              value={this.state.title}
+              onChangeText={this.handleTitleChange}
+            />
+            <RobotoText style={styles.charCount}>{30 - this.state.title.length}</RobotoText>
+          </View>
+
           <TextInput
             type = "text"
             style={styles.textInput}
@@ -286,7 +318,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'normal',
   },
+  charCount: {
+    backgroundColor: '#f6b425',
+    marginRight: 10,
+    flex: 1,
+    marginBottom: 20,
+    justifyContent:'center'
+  },
   textInput: {
+    flex: 10,
     fontFamily: 'roboto',
     borderColor: '#CCCCCC',
     borderWidth: 0.5,
