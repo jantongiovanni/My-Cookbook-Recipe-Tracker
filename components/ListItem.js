@@ -65,7 +65,7 @@ retrieveData = async () => {
       onPress={() => this.onPressRecipe(item)}
     >
       <Image
-        source={{uri: item.photo_url}} style={{flex:2,  width: undefined, height: undefined}}
+        source={{uri: item.image}} style={{flex:2,  width: undefined, height: undefined}}
         resizeMode="cover"/>
       <View style={{flex:4, justifyContent: 'center'}}>
         <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>

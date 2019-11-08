@@ -65,7 +65,7 @@ export default class Detail extends React.Component {
     console.log("item ingredients: " + Object.values(item.ingredients));
     return (
       <ScrollView>
-          <Image source={{uri: item.photo_url}}
+          <Image source={{uri: item.image}}
           style={styles.topImage}
           resizeMode="cover"
           PlaceholderContent={<ActivityIndicator />}/>

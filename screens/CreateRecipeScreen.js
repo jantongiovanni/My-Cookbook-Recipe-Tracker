@@ -33,6 +33,7 @@ export default class CreateRecipe extends Component {
      this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
      this.joinDirectionsData = this.joinDirectionsData.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
+     this.addPost = this.addPost.bind(this);
 
      this.state = {
        title: '',
@@ -102,6 +103,29 @@ export default class CreateRecipe extends Component {
     this.uploadPhotoAsync(this.state.image);
 
   }
+
+  addPost = async () => {
+      console.log("add post");
+       const remoteUri = await this.uploadPhotoAsync(this.state.image);
+       const docData = {
+         title: this.state.title,
+         time: this.state.time,
+         description: this.state.description,
+         ingredients: this.state.ingredients,
+         instructions: this.state.directions,
+         makes: "makes test",
+         notes: "notes test",
+         image: remoteUri
+       }
+       return new Promise(() => {
+         db.collection('recipes').add(docData).then(function(docRef) {
+           console.log("Document written with ID: ", docRef.id);
+           })
+           .catch(function(error) {
+               console.error("Error adding document: ", error);
+         });
+       });
+   };
 
   uploadPhotoAsync = async uri => {
          const path = `photos/${Date.now()}.jpg`;
@@ -283,7 +307,7 @@ render() {
           tension={150}
           friction={7}
           useNativeDriver
-          onPress={this.handleSubmit}
+          onPress={this.addPost}
 
         >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
