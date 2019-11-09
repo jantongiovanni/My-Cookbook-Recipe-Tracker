@@ -84,6 +84,7 @@ retrieveData = async () => {
 
               data={ this.state.itemArr }
               renderItem={this.renderRecipes}
+              keyExtractor={(item, index) => index.toString()}
             />
           </View>
         )

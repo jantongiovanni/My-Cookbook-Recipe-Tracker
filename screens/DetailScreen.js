@@ -55,29 +55,12 @@ export default class Detail extends React.Component {
 
   render() {
      const { navigation } = this.props
-    // const itemId = navigation.getParam('itemId', 'NO-ID');
-    // const otherParam = navigation.getParam('otherParam');
-    // const title = navigation.getParam('title', 'no title');
-    // const image = navigation.getParam('image', '');
-    // console.log(title);
-    // console.log(image);
 
     const item = navigation.getParam('item');
     console.log("item ingredients: " + Object.values(item.ingredients));
     return (
       <ScrollView>
-
-      <Gallery
-              style={styles.topImage }
-              images={[
-                { source: { uri: 'http://i.imgur.com/XP2BE7q.jpg' } },
-                { source: { uri: 'http://i.imgur.com/5nltiUd.jpg' } },
-                { source: { uri: 'http://i.imgur.com/6vOahbP.jpg' } },
-                { source: { uri: 'http://i.imgur.com/kj5VXtG.jpg' } }
-              ]}
-            />
-
-          <Image source={{uri: item.image}}
+        <Image source={{uri: item.image}}
           style={styles.topImage}
           resizeMode="cover"
           PlaceholderContent={<ActivityIndicator />}/>
@@ -107,6 +90,7 @@ export default class Detail extends React.Component {
               <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
             data={item.ingredients}
             renderItem={this.renderIngredients}
+            keyExtractor={(item, index) => index.toString()}
           />
 
           <View style={styles.line}/>
@@ -121,6 +105,7 @@ export default class Detail extends React.Component {
               <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
             data={Object.values(item.instructions)}
             renderItem={this.renderInstructions}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </ScrollView>
