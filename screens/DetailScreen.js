@@ -11,6 +11,7 @@ import {
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
+import Gallery from 'react-native-image-gallery';
 
 const { width: screenWidth } = Dimensions.get('window')
 
@@ -65,6 +66,17 @@ export default class Detail extends React.Component {
     console.log("item ingredients: " + Object.values(item.ingredients));
     return (
       <ScrollView>
+
+      <Gallery
+              style={styles.topImage }
+              images={[
+                { source: { uri: 'http://i.imgur.com/XP2BE7q.jpg' } },
+                { source: { uri: 'http://i.imgur.com/5nltiUd.jpg' } },
+                { source: { uri: 'http://i.imgur.com/6vOahbP.jpg' } },
+                { source: { uri: 'http://i.imgur.com/kj5VXtG.jpg' } }
+              ]}
+            />
+
           <Image source={{uri: item.image}}
           style={styles.topImage}
           resizeMode="cover"
