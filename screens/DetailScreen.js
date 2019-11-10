@@ -8,10 +8,12 @@ import {
   ActivityIndicator,
   FlatList,
 } from 'react-native';
+import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
 import Gallery from 'react-native-image-gallery';
+import {db, storage} from '../constants/firebase';
 
 const { width: screenWidth } = Dimensions.get('window')
 
@@ -53,17 +55,41 @@ export default class Detail extends React.Component {
     )
   }
 
+  onPressDelete = (item, navigation) => {
+    if(item.ref === undefined){
+      console.log("cannot delete item in app");
+    } else {
+      item.ref.delete().then(function() {
+          console.log("Document successfully deleted!");
+          navigation.navigate('Home');
+      }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
+    }
+  }
+
   render() {
      const { navigation } = this.props
 
     const item = navigation.getParam('item');
-    console.log("item ingredients: " + Object.values(item.ingredients));
+
     return (
       <ScrollView>
         <Image source={{uri: item.image}}
           style={styles.topImage}
           resizeMode="cover"
           PlaceholderContent={<ActivityIndicator />}/>
+          <TouchableScale
+            style={styles.saveButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            activeOpacity={1}
+            onPress={() => this.onPressDelete(item, navigation)}
+          >
+            <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
+          </TouchableScale>
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
 
@@ -116,6 +142,20 @@ export default class Detail extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: 'normal',
+  },
+  saveButton: {
+    borderWidth: 1,
+    borderColor: '#f6b425',
+    backgroundColor: '#f6b425',
+    padding: 15,
+    marginHorizontal: 20,
+    marginBottom: 20,
   },
   topImage:{
     flex:1,

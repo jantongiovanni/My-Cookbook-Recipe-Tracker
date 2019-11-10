@@ -79,11 +79,13 @@ class CreateRecipe extends Component {
 
   addPost = async (navigation) => {
       console.log("add post");
+      recipeRef = db.collection('recipes').doc();
        if(this.state.image !== null){
          console.log("not null!");
          this.state.remoteUri = await this.uploadPhotoAsync(this.state.image);
         }
        const docData = {
+         ref: recipeRef,
          title: this.state.title,
          time: this.state.time,
          description: this.state.description,
@@ -94,8 +96,8 @@ class CreateRecipe extends Component {
          image: this.state.remoteUri
        }
        return new Promise(() => {
-         db.collection('recipes').add(docData).then(function(docRef) {
-           console.log("Document written with ID: ", docRef.id);
+         recipeRef.set(docData).then(function() {
+           console.log("Document written");
            Alert.alert(
              'Recipe Saved',
              docData.title + ' was added successfully',
@@ -107,14 +109,6 @@ class CreateRecipe extends Component {
            })
            .catch(function(error) {
                console.error("Error adding document: ", error);
-               Alert.alert(
-                 'Error',
-                 error,
-                 [
-                   { text: 'OK'},
-                 ],
-                 { cancelable: true }
-               );
          });
        });
    };
