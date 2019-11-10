@@ -43,7 +43,8 @@ export default class CreateRecipe extends Component {
        ingredients: [],
        directionsHolder: '',
        directions: [],
-       image: null
+       image: null,
+       remoteUri: null
      }
   }
 
@@ -106,7 +107,10 @@ export default class CreateRecipe extends Component {
 
   addPost = async () => {
       console.log("add post");
-       const remoteUri = await this.uploadPhotoAsync(this.state.image);
+       if(this.state.image !== null){
+         console.log("not null!");
+         this.state.remoteUri = await this.uploadPhotoAsync(this.state.image);
+        }
        const docData = {
          title: this.state.title,
          time: this.state.time,
@@ -115,7 +119,7 @@ export default class CreateRecipe extends Component {
          instructions: this.state.directions,
          makes: "makes test",
          notes: "notes test",
-         image: remoteUri
+         image: this.state.remoteUri
        }
        return new Promise(() => {
          db.collection('recipes').add(docData).then(function(docRef) {
