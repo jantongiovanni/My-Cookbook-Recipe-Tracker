@@ -64,16 +64,15 @@ retrieveData = async () => {
       useNativeDriver
       onPress={() => this.onPressRecipe(item)}
     >
-    {item.image === null &&
+    {item.image === null ? (
       <Image
         source={require('../assets/images/icon.png')} style={{flex:2, width: undefined, height: undefined}}
         resizeMode="cover"/>
-    }
-    {item.image !== null &&
+    ) : (
       <Image
         source={{uri: item.image}} style={{flex:2,  width: undefined, height: undefined}}
         resizeMode="cover"/>
-    }
+    )}
       <View style={{flex:4, justifyContent: 'center'}}>
         <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
         <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.time}</RobotoText>
