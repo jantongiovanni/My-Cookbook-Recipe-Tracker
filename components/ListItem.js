@@ -35,16 +35,9 @@ retrieveData = async () => {
     console.log("Retrieving Data");
     try{
       const initialQuery = await db.collection('recipes');
-      //console.log("Initial Query: " + initialQuery);
-      const docSnapshot = await initialQuery.get();
-      //console.log("Doc snapshot " + docSnapshot);
-      const documentData = docSnapshot.docs.map(document => document.data());
-      //console.log("doc data: " +  documentData);
-      //const lastItem = documentData[0].title;
-      //console.log("last item: " +  lastItem);
-      this.setState({
-        itemArr: documentData
-      })
+      await initialQuery.onSnapshot( snapshot => {
+      this.setState({ itemArr : snapshot.docs.map(document => document.data()) });
+      });
     }
     catch (error) {
       console.log(error);
