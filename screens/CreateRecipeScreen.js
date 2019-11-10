@@ -9,18 +9,19 @@ import {
   Text,
   KeyboardAvoidingView,
   FlatList,
+  Alert
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
-
+import { withNavigation } from 'react-navigation'
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 //import ListItem from '../components/ListItem';
 import {db, storage} from '../constants/firebase';
 
-export default class CreateRecipe extends Component {
+class CreateRecipe extends Component {
 
   constructor(props){
      super(props);
@@ -32,7 +33,6 @@ export default class CreateRecipe extends Component {
      this.joinIngredientData = this.joinIngredientData.bind(this);
      this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
      this.joinDirectionsData = this.joinDirectionsData.bind(this);
-     this.handleSubmit = this.handleSubmit.bind(this);
      this.addPost = this.addPost.bind(this);
 
      this.state = {
@@ -77,35 +77,7 @@ export default class CreateRecipe extends Component {
     this.setState({directionsHolder});
   }
 
-  handleSubmit() {
-    console.log("save tapped");
-
-    const docData = {
-      title: this.state.title,
-      time: this.state.time,
-      description: this.state.description,
-      ingredients: this.state.ingredients,
-      instructions: this.state.directions,
-      makes: "makes test",
-      notes: "notes test",
-      photo_url: "https://images.media-allrecipes.com/userphotos/720x405/3779973.jpg",
-    }
-
-    // db.collection('recipes').add(docData).then(function(docRef) {
-    //   console.log("Document written with ID: ", docRef.id);
-    //   this.props.navigation.goBack();
-    //   })
-    //   .catch(function(error) {
-    //       console.error("Error adding document: ", error);
-    // });
-
-    console.log("test upload");
-
-    this.uploadPhotoAsync(this.state.image);
-
-  }
-
-  addPost = async () => {
+  addPost = async (navigation) => {
       console.log("add post");
        if(this.state.image !== null){
          console.log("not null!");
@@ -124,9 +96,25 @@ export default class CreateRecipe extends Component {
        return new Promise(() => {
          db.collection('recipes').add(docData).then(function(docRef) {
            console.log("Document written with ID: ", docRef.id);
+           Alert.alert(
+             'Recipe Saved',
+             docData.title + ' was added successfully',
+             [
+               { text: 'OK', onPress: () => navigation.navigate('Home') },
+             ],
+             { cancelable: true }
+           );
            })
            .catch(function(error) {
                console.error("Error adding document: ", error);
+               Alert.alert(
+                 'Error',
+                 error,
+                 [
+                   { text: 'OK'},
+                 ],
+                 { cancelable: true }
+               );
          });
        });
    };
@@ -195,7 +183,6 @@ export default class CreateRecipe extends Component {
   }
 
 render() {
-
   let { image } = this.state;
 
   return(
@@ -311,7 +298,7 @@ render() {
           tension={150}
           friction={7}
           useNativeDriver
-          onPress={this.addPost}
+          onPress={() => this.addPost(this.props.navigation)}
 
         >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
@@ -322,6 +309,7 @@ render() {
   )
 }
 }
+export default withNavigation(CreateRecipe)
 
 const styles = StyleSheet.create({
   container: {
