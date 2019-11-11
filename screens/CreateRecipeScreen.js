@@ -9,7 +9,7 @@ import {
   Text,
   KeyboardAvoidingView,
   FlatList,
-  Alert
+  Alert,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -93,7 +93,8 @@ class CreateRecipe extends Component {
          instructions: this.state.directions,
          makes: "makes test",
          notes: "notes test",
-         image: this.state.remoteUri
+         image: this.state.remoteUri,
+         createdAt: Date.now()
        }
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
@@ -139,6 +140,7 @@ class CreateRecipe extends Component {
   joinIngredientData = () => {
     this.state.ingredients.push(this.state.ingredientsHolder);
     this.setState({ingredientsHolder: ''})
+    //console.log("time " + db.Timestamp.now().toMillis());
   }
 
   renderIngredients = ({item}) => {

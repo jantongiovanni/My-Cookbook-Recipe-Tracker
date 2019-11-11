@@ -34,7 +34,7 @@ class ListItem extends Component {
 retrieveData = async () => {
     console.log("Retrieving Data");
     try{
-      const initialQuery = await db.collection('recipes');
+      const initialQuery = await db.collection("recipes").orderBy("createdAt", "desc");
       await initialQuery.onSnapshot( snapshot => {
       this.setState({ itemArr : snapshot.docs.map(document => document.data()) });
       });
