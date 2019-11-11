@@ -28,7 +28,9 @@ class CreateRecipe extends Component {
 
      this.handleTitleChange = this.handleTitleChange.bind(this);
      this.handleTimeChange = this.handleTimeChange.bind(this);
+     this.handleMakesChange = this.handleMakesChange.bind(this);
      this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+     this.handleNotesChange = this.handleNotesChange.bind(this);
      this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
      this.joinIngredientData = this.joinIngredientData.bind(this);
      this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
@@ -38,7 +40,9 @@ class CreateRecipe extends Component {
      this.state = {
        title: '',
        time: '',
+       makes: '',
        description: '',
+       notes: '',
        ingredientsHolder: '',
        ingredients: [],
        directionsHolder: '',
@@ -67,8 +71,14 @@ class CreateRecipe extends Component {
   handleTimeChange(time) {
     this.setState({time});
   }
+  handleMakesChange(makes) {
+    this.setState({makes});
+  }
   handleDescriptionChange(description) {
     this.setState({description});
+  }
+  handleNotesChange(notes) {
+    this.setState({notes});
   }
   handleIngredientsChange(ingredientsHolder) {
     this.setState({ingredientsHolder});
@@ -101,15 +111,15 @@ class CreateRecipe extends Component {
          description: this.state.description,
          ingredients: this.state.ingredients,
          instructions: this.state.directions,
-         makes: "makes test",
-         notes: "notes test",
+         makes: this.state.makes,
+         notes: this.state.notes,
          image: this.state.remoteUri,
          createdAt: Date.now()
        }
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
-           navigation.navigate('Home') 
+           navigation.navigate('Home')
            Alert.alert(
              'Recipe Saved',
              docData.title + ' was added successfully',
@@ -216,6 +226,7 @@ render() {
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
 
           <View style={{flex: 1, flexDirection:'row'}}>
+          {/* ------ Title ------- */}
             <TextInput
               type = "text"
               style={styles.textInput}
@@ -226,7 +237,7 @@ render() {
             />
             <RobotoText style={styles.charCount}>{30 - this.state.title.length}</RobotoText>
           </View>
-
+          {/* ------ Time ------- */}
           <TextInput
             type = "text"
             style={styles.textInput}
@@ -236,6 +247,17 @@ render() {
             onChangeText={this.handleTimeChange}
           />
           <Text>{20 - this.state.time.length}</Text>
+          {/* ------ Makes ------- */}
+          <TextInput
+            type = "text"
+            style={styles.textInput}
+            placeholder = "Makes"
+            maxLength = {20}
+            value={this.state.makes}
+            onChangeText={this.handleMakesChange}
+          />
+          <Text>{20 - this.state.makes.length}</Text>
+          {/* ------ Description ------- */}
           <TextInput
             type = "text"
             style={styles.textInputLong}
@@ -247,6 +269,18 @@ render() {
             textAlignVertical = "top"
           />
           <Text>{240 - this.state.description.length}</Text>
+          {/* ------ Notes ------- */}
+          <TextInput
+            type = "text"
+            style={styles.textInputLong}
+            placeholder = "Notes"
+            maxLength = {120}
+            multiline= {true}
+            value={this.state.notes}
+            onChangeText={this.handleNotesChange}
+            textAlignVertical = "top"
+          />
+          <Text>{120 - this.state.notes.length}</Text>
           {/* ------ Ingredients ------- */}
           <TextInput
             type = "text"
@@ -299,16 +333,15 @@ render() {
             keyExtractor={(index) => index.toString()}
             renderItem={this.renderDirections}
           />
-
-        <TouchableScale
-          style={styles.saveButton}
-          activeScale={0.95}
-          tension={150}
-          friction={7}
-          useNativeDriver
-          onPress={() => this.addPost(this.props.navigation)}
-
-        >
+          {/* ------ Save ------- */}
+          <TouchableScale
+            style={styles.saveButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            onPress={() => this.addPost(this.props.navigation)}
+          >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
         </TouchableScale>
       </ScrollView>
