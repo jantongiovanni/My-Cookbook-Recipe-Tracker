@@ -75,10 +75,12 @@ export default class Detail extends React.Component {
 
     return (
       <ScrollView>
+      {item.image !== null &&
         <Image source={{uri: item.image}}
           style={styles.topImage}
           resizeMode="cover"
           PlaceholderContent={<ActivityIndicator />}/>
+      }
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -103,36 +105,43 @@ export default class Detail extends React.Component {
               <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
             </View>
           </View>
-
+          {item.description !== '' &&
           <View style={styles.line}/>
+          }{item.description !== '' &&
+            <PlayfairText style={styles.subtitleText}>Description</PlayfairText>
+          }{item.description !== '' &&
+            <RobotoText style={styles.contentText}>{item.description}</RobotoText>
+          }
 
-          <PlayfairText style={styles.subtitleText}>Description</PlayfairText>
-          <RobotoText style={styles.contentText}>{item.description}</RobotoText>
-
-          <View style={styles.line}/>
-
-          <FlatList
-            ListHeaderComponent = {
-              <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
-            data={item.ingredients}
-            renderItem={this.renderIngredients}
-            keyExtractor={(item, index) => index.toString()}
-          />
-
-          <View style={styles.line}/>
-
-          <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
-          <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
-
-          <View style={styles.line}/>
-
-          <FlatList
-            ListHeaderComponent = {
-              <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
-            data={Object.values(item.instructions)}
-            renderItem={this.renderInstructions}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {item.ingredients.length > 0 &&
+            <View style={styles.line}/>
+          }{item.ingredients.length > 0 &&
+            <FlatList
+              ListHeaderComponent = {
+                <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
+              data={item.ingredients}
+              renderItem={this.renderIngredients}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          }
+          {item.notes !== '' &&
+            <View style={styles.line}/>
+          }{item.notes !== '' &&
+            <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
+          }{item.notes !== '' &&
+            <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
+          }
+          {item.instructions.length > 0 &&
+            <View style={styles.line}/>
+          }{item.instructions.length > 0 &&
+            <FlatList
+              ListHeaderComponent = {
+                <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
+              data={Object.values(item.instructions)}
+              renderItem={this.renderInstructions}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          }
         </View>
       </ScrollView>
     );
