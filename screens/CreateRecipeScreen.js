@@ -79,6 +79,16 @@ class CreateRecipe extends Component {
 
   addPost = async (navigation) => {
       console.log("add post");
+      if(this.state.title === ''){
+        Alert.alert(
+          'Error',
+          'Title cannot be empty',
+          [
+            { text: 'OK'},
+          ],
+          { cancelable: true }
+        );
+      } else {
       recipeRef = db.collection('recipes').doc();
        if(this.state.image !== null){
          console.log("not null!");
@@ -99,11 +109,12 @@ class CreateRecipe extends Component {
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
+           navigation.navigate('Home') 
            Alert.alert(
              'Recipe Saved',
              docData.title + ' was added successfully',
              [
-               { text: 'OK', onPress: () => navigation.navigate('Home') },
+               { text: 'OK'},
              ],
              { cancelable: true }
            );
@@ -112,6 +123,7 @@ class CreateRecipe extends Component {
                console.error("Error adding document: ", error);
          });
        });
+     }
    };
 
   uploadPhotoAsync = async uri => {
