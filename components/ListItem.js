@@ -8,6 +8,8 @@ import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
+
+import RecipeListPlaceholderComponent from '../components/RecipeListPlaceholder';
 //import {recipes, fullRecipes} from '../data/DataArray';
 //import {getRecipes} from '../data/MockDataAPI';
 
@@ -18,6 +20,7 @@ import {db} from '../constants/firebase';
 class ListItem extends Component {
 
   state = {
+    isDataFetched: false,
     itemArr: []
   }
 
@@ -36,7 +39,7 @@ retrieveData = async () => {
     try{
       const initialQuery = await db.collection("recipes").orderBy("createdAt", "desc");
       await initialQuery.onSnapshot( snapshot => {
-      this.setState({ itemArr : snapshot.docs.map(document => document.data()) });
+      this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
       });
     }
     catch (error) {
@@ -74,8 +77,10 @@ retrieveData = async () => {
   );
 
     render () {
+      const {isDataFetched} = this.state;
         return (
           <View style={{flex: 1, paddingTop: 12,}}>
+          {isDataFetched ? (
             <FlatList
               ListHeaderComponent = {
                 <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
@@ -85,6 +90,9 @@ retrieveData = async () => {
               renderItem={this.renderRecipes}
               keyExtractor={(item, index) => index.toString()}
             />
+            ) : (
+              <RecipeListPlaceholderComponent/>
+            )}
           </View>
         )
     }
