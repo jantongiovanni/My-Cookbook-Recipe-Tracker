@@ -7,13 +7,14 @@ import {
   Dimensions,
   ActivityIndicator,
   FlatList,
+  Modal
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 
 import Gallery from 'react-native-image-gallery';
-import {db, storage} from '../constants/firebase';
+//import {db, storage} from '../constants/firebase';
 
 const { width: screenWidth } = Dimensions.get('window')
 
@@ -21,7 +22,8 @@ const { width: screenWidth } = Dimensions.get('window')
 export default class Detail extends React.Component {
 
   state = {
-    count: 0
+    count: 0,
+    modalVisible: false
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -55,6 +57,32 @@ export default class Detail extends React.Component {
     )
   }
 
+  renderGallery = (item) => {
+    //console.log("item image in gallery: " + item.image);
+    console.log("render gallery");
+    console.log(item);
+    return (
+      <View style={{marginTop: 22}}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+        <Gallery
+           images={[
+             { source: { uri: item } },
+             { source: { uri: 'http://i.imgur.com/6vOahbP.jpg' } },
+             { source: { uri: 'http://i.imgur.com/kj5VXtG.jpg' } }
+           ]}
+         />
+       </Modal>
+      </View>
+
+        )
+  }
+
   onPressDelete = (item, navigation) => {
     if(item.ref === undefined){
       console.log("cannot delete item in app");
@@ -72,14 +100,46 @@ export default class Detail extends React.Component {
      const { navigation } = this.props
 
     const item = navigation.getParam('item');
-
+    console.log("item image in render: " + item.image);
     return (
       <ScrollView>
+      {/* ------ Fullscreen Gallery Modal ------- */}
+        <View style={{marginTop: 22}}>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              console.log('Modal has been closed.');
+              this.setState({modalVisible: false});
+            }}>
+            <View style={{ position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0, backgroundColor: 'rgba(52, 52, 52, 0.85)'}}>
+            </View>
+          <Gallery
+             images={[
+               {source: { uri: item.image }}
+             ]}
+           />
+         </Modal>
+        </View>
       {item.image !== null &&
-        <Image source={{uri: item.image}}
-          style={styles.topImage}
-          resizeMode="cover"
-          PlaceholderContent={<ActivityIndicator />}/>
+        <TouchableScale
+          activeScale={0.95}
+          tension={150}
+          friction={7}
+          useNativeDriver
+          activeOpacity={1}
+          onPress={() =>  this.setState({modalVisible: true})}
+        >
+          <Image source={{uri: item.image}}
+            style={styles.topImage}
+            resizeMode="cover"
+            PlaceholderContent={<ActivityIndicator />}/>
+          </TouchableScale>
       }
           <TouchableScale
             style={styles.saveButton}
@@ -137,7 +197,7 @@ export default class Detail extends React.Component {
             <FlatList
               ListHeaderComponent = {
                 <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
-              data={Object.values(item.instructions)}
+              data={item.instructions}
               renderItem={this.renderInstructions}
               keyExtractor={(item, index) => index.toString()}
             />
