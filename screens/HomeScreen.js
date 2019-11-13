@@ -18,7 +18,7 @@ import { RobotoText } from '../components/StyledText';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
 import NewRecipe from '../screens/NewRecipeScreen';
-
+import GyroImage from '../components/GyroImage';
 import {recipes} from '../data/DataArray';
 
 const { width: screenWidth } = Dimensions.get('window')
@@ -93,7 +93,7 @@ const homeOffset = [screenHeight];
         showsPagination={false}
       >
         <View style={styles.container}>
-          <Video
+        {/*  <Video
             //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
             source={require('../assets/videos/Chinese.mp4')}
             rate={1.0}
@@ -107,6 +107,8 @@ const homeOffset = [screenHeight];
             bottom: 0,
             right: 0,}}
           />
+          */}
+          <GyroImage/>
             <View style={{ position: 'absolute',
               top: 0,
               left: 0,
