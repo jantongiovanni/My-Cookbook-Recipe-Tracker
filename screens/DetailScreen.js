@@ -12,12 +12,9 @@ import {
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-
 import Gallery from 'react-native-image-gallery';
-//import {db, storage} from '../constants/firebase';
 
 const { width: screenWidth } = Dimensions.get('window')
-
 
 export default class Detail extends React.Component {
 
@@ -33,8 +30,6 @@ export default class Detail extends React.Component {
   };
 
   renderIngredients = ({item}) => {
-    console.log(item);
-
     return (
       <View>
         <RobotoText style={styles.contentText}>{item}</RobotoText>
@@ -43,7 +38,10 @@ export default class Detail extends React.Component {
   }
 
   renderInstructions = ({item}) => {
-    console.log(item);
+    // if(this.state.count > item.length)
+    // this.setState({count: 0});
+    // console.log(item);
+    // console.log();
     this.state.count++
   return (
       <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
@@ -55,32 +53,6 @@ export default class Detail extends React.Component {
         </View>
       </View>
     )
-  }
-
-  renderGallery = (item) => {
-    //console.log("item image in gallery: " + item.image);
-    console.log("render gallery");
-    console.log(item);
-    return (
-      <View style={{marginTop: 22}}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-        <Gallery
-           images={[
-             { source: { uri: item } },
-             { source: { uri: 'http://i.imgur.com/6vOahbP.jpg' } },
-             { source: { uri: 'http://i.imgur.com/kj5VXtG.jpg' } }
-           ]}
-         />
-       </Modal>
-      </View>
-
-        )
   }
 
   onPressDelete = (item, navigation) => {
@@ -97,10 +69,9 @@ export default class Detail extends React.Component {
   }
 
   render() {
-     const { navigation } = this.props
-
+    const { navigation } = this.props
     const item = navigation.getParam('item');
-    console.log("item image in render: " + item.image);
+    //console.log("item image in render: " + item.image);
     return (
       <ScrollView>
       {/* ------ Fullscreen Gallery Modal ------- */}
@@ -111,7 +82,7 @@ export default class Detail extends React.Component {
             visible={this.state.modalVisible}
             onRequestClose={() => {
               console.log('Modal has been closed.');
-              this.setState({modalVisible: false});
+              this.setState({modalVisible: false, count:0});
             }}>
             <View style={{ position: 'absolute',
               top: 0,
@@ -121,7 +92,9 @@ export default class Detail extends React.Component {
             </View>
           <Gallery
              images={[
-               {source: { uri: item.image }}
+              {source: { uri: item.image }},
+              {source: { uri: item.image }},
+              {source: { uri: item.image }}
              ]}
            />
          </Modal>
@@ -194,6 +167,7 @@ export default class Detail extends React.Component {
           {item.instructions.length > 0 &&
             <View style={styles.line}/>
           }{item.instructions.length > 0 &&
+
             <FlatList
               ListHeaderComponent = {
                 <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
