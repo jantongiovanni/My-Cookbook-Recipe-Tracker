@@ -1,17 +1,12 @@
 import React, { Component }from "react";
 import { StyleSheet, View, Image, Dimensions } from "react-native";
-import { Gyroscope, Accelerometer } from "expo-sensors";
+import { Accelerometer } from "expo-sensors";
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
 export default class GyroImage extends Component {
   constructor() {
     super();
-    // this.state = {
-    //   x: 0,
-    //   y: 0,
-    //   z: 0,
-    // };
     this.state = {
       accelerometerData: {},
     };
@@ -34,8 +29,9 @@ export default class GyroImage extends Component {
   };
 
     _subscribe = () => {
-    this._subscription = Gyroscope.addListener(accelerometerData => {
+    this._subscription = Accelerometer.addListener(accelerometerData => {
       this.setState({ accelerometerData });
+      //Gyroscope.setUpdateInterval(1000);
     });
   };
 
@@ -57,9 +53,9 @@ export default class GyroImage extends Component {
 
   render() {
     let { x, y, z } = this.state.accelerometerData;
-    console.log("x: " + round(x) + "y: " + round(y) + "z: " + round(z));
+    //console.log("x: " + round(x) + "y: " + round(y) + "z: " + round(z));
     return (
-      <Image style={{left: round(x) + round(y), top: round(z)}}
+      <Image style={{position: 'absolute', left: -screenWidth/2 + round(x), top: round(y)}}
                    source={require('../assets/images/Italian-Sausage-Poutine.jpg')}/>
     )
   }
@@ -70,5 +66,5 @@ function round(n) {
     return 0;
   }
 
-  return Math.floor(n * 100) / 10;
+  return Math.floor(n*20);
 }

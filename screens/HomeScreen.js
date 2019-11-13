@@ -91,6 +91,7 @@ const homeOffset = [screenHeight];
         index={0}
         loop={false}
         showsPagination={false}
+        loadMinimal={true}
       >
         <View style={styles.container}>
         {/*  <Video
@@ -107,8 +108,13 @@ const homeOffset = [screenHeight];
             bottom: 0,
             right: 0,}}
           />
-          */}
-          <GyroImage/>
+*/}
+          <GyroImage
+          style={{ position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,}}/>
             <View style={{ position: 'absolute',
               top: 0,
               left: 0,
