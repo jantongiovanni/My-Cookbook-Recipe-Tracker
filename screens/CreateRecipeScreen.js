@@ -48,6 +48,7 @@ class CreateRecipe extends Component {
        directionsHolder: '',
        directions: [],
        image: null,
+       imagePath: '',
        remoteUri: null
      }
   }
@@ -114,6 +115,7 @@ class CreateRecipe extends Component {
          makes: this.state.makes,
          notes: this.state.notes,
          image: this.state.remoteUri,
+         imagePath: this.state.imagePath,
          createdAt: Date.now()
        }
        return new Promise(() => {
@@ -138,7 +140,7 @@ class CreateRecipe extends Component {
 
   uploadPhotoAsync = async uri => {
          const path = `photos/${Date.now()}.jpg`;
-
+         this.setState({imagePath: path});
          return new Promise(async (res, rej) => {
              const response = await fetch(uri);
              const file = await response.blob();

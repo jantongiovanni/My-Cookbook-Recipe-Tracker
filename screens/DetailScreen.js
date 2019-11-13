@@ -13,7 +13,7 @@ import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import Gallery from 'react-native-image-gallery';
-
+import {storage} from '../constants/firebase';
 const { width: screenWidth } = Dimensions.get('window')
 
 export default class Detail extends React.Component {
@@ -56,22 +56,40 @@ export default class Detail extends React.Component {
   }
 
   onPressDelete = (item, navigation) => {
-    if(item.ref === undefined){
-      console.log("cannot delete item in app");
+    if(item.ref === undefined ||
+      item.imagePath === undefined ||
+      item.imagePath === ''){
+        console.log("cannot delete item in app");
     } else {
+      const storageRef = storage.ref();
+      photoRef = storageRef.child(item.imagePath);
+      console.log("photo ref " + photoRef);
       item.ref.delete().then(function() {
-          console.log("Document successfully deleted!");
-          navigation.navigate('Home');
-      }).catch(function(error) {
-          console.error("Error removing document: ", error);
-      });
+            console.log("Document successfully deleted!");
+            navigation.navigate('Home');
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+        });
+      photoRef.delete().then(function() {
+          console.log("File deleted successfully");
+        }).catch(function(error) {
+          console.log("Uh-oh, an error occurred!" + error);
+        });
     }
+
+
+    //const str = item.photoRef;
+    //console.log("str " + str);
+    //const res = str.substring(80,99);
+    //console.log("res "  + res);
+
   }
 
   render() {
     const { navigation } = this.props
     const item = navigation.getParam('item');
-    //console.log("item image in render: " + item.image);
+
+    console.log("item image in render: " + item.image);
     return (
       <ScrollView>
       {/* ------ Fullscreen Gallery Modal ------- */}
