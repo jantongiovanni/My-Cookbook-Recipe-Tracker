@@ -53,10 +53,18 @@ export default class GyroImage extends Component {
 
   render() {
     let { x, y, z } = this.state.accelerometerData;
-    //console.log("x: " + round(x) + "y: " + round(y) + "z: " + round(z));
+    console.log("x: " + round(x) + "y: " + round(y) + "z: " + round(z));
     return (
-      <Image style={{position: 'absolute', left: -screenWidth/2 + round(x), top: round(y)}}
-                   source={require('../assets/images/Italian-Sausage-Poutine.jpg')}/>
+      <Image style={{
+        position: 'absolute',
+        left: -screenWidth/2,
+        top: 0,
+        transform: [
+          {translateX : round(x)},
+          {translateY : round(y)}
+        ]
+      }}
+      source={require('../assets/images/Italian-Sausage-Poutine.jpg')}/>
     )
   }
 }
@@ -66,5 +74,5 @@ function round(n) {
     return 0;
   }
 
-  return Math.floor(n*20);
+  return Math.floor(n*5);
 }
