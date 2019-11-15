@@ -10,8 +10,8 @@ class LoginScreen extends Component {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;
       for (var i = 0; i < providerData.length; i++) {
-        if (providerData[i].providerId === app.auth.GoogleAuthProvider.PROVIDER_ID &&
-            providerData[i].uid === googleUser.getBasicProfile().getId()) {
+        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+            providerData[i].uid === googleUser.user.id) {
           // We don't need to reauth the Firebase connection.
           return true;
         }
@@ -37,6 +37,7 @@ class LoginScreen extends Component {
         firebase.auth().signInWithCredential(credential).then(function(){
           console.log("user signed in");
           console.log("user id: " + googleUser.user.id);
+
           userRef = db.collection('users').doc(googleUser.user.id);
           const userData = {
             gmail: googleUser.user.email,
@@ -56,7 +57,7 @@ class LoginScreen extends Component {
           // ...
         });
       } else {
-        console.log('User already signed-in Firebase.');
+        console.log('User already signed-in to Firebase.');
       }
     }.bind(this)
   );
