@@ -94,9 +94,6 @@ class LoginScreen extends Component {
       <View style = {styles.container}>
         <Button title="Sign In With Google"
           onPress={() => this.signInWithGoogleAsync() }/>
-          <Button title="Sign Out"
-            style={{paddingTop: 20}}
-            onPress={() => firebase.auth().signOut() }/>
       </View>
     );
   }
