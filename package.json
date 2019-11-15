@@ -23,6 +23,7 @@
     "expo-av": "^6.0.0",
     "expo-constants": "6.0.0",
     "expo-font": "~6.0.0",
+    "expo-google-app-auth": "^7.0.0",
     "expo-image-picker": "^7.0.0",
     "expo-permissions": "^7.0.0",
     "expo-web-browser": "6.0.0",

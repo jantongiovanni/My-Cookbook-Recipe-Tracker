@@ -18,6 +18,8 @@ import { RobotoText } from '../components/StyledText';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
 import NewRecipe from '../screens/NewRecipeScreen';
+import ProfileSceen from '../screens/ProfileScreen';
+
 
 import {recipes} from '../data/DataArray';
 
@@ -84,14 +86,19 @@ const homeOffset = [screenHeight];
       snapToEnd = {false}
       snapToStart = {false}
     >
+
       <Swiper
         containerStyle={{ width: screenWidth, height: screenHeight }}
         showsButtons={false}
         horizontal={true}
-        index={0}
+        index={1}
         loop={false}
         showsPagination={false}
       >
+      <View style={styles.container}>
+        {/* swipe down */}
+        <ProfileSceen/>
+      </View>
         <View style={styles.container}>
           <Video
             //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
