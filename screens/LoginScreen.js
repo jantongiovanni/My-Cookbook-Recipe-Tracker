@@ -34,15 +34,15 @@ class LoginScreen extends Component {
             googleUser.accessToken
           );
         // Sign in with credential from the Google user.
-        firebase.auth().signInWithCredential(credential).then(function(){
+        firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
           console.log("user signed in");
-          console.log("user id: " + googleUser.user.id);
-
-          userRef = db.collection('users').doc(googleUser.user.id);
+          
+          userRef = db.collection('users').doc(result.user.uid);
           const userData = {
-            gmail: googleUser.user.email,
-            profile_picture: googleUser.user.photoUrl,
-            name: googleUser.user.name,
+            gmail: result.user.email,
+            profile_picture: result.additionalUserInfo.profile.picture,
+            name: result.additionalUserInfo.profile.name,
+
           }
           userRef.set(userData);
         })
