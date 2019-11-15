@@ -36,15 +36,21 @@ class LoginScreen extends Component {
         // Sign in with credential from the Google user.
         firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
           console.log("user signed in");
-          
-          userRef = db.collection('users').doc(result.user.uid);
-          const userData = {
-            gmail: result.user.email,
-            profile_picture: result.additionalUserInfo.profile.picture,
-            name: result.additionalUserInfo.profile.name,
-
+          if(result.additionalUserInfo.isNewUser){
+            userRef = db.collection('users').doc(result.user.uid);
+            const userData = {
+              gmail: result.user.email,
+              profile_picture: result.additionalUserInfo.profile.picture,
+              name: result.additionalUserInfo.profile.name,
+              created_at: Date.now()
+            }
+            userRef.set(userData);
+          } else {
+            userRef = db.collection('users').doc(result.user.uid);
+            userRef.update({
+              last_logged_in: Date.now()
+            })
           }
-          userRef.set(userData);
         })
         .catch(function(error) {
           // Handle Errors here.
@@ -88,6 +94,9 @@ class LoginScreen extends Component {
       <View style = {styles.container}>
         <Button title="Sign In With Google"
           onPress={() => this.signInWithGoogleAsync() }/>
+          <Button title="Sign Out"
+            style={{paddingTop: 20}}
+            onPress={() => firebase.auth().signOut() }/>
       </View>
     );
   }
