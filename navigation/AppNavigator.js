@@ -18,7 +18,7 @@ const RootStack = createStackNavigator(
     Create: CreateRecipe,
   },
   {
-    initialRouteName: 'Loading',
+    initialRouteName: 'Home',
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerStyle: {
@@ -35,9 +35,14 @@ const RootStack = createStackNavigator(
   }
 );
 
-const AppSwitchNav = createSwitchNavigator ({
+const AuthSwitchNav = createSwitchNavigator ({
   Loading: LoadingScreen,
   Login: LoginScreen,
+})
+
+const AppSwitchNav = createSwitchNavigator ({
+  Auth: AuthSwitchNav,
+  App : RootStack
 })
 
 const AppContainer = createAppContainer(AppSwitchNav);
