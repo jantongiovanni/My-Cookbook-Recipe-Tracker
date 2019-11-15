@@ -8,7 +8,7 @@ import CreateRecipe from '../screens/CreateRecipeScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 
-import {db} from '../constants/firebase';
+import {app} from '../constants/firebase';
 import {springyFadeIn} from '../transitions/springyFadeIn';
 
 const RootStack = createStackNavigator(
