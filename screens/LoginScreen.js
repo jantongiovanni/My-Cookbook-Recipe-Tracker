@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, ScrollView, StyleSheet, Button } from 'react-native';
 import * as Google from 'expo-google-app-auth';
-//import {app} from '../constants/firebase';
+import {db} from '../constants/firebase';
 import firebase from 'firebase';
 
 class LoginScreen extends Component {
@@ -36,6 +36,14 @@ class LoginScreen extends Component {
         // Sign in with credential from the Google user.
         firebase.auth().signInWithCredential(credential).then(function(){
           console.log("user signed in");
+          console.log("user id: " + googleUser.user.id);
+          userRef = db.collection('users').doc(googleUser.user.id);
+          const userData = {
+            gmail: googleUser.user.email,
+            profile_picture: googleUser.user.photoUrl,
+            name: googleUser.user.name,
+          }
+          userRef.set(userData);
         })
         .catch(function(error) {
           // Handle Errors here.
