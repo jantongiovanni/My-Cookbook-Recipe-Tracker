@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import HomeScreen from '../screens/HomeScreen';
@@ -8,8 +8,9 @@ import CreateRecipe from '../screens/CreateRecipeScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 
-
+import {db} from '../constants/firebase';
 import {springyFadeIn} from '../transitions/springyFadeIn';
+
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -17,7 +18,7 @@ const RootStack = createStackNavigator(
     Create: CreateRecipe,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Loading',
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerStyle: {
@@ -34,7 +35,14 @@ const RootStack = createStackNavigator(
   }
 );
 
-const AppContainer = createAppContainer(RootStack);
+const AppSwitchNav = createSwitchNavigator ({
+  Loading: LoadingScreen,
+  Login: LoginScreen,
+})
+
+const AppContainer = createAppContainer(AppSwitchNav);
+
+//const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component {
   render() {

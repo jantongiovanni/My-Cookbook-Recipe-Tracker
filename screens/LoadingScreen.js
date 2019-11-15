@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 
 class LoadingScreen extends Component {
   render() {
     return (
       <View style = {styles.container}>
-
+        <ActivityIndicator size="large" />
       </View>
     );
   }
