@@ -5,6 +5,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import CreateRecipe from '../screens/CreateRecipeScreen';
+import LoadingScreen from '../screens/LoadingScreen';
+import LoginScreen from '../screens/LoginScreen';
+
+
 import {springyFadeIn} from '../transitions/springyFadeIn';
 const RootStack = createStackNavigator(
   {
