@@ -37,6 +37,7 @@ class CreateRecipe extends Component {
      this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
      this.joinDirectionsData = this.joinDirectionsData.bind(this);
      this.addPost = this.addPost.bind(this);
+     this.onTogglePublic = this.onTogglePublic.bind(this);
 
      this.state = {
        title: '',
@@ -50,7 +51,8 @@ class CreateRecipe extends Component {
        directions: [],
        image: null,
        imagePath: '',
-       remoteUri: null
+       remoteUri: null,
+       isPublic: true
      }
   }
 
@@ -88,6 +90,13 @@ class CreateRecipe extends Component {
   handleDirectionsChange(directionsHolder){
     this.setState({directionsHolder});
   }
+  onTogglePublic(){
+    if(this.state.isPublic){
+      this.setState({isPublic: false});
+    } else {
+      this.setState({isPublic: true});
+    }
+  }
 
   addPost = async (navigation) => {
       console.log("add post");
@@ -118,7 +127,8 @@ class CreateRecipe extends Component {
          notes: this.state.notes,
          image: this.state.remoteUri,
          imagePath: this.state.imagePath,
-         createdAt: Date.now()
+         createdAt: Date.now(),
+         isPublic: this.state.isPublic
        }
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
@@ -205,7 +215,7 @@ class CreateRecipe extends Component {
   }
 
 render() {
-  let { image } = this.state;
+  let { image, isPublic } = this.state;
 
   return(
     <SafeAreaView style={styles.container}>
@@ -241,6 +251,23 @@ render() {
             />
             <RobotoText style={styles.charCount}>{30 - this.state.title.length}</RobotoText>
           </View>
+          <TouchableScale
+            style={styles.saveButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            onPress={this.onTogglePublic}
+          >
+          {isPublic ? (
+            <RobotoText style = {styles.saveButtonText} > Public </RobotoText>
+          ): (
+            <RobotoText style = {styles.saveButtonText} > Private </RobotoText>
+          )
+          }
+          </TouchableScale>
+
+
           {/* ------ Time ------- */}
           <TextInput
             type = "text"
