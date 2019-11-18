@@ -20,6 +20,7 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 //import ListItem from '../components/ListItem';
 import {db, storage} from '../constants/firebase';
+import firebase from 'firebase';
 
 class CreateRecipe extends Component {
 
@@ -106,6 +107,7 @@ class CreateRecipe extends Component {
          this.state.remoteUri = await this.uploadPhotoAsync(this.state.image);
         }
        const docData = {
+         uid : firebase.auth().currentUser.uid,
          ref: recipeRef,
          title: this.state.title,
          time: this.state.time,

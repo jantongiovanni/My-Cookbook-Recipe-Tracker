@@ -15,6 +15,7 @@ import RecipeListPlaceholderComponent from '../components/RecipeListPlaceholder'
 
 //Access Firebase data
 import {db} from '../constants/firebase';
+import firebase from 'firebase';
 //https://levelup.gitconnected.com/react-native-firebase-cloud-firestore-implementing-infinite-scroll-lazy-loading-with-flatlist-a9e942cf66c6
 
 class ListItem extends Component {
@@ -37,7 +38,9 @@ class ListItem extends Component {
 retrieveData = async () => {
     console.log("Retrieving Data");
     try{
-      const initialQuery = await db.collection("recipes").orderBy("createdAt", "desc");
+      var user = firebase.auth().currentUser.uid;
+      console.log("user: " + user);
+      const initialQuery = await db.collection("recipes").where("uid", "==", user).orderBy("createdAt", "desc");
       await initialQuery.onSnapshot( snapshot => {
       this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
       });
