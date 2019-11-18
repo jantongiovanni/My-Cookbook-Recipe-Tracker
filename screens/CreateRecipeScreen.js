@@ -100,6 +100,7 @@ class CreateRecipe extends Component {
 
   addPost = async (navigation) => {
       console.log("add post");
+      navigation.navigate('Home')
       if(this.state.title === ''){
         Alert.alert(
           'Error',
@@ -133,7 +134,6 @@ class CreateRecipe extends Component {
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
-           navigation.navigate('Home')
            Alert.alert(
              'Recipe Saved',
              docData.title + ' was added successfully',

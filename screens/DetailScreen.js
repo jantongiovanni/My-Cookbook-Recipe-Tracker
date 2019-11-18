@@ -56,25 +56,26 @@ export default class Detail extends React.Component {
   }
 
   onPressDelete = (item, navigation) => {
-    if(item.ref === undefined ||
-      item.imagePath === undefined ||
-      item.imagePath === ''){
+    if(item.ref === undefined){
         console.log("cannot delete item in app");
     } else {
-      const storageRef = storage.ref();
-      photoRef = storageRef.child(item.imagePath);
-      console.log("photo ref " + photoRef);
       item.ref.delete().then(function() {
             console.log("Document successfully deleted!");
             navigation.navigate('Home');
         }).catch(function(error) {
             console.error("Error removing document: ", error);
         });
-      photoRef.delete().then(function() {
-          console.log("File deleted successfully");
-        }).catch(function(error) {
-          console.log("Uh-oh, an error occurred!" + error);
-        });
+      if(item.imagePath){
+        console.log("imagePath: " + item.imagePath);
+        const storageRef = storage.ref();
+        photoRef = storageRef.child(item.imagePath);
+        console.log("photo ref " + photoRef);
+        photoRef.delete().then(function() {
+            console.log("File deleted successfully");
+          }).catch(function(error) {
+            console.log("Uh-oh, an error occurred!" + error);
+          });
+      }
     }
 
 
