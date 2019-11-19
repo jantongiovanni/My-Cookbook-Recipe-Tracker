@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  Image,
   Dimensions,
   ScrollView,
   Animated
@@ -118,37 +119,38 @@ constructor(props) {
 render(){
 const homeOffset = [screenHeight];
   return (
-   <ScrollView
-      decelerationRate= {"normal"}
-      snapToOffsets = {homeOffset}
-      snapToEnd = {false}
-      snapToStart = {false}
-    >
-
       <Swiper
-        containerStyle={{ width: screenWidth, height: screenHeight }}
-        showsButtons={false}
-        horizontal={true}
+        containerStyle={{  width: screenWidth, height: screenHeight }}
         index={1}
         loop={false}
         showsPagination={false}
+        showsHorizontalScrollIndicator={true}
       >
       <View style={styles.container}>
-        {/* swipe down */}
+        {/* swipe left */}
+        <NewRecipe/>
+      </View>
+      <Swiper
+        containerStyle={{ width: screenWidth, height: screenHeight }}
+        loop={false}
+        horizontal={false}
+        showsPagination={false}
+        index={1}
+        showsVerticalScrollIndicator={true}
+      >
+      <View style={styles.container}>
+        {/* swipe up */}
         <ProfileSceen/>
       </View>
-        <View style={styles.container}>
-          <Video
-            source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
+        <SafeAreaView style={styles.container}>
+          <Image
+            source={require('../assets/images/Italian-Sausage-Poutine.jpg')}
+            resizeMode="contain"
+            fadeDuration={0}
             //source={require('../assets/videos/Chinese.mp4')}
-            rate={1.0}
-            isMuted={true}
-            resizeMode="cover"
-            shouldPlay
-            isLooping
             style={{ position: 'absolute',
             top: 0,
-            left: 0,
+            left: -150,
             bottom: 0,
             right: 0,}}
           />
@@ -189,17 +191,17 @@ const homeOffset = [screenHeight];
             </Animated.View>
             <CarouselComponent/>
           </View>
-        </View>
+        </SafeAreaView>
         <View style={styles.container}>
-        {/*  right swipe screen */}
-        <NewRecipe/>
+          {/* swipe down */}
+          <ListItem/>
         </View>
       </Swiper>
       <View style={styles.container}>
-        {/* swipe down */}
-        <ListItem/>
+      {/*  right swipe screen */}
+      <NewRecipe/>
       </View>
-    </ScrollView>
+    </Swiper>
   );
 }
 };

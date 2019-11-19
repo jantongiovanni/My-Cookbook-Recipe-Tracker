@@ -35,7 +35,7 @@
     "react-native-image-gallery": "^2.1.5",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-native-snap-carousel": "^3.8.0",
-    "react-native-swiper": "^1.5.14",
+    "react-native-swiper": "^1.6.0-rc.3",
     "react-native-touchable-scale": "^2.0.0",
     "react-native-vertical-view-pager": "^0.1.1",
     "react-native-web": "^0.11.4",
