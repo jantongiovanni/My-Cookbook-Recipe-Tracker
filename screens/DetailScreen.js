@@ -7,7 +7,8 @@ import {
   Dimensions,
   ActivityIndicator,
   FlatList,
-  Modal
+  Modal,
+  TouchableOpacity
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
@@ -102,14 +103,17 @@ export default class Detail extends React.Component {
             onRequestClose={() => {
               console.log('Modal has been closed.');
               this.setState({modalVisible: false, count:0});
-            }}>
-            <View style={{ position: 'absolute',
+            }}
+            >
+            <TouchableOpacity style={{ position: 'absolute',
               top: 0,
               left: 0,
               bottom: 0,
-              right: 0, backgroundColor: 'rgba(52, 52, 52, 0.85)'}}>
-            </View>
+              right: 0, backgroundColor: 'rgba(52, 52, 52, 0.85)'}}
+              onPress={() => {console.log("pressed"); this.setState({modalVisible: false, count:0});}}>
+            </TouchableOpacity>
           <Gallery
+             onSingleTapConfirmed={()=> {console.log("pressed"); this.setState({modalVisible: false, count:0});}}
              images={[
               {source: { uri: item.image }},
               {source: { uri: item.image }},

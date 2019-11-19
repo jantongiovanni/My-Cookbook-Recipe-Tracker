@@ -100,7 +100,6 @@ class CreateRecipe extends Component {
 
   addPost = async (navigation) => {
       console.log("add post");
-      navigation.navigate('Home')
       if(this.state.title === ''){
         Alert.alert(
           'Error',
@@ -111,6 +110,7 @@ class CreateRecipe extends Component {
           { cancelable: true }
         );
       } else {
+      navigation.navigate('Home')
       recipeRef = db.collection('recipes').doc();
        if(this.state.image !== null){
          console.log("not null!");
