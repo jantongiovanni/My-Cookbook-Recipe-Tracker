@@ -92,7 +92,6 @@ export default class Detail extends React.Component {
     const { navigation } = this.props
     const item = navigation.getParam('item');
 
-    console.log("item uid: " + item.uid);
     return (
       <ScrollView>
       {/* ------ Fullscreen Gallery Modal ------- */}
@@ -153,7 +152,6 @@ export default class Detail extends React.Component {
         }
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
-
           <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
             <View style={{flexDirection:'column'}}>
               <RobotoText style={styles.contentText}>Time:</RobotoText>
@@ -165,42 +163,43 @@ export default class Detail extends React.Component {
             </View>
           </View>
           {item.description !== '' &&
-          <View style={styles.line}/>
-          }{item.description !== '' &&
-            <PlayfairText style={styles.subtitleText}>Description</PlayfairText>
-          }{item.description !== '' &&
-            <RobotoText style={styles.contentText}>{item.description}</RobotoText>
+            <View>
+              <View style={styles.line}/>
+              <PlayfairText style={styles.subtitleText}>Description</PlayfairText>
+              <RobotoText style={styles.contentText}>{item.description}</RobotoText>
+              </View>
           }
 
           {item.ingredients.length > 0 &&
-            <View style={styles.line}/>
-          }{item.ingredients.length > 0 &&
-            <FlatList
-              ListHeaderComponent = {
-                <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
-              data={item.ingredients}
-              renderItem={this.renderIngredients}
-              keyExtractor={(item, index) => index.toString()}
-            />
+            <View>
+              <View style={styles.line}/>
+              <FlatList
+                ListHeaderComponent = {
+                  <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
+                data={item.ingredients}
+                renderItem={this.renderIngredients}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
           }
           {item.notes !== '' &&
-            <View style={styles.line}/>
-          }{item.notes !== '' &&
-            <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
-          }{item.notes !== '' &&
-            <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
+            <View>
+              <View style={styles.line}/>
+              <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
+              <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
+            </View>
           }
           {item.instructions.length > 0 &&
-            <View style={styles.line}/>
-          }{item.instructions.length > 0 &&
-
-            <FlatList
-              ListHeaderComponent = {
-                <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
-              data={item.instructions}
-              renderItem={this.renderInstructions}
-              keyExtractor={(item, index) => index.toString()}
-            />
+            <View>
+              <View style={styles.line}/>
+              <FlatList
+                ListHeaderComponent = {
+                  <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
+                data={item.instructions}
+                renderItem={this.renderInstructions}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
           }
         </View>
       </ScrollView>
