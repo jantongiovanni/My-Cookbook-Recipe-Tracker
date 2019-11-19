@@ -21,6 +21,7 @@ import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
 import NewRecipe from '../screens/NewRecipeScreen';
 import ProfileSceen from '../screens/ProfileScreen';
+import DiscoverScreen from '../screens/DiscoverScreen';
 
 import {recipes} from '../data/DataArray';
 
@@ -183,7 +184,7 @@ const homeOffset = [screenHeight];
       </Swiper>
       <View style={styles.container}>
       {/*  right swipe screen */}
-      <NewRecipe/>
+      <DiscoverScreen/>
       </View>
     </Swiper>
   );
