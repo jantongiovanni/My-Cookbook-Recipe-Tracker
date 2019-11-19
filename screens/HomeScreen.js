@@ -21,7 +21,7 @@ import NewRecipe from '../screens/NewRecipeScreen';
 import ProfileSceen from '../screens/ProfileScreen';
 
 
-import {recipes} from '../data/DataArray';
+import {recipes} from '../data/DataArray'; 
 
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
@@ -101,8 +101,8 @@ const homeOffset = [screenHeight];
       </View>
         <View style={styles.container}>
           <Video
-            //source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
-            source={require('../assets/videos/Chinese.mp4')}
+            source={{ uri: 'https://gcs-vimeo.akamaized.net/exp=1566428998~acl=%2A%2F820068298.mp4%2A~hmac=bcbc5bdbb796ba22d60bbc8b7fb7cf5fbd9581f0503f2c967e114cf1a29900d9/vimeo-prod-skyfire-std-us/01/1351/9/231758986/820068298.mp4' }}
+            //source={require('../assets/videos/Chinese.mp4')}
             rate={1.0}
             isMuted={true}
             resizeMode="cover"
