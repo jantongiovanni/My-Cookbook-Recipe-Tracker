@@ -22,26 +22,10 @@ import ListItem from '../components/ListItem';
 import NewRecipe from '../screens/NewRecipeScreen';
 import ProfileSceen from '../screens/ProfileScreen';
 
-
 import {recipes} from '../data/DataArray';
 
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
-
-//Access Firebase data
-// import {db} from '../constants/firebase';
-// const itemsRef = db.collection('recipes').get().then(function(querySnapshot) {
-//     querySnapshot.forEach(function(doc) {
-//         // doc.data() is never undefined for query doc snapshots
-//         console.log(doc.id, " => ", doc.data());
-//         const data = doc.data();
-//         console.log("photo url: " + data.photo_url);
-//     });
-// })
-// .catch(function(error) {
-//     console.log("Error getting documents: ", error);
-// });
-
 
 export class CarouselComponent extends React.Component {
     constructor(props){
