@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Dimensions,
   ScrollView,
+  Animated
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Video } from 'expo-av';
@@ -21,7 +22,7 @@ import NewRecipe from '../screens/NewRecipeScreen';
 import ProfileSceen from '../screens/ProfileScreen';
 
 
-import {recipes} from '../data/DataArray'; 
+import {recipes} from '../data/DataArray';
 
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
@@ -41,9 +42,26 @@ const { height: screenHeight} = Dimensions.get('window')
 // });
 
 
-export class App extends React.Component {
+export class CarouselComponent extends React.Component {
     constructor(props){
         super(props);
+    }
+
+    state = {
+      fadeValue: new Animated.Value(0)
+    };
+
+    _start = () => {
+      console.log("start car");
+      Animated.timing(this.state.fadeValue, {
+        toValue: 1,
+        delay:700,
+        duration: 700,
+        useNativeDriver: true
+      }).start();
+    };
+    componentDidMount() {
+      this._start();
     }
 
     _renderItem({item,index}){
@@ -56,14 +74,18 @@ export class App extends React.Component {
 
     render() {
         return (
-        <SafeAreaView style={styles.container}>
+        <Animated.View style={{
+          flex: 1,
+          paddingTop: 12,
+          opacity: this.state.fadeValue
+        }}>
             <Carousel
                     data={recipes}
                     sliderWidth={screenWidth}
                     itemWidth={screenWidth - 60}
                     renderItem={this._renderItem}
                 />
-        </SafeAreaView>
+        </Animated.View>
         );
     }
 }
@@ -76,6 +98,22 @@ export default class HomeScreen extends React.Component {
 constructor(props) {
   super(props);
 }
+
+  state = {
+    fadeValue: new Animated.Value(0)
+  };
+
+  _start = () => {
+    console.log("start");
+    Animated.timing(this.state.fadeValue, {
+      toValue: 1,
+      duration: 700,
+      useNativeDriver: true
+    }).start();
+  };
+  componentDidMount() {
+    this._start();
+  }
 
 render(){
 const homeOffset = [screenHeight];
@@ -128,7 +166,14 @@ const homeOffset = [screenHeight];
               //onChangeText={(name) => this.setState({name})}
               value={"Search Recipes"}//this.state.name}
             />
-            <View style={styles.getStartedContainer}>
+            <Animated.View style={{
+              flex: 3,
+              opacity: this.state.fadeValue,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              paddingHorizontal: 20,
+
+            }}>
               <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
               <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
               <TouchableOpacity
@@ -141,8 +186,8 @@ const homeOffset = [screenHeight];
                 }}>
                 <Text style={styles.buttonText}> Read More </Text>
               </TouchableOpacity>
-            </View>
-            <App/>
+            </Animated.View>
+            <CarouselComponent/>
           </View>
         </View>
         <View style={styles.container}>
@@ -191,13 +236,7 @@ const styles = StyleSheet.create({
     color: 'lightgray',
     fontSize: 18,
   },
-  getStartedContainer: {
-    flex: 3,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-
-  },
+  getStartedContainer: {},
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
