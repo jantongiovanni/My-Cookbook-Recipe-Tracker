@@ -15,14 +15,26 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import Gallery from 'react-native-image-gallery';
 import {storage} from '../constants/firebase';
+import firebase from 'firebase';
+
 const { width: screenWidth } = Dimensions.get('window')
 
 export default class Detail extends React.Component {
 
   state = {
     count: 0,
-    modalVisible: false
+    modalVisible: false,
+    user: ''
   }
+
+  componentDidMount = () => {
+    this.getUser();
+  };
+
+  getUser = async () => {
+    var myuser = firebase.auth().currentUser.uid;
+    this.setState({user : myuser, count: 0});
+  };
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -39,22 +51,18 @@ export default class Detail extends React.Component {
   }
 
   renderInstructions = ({item}) => {
-    // if(this.state.count > item.length)
-    // this.setState({count: 0});
-    // console.log(item);
-    // console.log();
     this.state.count++
-  return (
-      <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
-        <View style={{flexDirection:'column'}}>
-          <PlayfairText style={styles.numberText}>{this.state.count}</PlayfairText>
+    return (
+        <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
+          <View style={{flexDirection:'column'}}>
+            <PlayfairText style={styles.numberText}>{this.state.count}</PlayfairText>
+          </View>
+          <View style={{flexDirection:'column', paddingLeft: 20}}>
+            <RobotoText style={styles.contentText}>{item}</RobotoText>
+          </View>
         </View>
-        <View style={{flexDirection:'column', paddingLeft: 20}}>
-          <RobotoText style={styles.contentText}>{item}</RobotoText>
-        </View>
-      </View>
-    )
-  }
+      )
+    }
 
   onPressDelete = (item, navigation) => {
     if(item.ref === undefined){
@@ -78,20 +86,13 @@ export default class Detail extends React.Component {
           });
       }
     }
-
-
-    //const str = item.photoRef;
-    //console.log("str " + str);
-    //const res = str.substring(80,99);
-    //console.log("res "  + res);
-
   }
 
   render() {
     const { navigation } = this.props
     const item = navigation.getParam('item');
 
-    console.log("item image in render: " + item.image);
+    console.log("item uid: " + item.uid);
     return (
       <ScrollView>
       {/* ------ Fullscreen Gallery Modal ------- */}
@@ -137,6 +138,7 @@ export default class Detail extends React.Component {
             PlaceholderContent={<ActivityIndicator />}/>
           </TouchableScale>
       }
+      {item.uid === this.state.user &&
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -148,6 +150,7 @@ export default class Detail extends React.Component {
           >
             <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
           </TouchableScale>
+        }
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
 
