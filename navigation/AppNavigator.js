@@ -1,6 +1,7 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import { createSharedElementStackNavigator, SharedElement } from 'react-navigation-shared-element';
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
@@ -11,7 +12,8 @@ import LoginScreen from '../screens/LoginScreen';
 import {app} from '../constants/firebase';
 import {springyFadeIn} from '../transitions/springyFadeIn';
 
-const RootStack = createStackNavigator(
+const RootStack = createSharedElementStackNavigator(
+  createStackNavigator,
   {
     Home: HomeScreen,
     Details: DetailScreen,
@@ -30,9 +32,6 @@ const RootStack = createStackNavigator(
       },
     },
   },
-  {
-    transitionConfig: () => springyFadeIn(),
-  }
 );
 
 const AuthSwitchNav = createSwitchNavigator ({
