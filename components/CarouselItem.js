@@ -20,14 +20,17 @@ class CarouselItem extends Component {
             friction={7}
             useNativeDriver
             activeOpacity={1}
-            onPress={() =>
-            navigation.navigate('Details', {
-                itemId: 1,
-                otherParam: "test",
-                title: title,
-                image: image,
-              })
-            }>
+            removeClippedSubviews={true}
+            initialScrollIndex={1}
+            // onPress={() =>
+            // navigation.navigate('Details', {
+            //     itemId: 1,
+            //     otherParam: "test",
+            //     title: title,
+            //     image: image,
+            //   })
+            // }
+            >
                 <Image
                     source={image} style={{flex:2,  width: undefined, height: undefined}}
                     resizeMode="cover"/>

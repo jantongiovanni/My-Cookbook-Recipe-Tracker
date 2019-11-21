@@ -375,6 +375,7 @@ render() {
           >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
         </TouchableScale>
+        <View style={{ height: 100 }} />
       </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

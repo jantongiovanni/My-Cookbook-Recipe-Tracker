@@ -17,6 +17,7 @@ import { Video } from 'expo-av';
 import Swiper from 'react-native-swiper'
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
+import TouchableScale from 'react-native-touchable-scale';
 import CarouselItem from '../components/CarouselItem';
 import ListItem from '../components/ListItem';
 import NewRecipe from '../screens/NewRecipeScreen';
@@ -60,10 +61,10 @@ export class CarouselComponent extends React.Component {
 
     render() {
         return (
-        <Animated.View style={{
+        <View style={{
           flex: 1,
           paddingTop: 12,
-          opacity: this.state.fadeValue
+          paddingBottom: 12
         }}>
             <Carousel
                     data={recipes}
@@ -71,7 +72,7 @@ export class CarouselComponent extends React.Component {
                     itemWidth={screenWidth - 60}
                     renderItem={this._renderItem}
                 />
-        </Animated.View>
+        </View>
         );
     }
 }
@@ -128,7 +129,8 @@ const homeOffset = [screenHeight];
         <ProfileSceen/>
       </View>
         <SafeAreaView style={styles.container}>
-          <Image
+
+            {/* <Image
             source={require('../assets/images/Italian-Sausage-Poutine.jpg')}
             resizeMode="contain"
             fadeDuration={0}
@@ -145,7 +147,12 @@ const homeOffset = [screenHeight];
               bottom: 0,
               right: 0, backgroundColor: 'rgba(52, 52, 52, 0.15)'}}>
             </View>
-          <View style={styles.container}>
+            */}
+          <View style={{    flex: 1,
+              paddingTop: 12,
+              justifyContent: 'space-around',
+              flexDirection: 'column',
+            }}>
             <TextInput
               style={styles.textinput}
               placeholder="Enter name"
@@ -153,16 +160,52 @@ const homeOffset = [screenHeight];
               //onChangeText={(name) => this.setState({name})}
               value={"Search Recipes"}//this.state.name}
             />
-            <Animated.View style={{
+            <View style={{flex: 1, alignContent:'center'}}>
+              <PlayfairText style={{color:'black', fontSize: 46, marginHorizontal: 20, paddingTop: 10, alignSelf:'flex-start'}}>Featured Recipe</PlayfairText>
+            </View>
+            <TouchableScale
+              style={styles.card}
+              activeScale={0.95}
+              tension={150}
+              friction={7}
+              useNativeDriver
+              activeOpacity={1}
+              onPress={() => this.onPressCreate()}
+            >
+                  <Image
+                      source={require('../assets/images/Italian-Sausage-Poutine.jpg')} style={{flex:2, overflow:'hidden',
+                      borderRadius: 12, width: undefined, height: undefined}}
+                      resizeMode="cover"/>
+                  <View style={{flex:1, justifyContent: 'center'}}>
+                    <PlayfairText style={{color:'black', fontSize: 24, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>An Extrememly Detailed Recipe</PlayfairText>
+                    <RobotoText style={{fontSize: 20, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >by Joe Antongiovanni</RobotoText>
+                  </View>
+            </TouchableScale>
+            <View style={{flex: 1, alignContent:'center'}}>
+              <PlayfairText style={{color:'black', fontSize: 28, marginHorizontal: 20, paddingTop: 20, alignSelf:'flex-start'}}>Explore new recipes</PlayfairText>
+            </View>
+          {/*  <View style={{
               flex: 3,
-              opacity: this.state.fadeValue,
               flexDirection: 'column',
               justifyContent: 'center',
-              paddingHorizontal: 20,
+              padding: 20,
+              margin: 30,
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: 'white',
+              overflow: 'hidden',
+              shadowColor: "#000",
+              shadowOffset: {
+              	width: 0,
+              	height: 2.5,
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: 4.00,
 
+              elevation: 5,
             }}>
-              <PlayfairText style={{fontSize: 46, color: 'white', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
-              <RobotoText style={{fontSize: 16, color: 'white', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
+              <PlayfairText style={{fontSize: 46, color: 'black', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
+              <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
@@ -173,7 +216,8 @@ const homeOffset = [screenHeight];
                 }}>
                 <Text style={styles.buttonText}> Read More </Text>
               </TouchableOpacity>
-            </Animated.View>
+            </View>
+            */}
             <CarouselComponent/>
           </View>
         </SafeAreaView>
@@ -201,6 +245,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  card:{
+    marginHorizontal:20,
+    overflow:'hidden',
+    borderRadius: 12,
+    flex:3,
+    maxHeight: 300,
+    backgroundColor: 'white',
+    flexDirection:'column',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 9,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 11.95,
+    elevation: 18,
+      },
   button: {
     alignItems: 'center',
     padding: 12,
@@ -222,6 +283,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'lightgray',
     fontSize: 18,
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
   },
   getStartedContainer: {},
   developmentModeText: {
