@@ -35,20 +35,20 @@ export class CarouselComponent extends React.Component {
     }
 
     state = {
-      fadeValue: new Animated.Value(0)
+    //  fadeValue: new Animated.Value(0)
     };
 
-    _start = () => {
-      console.log("start car");
-      Animated.timing(this.state.fadeValue, {
-        toValue: 1,
-        delay:700,
-        duration: 700,
-        useNativeDriver: true
-      }).start();
-    };
+    // _start = () => {
+    //   console.log("start car");
+    //   Animated.timing(this.state.fadeValue, {
+    //     toValue: 1,
+    //     delay:700,
+    //     duration: 700,
+    //     useNativeDriver: true
+    //   }).start();
+    // };
     componentDidMount() {
-      this._start();
+      //this._start();
     }
 
     _renderItem({item,index}){
@@ -63,14 +63,21 @@ export class CarouselComponent extends React.Component {
         return (
         <View style={{
           flex: 1,
-          paddingTop: 12,
-          paddingBottom: 12
+          justifyContent: 'flex-start',
+          alignContent: 'flex-start',
+          paddingBottom: 16,
+          marginLeft: 20
         }}>
             <Carousel
                     data={recipes}
+                    useScrollView={false}
+                    useNativeDriver
                     sliderWidth={screenWidth}
-                    itemWidth={screenWidth - 60}
+                    itemWidth={screenWidth - 100}
                     renderItem={this._renderItem}
+                    enableMomentum={true}
+                    activeSlideAlignment={'start'}
+                    removeClippedSubviews={false}
                 />
         </View>
         );
@@ -87,24 +94,27 @@ constructor(props) {
 }
 
   state = {
-    fadeValue: new Animated.Value(0)
+  //  fadeValue: new Animated.Value(0)
   };
 
-  _start = () => {
-    console.log("start");
-    Animated.timing(this.state.fadeValue, {
-      toValue: 1,
-      duration: 700,
-      useNativeDriver: true
-    }).start();
-  };
+  // _start = () => {
+  //   console.log("start");
+  //   Animated.timing(this.state.fadeValue, {
+  //     toValue: 1,
+  //     duration: 700,
+  //     useNativeDriver: true
+  //   }).start();
+  // };
   componentDidMount() {
-    this._start();
+    //this._start();
   }
 
 render(){
 const homeOffset = [screenHeight];
   return (
+    <ScrollView stlye={{flex:1}}
+     scrollEventThrottle={200}
+    directionalLockEnabled={true}>
       <Swiper
         containerStyle={{  width: screenWidth, height: screenHeight }}
         index={1}
@@ -174,7 +184,7 @@ const homeOffset = [screenHeight];
             >
                   <Image
                       source={require('../assets/images/Italian-Sausage-Poutine.jpg')} style={{flex:2, overflow:'hidden',
-                      borderRadius: 12, width: undefined, height: undefined}}
+                      width: undefined, height: undefined}}
                       resizeMode="cover"/>
                   <View style={{flex:1, justifyContent: 'center'}}>
                     <PlayfairText style={{color:'black', fontSize: 24, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>An Extrememly Detailed Recipe</PlayfairText>
@@ -182,7 +192,7 @@ const homeOffset = [screenHeight];
                   </View>
             </TouchableScale>
             <View style={{flex: 1, alignContent:'center'}}>
-              <PlayfairText style={{color:'black', fontSize: 28, marginHorizontal: 20, paddingTop: 20, alignSelf:'flex-start'}}>Explore new recipes</PlayfairText>
+              <PlayfairText style={{color:'black', fontSize: 28, marginHorizontal: 20, paddingTop:30, alignSelf:'flex-start'}}>Explore new recipes</PlayfairText>
             </View>
           {/*  <View style={{
               flex: 3,
@@ -231,6 +241,7 @@ const homeOffset = [screenHeight];
       <DiscoverScreen/>
       </View>
     </Swiper>
+    </ScrollView>
   );
 }
 };
@@ -248,7 +259,6 @@ const styles = StyleSheet.create({
   card:{
     marginHorizontal:20,
     overflow:'hidden',
-    borderRadius: 12,
     flex:3,
     maxHeight: 300,
     backgroundColor: 'white',

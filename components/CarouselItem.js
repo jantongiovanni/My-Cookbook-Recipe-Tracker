@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Image,
   View,
+  Platform
 } from 'react-native';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
@@ -20,8 +21,7 @@ class CarouselItem extends Component {
             friction={7}
             useNativeDriver
             activeOpacity={1}
-            removeClippedSubviews={true}
-            initialScrollIndex={1}
+            initialScrollIndex={0}
             // onPress={() =>
             // navigation.navigate('Details', {
             //     itemId: 1,
@@ -32,7 +32,8 @@ class CarouselItem extends Component {
             // }
             >
                 <Image
-                    source={image} style={{flex:2,  width: undefined, height: undefined}}
+                    source={image} style={{flex:2,  width: undefined, height: undefined, marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
+}}
                     resizeMode="cover"/>
               <View style={{flex:3, justifyContent: 'center'}}>
                 <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{title}</PlayfairText>
