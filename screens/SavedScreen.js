@@ -40,8 +40,8 @@ retrieveData = async () => {
     try{
       var user = firebase.auth().currentUser.uid;
       console.log("user: " + user);
-      //const initialQuery = await db.collection("saved_recipes").where("uid", "==", user).orderBy("createdAt", "desc");
-      const initialQuery = await db.collection("recipes").where("uid", "==", user).orderBy("createdAt", "desc");
+      const initialQuery = await db.collection("saved_recipes").where("uid", "==", user);
+      //const initialQuery = await db.collection("recipes").where("uid", "==", user).orderBy("createdAt", "desc");
       await initialQuery.onSnapshot( snapshot => {
       this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
       });

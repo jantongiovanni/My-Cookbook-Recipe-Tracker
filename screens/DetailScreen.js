@@ -8,13 +8,14 @@ import {
   ActivityIndicator,
   FlatList,
   Modal,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import Gallery from 'react-native-image-gallery';
-import {storage} from '../constants/firebase';
+import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
 
 const { width: screenWidth } = Dimensions.get('window')
@@ -88,6 +89,35 @@ export default class Detail extends React.Component {
     }
   }
 
+  onPressSave = async (item, navigation) => {
+    savedRecipeRef = db.collection('saved_recipes').doc();
+
+    const docData = {
+      uid : firebase.auth().currentUser.uid,
+      recipeRef: item.ref,
+      savedRef : savedRecipeRef,
+      title: item.title,
+      image: item.image,
+      time: item.time
+    }
+    return new Promise(() => {
+      savedRecipeRef.set(docData).then(function() {
+        console.log("Document written");
+        Alert.alert(
+          'Recipe Saved',
+          docData.title + ' was saved successfully',
+          [
+            { text: 'OK'},
+          ],
+          { cancelable: true }
+        );
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+      });
+    });
+  }
+
   render() {
     const { navigation } = this.props
     const item = navigation.getParam('item');
@@ -137,7 +167,7 @@ export default class Detail extends React.Component {
             PlaceholderContent={<ActivityIndicator />}/>
           </TouchableScale>
       }
-      {item.uid === this.state.user &&
+      {item.uid === this.state.user ? (
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -149,7 +179,19 @@ export default class Detail extends React.Component {
           >
             <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
           </TouchableScale>
-        }
+        ) : (
+          <TouchableScale
+            style={styles.saveButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            activeOpacity={1}
+            onPress={() => this.onPressSave(item, navigation)}
+          >
+            <RobotoText style = {styles.saveButtonText} > Add To My Saved Recipes</RobotoText>
+          </TouchableScale>
+        )}
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
           <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
