@@ -113,11 +113,10 @@ constructor(props) {
 render(){
 const homeOffset = [screenHeight];
   return (
-    <ScrollView stlye={{flex:1}}
-     scrollEventThrottle={200}
-    directionalLockEnabled={true}>
+    <View style={{height: '100%',
+    width: '100%',}}>
       <Swiper
-        containerStyle={{  width: screenWidth, height: screenHeight }}
+        containerStyle={{flex:1,  width: screenWidth, height: screenHeight }}
         index={1}
         loop={false}
         showsPagination={false}
@@ -128,7 +127,7 @@ const homeOffset = [screenHeight];
         <NewRecipe/>
       </View>
       <Swiper
-        containerStyle={{ width: screenWidth, height: screenHeight }}
+        containerStyle={{flex:1, width: screenWidth, height: screenHeight }}
         loop={false}
         horizontal={false}
         showsPagination={false}
@@ -233,17 +232,19 @@ const homeOffset = [screenHeight];
           </View>
         </SafeAreaView>
         <View style={styles.container}>
+         <ScrollView style={{flex:1}}>
           {/* swipe down */}
-          <ListItem/>
+            <ListItem/>
+            <SavedScreen/>
+          </ScrollView>
         </View>
       </Swiper>
       <View style={styles.container}>
       {/*  right swipe screen */}
       <DiscoverScreen/>
-      <SavedScreen/>
       </View>
     </Swiper>
-    </ScrollView>
+    </View>
   );
 }
 };

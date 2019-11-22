@@ -9,8 +9,8 @@ import {
 import { PlayfairText } from '../components/StyledText';
 
 const RecipeListPlaceholderComponent = () => (
+<View style={{flex:1}}>
   <ScrollView>
-    <View>
       <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
 
       <Placeholder
@@ -60,8 +60,8 @@ const RecipeListPlaceholderComponent = () => (
         <PlaceholderLine />
         <PlaceholderLine width={30} />
       </Placeholder>
-    </View>
-  </ScrollView>
+    </ScrollView>
+  </View>
 );
 
 export default RecipeListPlaceholderComponent;

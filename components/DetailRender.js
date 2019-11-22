@@ -51,13 +51,14 @@ class DetailRenderComponent extends React.Component {
       )
     }
 
-  onPressDelete = (item, navigation) => {
+  onPressDelete = (item) => {
+    const { navigation } = this.props.nav
     if(item.ref === undefined){
         console.log("cannot delete item in app");
     } else {
       item.ref.delete().then(function() {
             console.log("Document successfully deleted!");
-            navigation.navigate('Home');
+          //  navigation.navigate('Home');
         }).catch(function(error) {
             console.error("Error removing document: ", error);
         });
@@ -154,7 +155,7 @@ class DetailRenderComponent extends React.Component {
             PlaceholderContent={<ActivityIndicator />}/>
           </TouchableScale>
       }
-      {item.uid === this.state.user ? (
+      {item.uid === firebase.auth().currentUser.uid ? (
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -162,7 +163,7 @@ class DetailRenderComponent extends React.Component {
             friction={7}
             useNativeDriver
             activeOpacity={1}
-            onPress={() => this.onPressDelete(item, navigation)}
+            onPress={() => this.onPressDelete(item)}
           >
             <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
           </TouchableScale>
