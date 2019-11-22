@@ -18,6 +18,9 @@ import Gallery from 'react-native-image-gallery';
 import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
 
+import DetailRender from '../components/DetailRender';
+import  DetailPlaceholderComponent from '../components/DetailPlaceholder';
+
 const { width: screenWidth } = Dimensions.get('window')
 
 export default class Detail extends React.Component {
@@ -25,17 +28,49 @@ export default class Detail extends React.Component {
   state = {
     count: 0,
     modalVisible: false,
-    user: ''
+    user: '',
+    savedState: false,
+    isDataFetched : false,
+    item: []
   }
 
   componentDidMount = () => {
     this.getUser();
+    this.getSavedState();
   };
+
 
   getUser = async () => {
     var myuser = firebase.auth().currentUser.uid;
     this.setState({user : myuser, count: 0});
   };
+
+  getSavedState = async () => {
+    const { navigation } = this.props
+    const item = navigation.getParam('item');
+    //this.setState({item: item, isDataFetched: true});
+    if(item.savedRef === undefined){
+      console.log("I am a full recipe");
+
+    } else {
+      console.log("I am a saved recipe");
+      console.log("Retrieving Data");
+      // try{
+      //   var user = firebase.auth().currentUser.uid;
+      //   console.log("user: " + user);
+      //   var docRef = item.recipeRef;
+      //   console.log(docSub);
+      //   this.setState({itemArr: await docRef.get(), isDataFetched: true});
+      //
+      //   // await initialQuery.onSnapshot( snapshot => {
+      //   // this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
+      //   // });
+      //  }
+      // catch (error) {
+      //   console.log(error);
+      // }
+    }
+  }
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -43,210 +78,21 @@ export default class Detail extends React.Component {
     };
   };
 
-  renderIngredients = ({item}) => {
+  render() {
+    const { navigation } = this.props;
+    const {isDataFetched} = this.state;
     return (
-      <View>
-        <RobotoText style={styles.contentText}>{item}</RobotoText>
+      <View style={{flex: 1, paddingTop: 12,}}>
+
+      {isDataFetched ? (
+        <DetailRender item={navigation.getParam('item')}/>
+
+      ) : (
+        <DetailPlaceholderComponent />
+      )}
       </View>
     )
-  }
-
-  renderInstructions = ({item}) => {
-    this.state.count++
-    return (
-        <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
-          <View style={{flexDirection:'column'}}>
-            <PlayfairText style={styles.numberText}>{this.state.count}</PlayfairText>
-          </View>
-          <View style={{flexDirection:'column', paddingLeft: 20}}>
-            <RobotoText style={styles.contentText}>{item}</RobotoText>
-          </View>
-        </View>
-      )
     }
-
-  onPressDelete = (item, navigation) => {
-    if(item.ref === undefined){
-        console.log("cannot delete item in app");
-    } else {
-      item.ref.delete().then(function() {
-            console.log("Document successfully deleted!");
-            navigation.navigate('Home');
-        }).catch(function(error) {
-            console.error("Error removing document: ", error);
-        });
-      if(item.imagePath){
-        console.log("imagePath: " + item.imagePath);
-        const storageRef = storage.ref();
-        photoRef = storageRef.child(item.imagePath);
-        console.log("photo ref " + photoRef);
-        photoRef.delete().then(function() {
-            console.log("File deleted successfully");
-          }).catch(function(error) {
-            console.log("Uh-oh, an error occurred!" + error);
-          });
-      }
-    }
-  }
-
-  onPressSave = async (item, navigation) => {
-    savedRecipeRef = db.collection('saved_recipes').doc();
-
-    const docData = {
-      uid : firebase.auth().currentUser.uid,
-      recipeRef: item.ref,
-      savedRef : savedRecipeRef,
-      title: item.title,
-      image: item.image,
-      time: item.time
-    }
-    return new Promise(() => {
-      savedRecipeRef.set(docData).then(function() {
-        console.log("Document written");
-        Alert.alert(
-          'Recipe Saved',
-          docData.title + ' was saved successfully',
-          [
-            { text: 'OK'},
-          ],
-          { cancelable: true }
-        );
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-      });
-    });
-  }
-
-  render() {
-    const { navigation } = this.props
-    const item = navigation.getParam('item');
-
-    return (
-      <ScrollView>
-      {/* ------ Fullscreen Gallery Modal ------- */}
-        <View style={{marginTop: 22}}>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              console.log('Modal has been closed.');
-              this.setState({modalVisible: false, count:0});
-            }}
-            >
-            <TouchableOpacity style={{ position: 'absolute',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0, backgroundColor: 'rgba(52, 52, 52, 0.85)'}}
-              onPress={() => {console.log("pressed"); this.setState({modalVisible: false, count:0});}}>
-            </TouchableOpacity>
-          <Gallery
-             onSingleTapConfirmed={()=> {console.log("pressed"); this.setState({modalVisible: false, count:0});}}
-             images={[
-              {source: { uri: item.image }},
-              {source: { uri: item.image }},
-              {source: { uri: item.image }}
-             ]}
-           />
-         </Modal>
-        </View>
-      {item.image !== null &&
-        <TouchableScale
-          activeScale={0.95}
-          tension={150}
-          friction={7}
-          useNativeDriver
-          activeOpacity={1}
-          onPress={() =>  this.setState({modalVisible: true})}
-        >
-          <Image source={{uri: item.image}}
-            style={styles.topImage}
-            resizeMode="cover"
-            PlaceholderContent={<ActivityIndicator />}/>
-          </TouchableScale>
-      }
-      {item.uid === this.state.user ? (
-          <TouchableScale
-            style={styles.saveButton}
-            activeScale={0.95}
-            tension={150}
-            friction={7}
-            useNativeDriver
-            activeOpacity={1}
-            onPress={() => this.onPressDelete(item, navigation)}
-          >
-            <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
-          </TouchableScale>
-        ) : (
-          <TouchableScale
-            style={styles.saveButton}
-            activeScale={0.95}
-            tension={150}
-            friction={7}
-            useNativeDriver
-            activeOpacity={1}
-            onPress={() => this.onPressSave(item, navigation)}
-          >
-            <RobotoText style = {styles.saveButtonText} > Add To My Saved Recipes</RobotoText>
-          </TouchableScale>
-        )}
-        <View style={styles.container}>
-          <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
-          <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
-            <View style={{flexDirection:'column'}}>
-              <RobotoText style={styles.contentText}>Time:</RobotoText>
-              <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
-            </View>
-            <View style={{flexDirection:'column', paddingLeft: 20}}>
-              <RobotoText style={styles.contentText}>Makes:</RobotoText>
-              <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
-            </View>
-          </View>
-          {item.description !== '' &&
-            <View>
-              <View style={styles.line}/>
-              <PlayfairText style={styles.subtitleText}>Description</PlayfairText>
-              <RobotoText style={styles.contentText}>{item.description}</RobotoText>
-              </View>
-          }
-
-          {item.ingredients.length > 0 &&
-            <View>
-              <View style={styles.line}/>
-              <FlatList
-                ListHeaderComponent = {
-                  <PlayfairText style={styles.subtitleText}>Ingredients</PlayfairText>}
-                data={item.ingredients}
-                renderItem={this.renderIngredients}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
-          }
-          {item.notes !== '' &&
-            <View>
-              <View style={styles.line}/>
-              <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
-              <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
-            </View>
-          }
-          {item.instructions.length > 0 &&
-            <View>
-              <View style={styles.line}/>
-              <FlatList
-                ListHeaderComponent = {
-                  <PlayfairText style={styles.subtitleText}>Directions</PlayfairText>}
-                data={item.instructions}
-                renderItem={this.renderInstructions}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
-          }
-        </View>
-      </ScrollView>
-    );
-  }
 }
 
 const styles = StyleSheet.create({
