@@ -51,6 +51,7 @@ export default class Detail extends React.Component {
     //this.setState({item: item, isDataFetched: true});
     if(item.savedRef === undefined){
       console.log("I am a full recipe");
+      this.setState({item: item, isDataFetched: true});
 
     } else {
       console.log("I am a saved recipe");
@@ -80,19 +81,18 @@ export default class Detail extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const {isDataFetched} = this.state;
+    const {isDataFetched, item} = this.state;
+
     return (
-      <View style={{flex: 1, paddingTop: 12,}}>
-
-      {isDataFetched ? (
-        <DetailRender item={navigation.getParam('item')}/>
-
-      ) : (
-        <DetailPlaceholderComponent />
-      )}
+      <View style={{flex: 1}}>
+        {isDataFetched ? (
+          <DetailRender item={item} nav={navigation}/>
+        ) : (
+          <DetailPlaceholderComponent />
+        )}
       </View>
     )
-    }
+  }
 }
 
 const styles = StyleSheet.create({

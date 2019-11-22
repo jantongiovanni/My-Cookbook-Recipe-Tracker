@@ -22,6 +22,12 @@ import firebase from 'firebase';
 const { width: screenWidth } = Dimensions.get('window')
 
 class DetailRenderComponent extends React.Component {
+  state = {
+    count: 0,
+    user: '',
+    modalVisible: false,
+    item: this.props.item
+  }
 
   renderIngredients = ({item}) => {
     return (
@@ -99,7 +105,10 @@ class DetailRenderComponent extends React.Component {
   }
 
   render () {
-
+    const item = this.state.item;
+    const { navigation } = this.props.nav;
+    console.log("ive gotten here");
+    console.log(item.title);
     return (
       <ScrollView>
       {/* ------ Fullscreen Gallery Modal ------- */}
@@ -221,9 +230,6 @@ class DetailRenderComponent extends React.Component {
               />
             </View>
           }
-        </View>
-        <View>
-          <PlayfairText style={styles.subtitleText}>Loading</PlayfairText>}
         </View>
       </ScrollView>
       )
