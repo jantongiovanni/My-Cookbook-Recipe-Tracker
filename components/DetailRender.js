@@ -102,6 +102,7 @@ class DetailRenderComponent extends React.Component {
         .catch(function(error) {
             console.error("Error adding document: ", error);
       });
+      item.ref.update({saved_refs : firebase.firestore.FieldValue.arrayUnion(savedRecipeRef)});
     });
   }
 
