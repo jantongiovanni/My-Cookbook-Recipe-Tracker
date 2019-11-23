@@ -40,10 +40,24 @@ import ListItem from '../components/ListItem';
 //   }
 // );
 
+const DiscoverStack = createStackNavigator(
+  {
+      Discover: {screen: DiscoverScreen},
+      Details: {screen: DetailScreen}
+  }
+);
+
+const RecipeStack = createStackNavigator(
+  {
+      Recipes: {screen: ListItem},
+      Details: {screen: DetailScreen}
+  }
+);
+
 const TabNav = createBottomTabNavigator(
   {
     Discover:{
-      screen: DiscoverScreen,
+      screen: DiscoverStack,
       navigationOptions: {
         tabBarIcon: () => <FontAwesome5 name="home" size={24} color="#CDCCCE" />
       }
@@ -55,7 +69,7 @@ const TabNav = createBottomTabNavigator(
       }
     },
     Recipes:{
-      screen: ListItem,
+      screen: RecipeStack,
       navigationOptions: {
         tabBarIcon: () => <FontAwesome5 name="user" size={24} color="#CDCCCE" />
       }

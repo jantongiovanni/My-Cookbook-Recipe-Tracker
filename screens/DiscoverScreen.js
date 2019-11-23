@@ -18,6 +18,9 @@ import {db} from '../constants/firebase';
 import firebase from 'firebase';
 
 class DiscoverScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    header: null,
+  });
   //limitation of firestore queries makes != operations impossile.
   //necessary to split into seperate queries and combine on the client side
   state = {

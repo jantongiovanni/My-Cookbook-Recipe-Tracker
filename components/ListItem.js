@@ -14,7 +14,9 @@ import firebase from 'firebase';
 //https://levelup.gitconnected.com/react-native-firebase-cloud-firestore-implementing-infinite-scroll-lazy-loading-with-flatlist-a9e942cf66c6
 
 class ListItem extends Component {
-
+  static navigationOptions = ({ navigation }) => ({
+    header: null,
+  });
   state = {
     isDataFetched: false,
     itemArr: []
