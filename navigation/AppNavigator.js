@@ -3,36 +3,72 @@ import { View } from 'react-native';
 import { createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import HomeScreen from '../screens/HomeScreen';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {FontAwesome5} from '@expo/vector-icons';
+
+//import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import CreateRecipe from '../screens/CreateRecipeScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
-import {springyFadeIn} from '../transitions/springyFadeIn';
+import DiscoverScreen from '../screens/DiscoverScreen';
+import ListItem from '../components/ListItem';
 
-const RootStack = createStackNavigator(
+//import {springyFadeIn} from '../transitions/springyFadeIn';
+
+// const RootStack = createStackNavigator(
+//   {
+//     Home: HomeScreen,
+//     Details: DetailScreen,
+//     Create: CreateRecipe,
+//   },
+//   {
+//     initialRouteName: 'Home',
+//     /* The header config from HomeScreen is now here */
+//     defaultNavigationOptions: {
+//       headerStyle: {
+//         backgroundColor: '#f6b425',
+//       },
+//       headerTintColor: '#fff',
+//       headerTitleStyle: {
+//         fontWeight: 'bold',
+//       },
+//     },
+//   },
+//   {
+//     transitionConfig: () => springyFadeIn(),
+//   }
+// );
+
+const TabNav = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Details: DetailScreen,
-    Create: CreateRecipe,
-  },
-  {
-    initialRouteName: 'Home',
-    /* The header config from HomeScreen is now here */
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#f6b425',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
+    Discover:{
+      screen: DiscoverScreen,
+      navigationOptions: {
+        tabBarIcon: () => <FontAwesome5 name="home" size={24} color="#CDCCCE" />
+      }
     },
+    Create:{
+      screen: CreateRecipe,
+      navigationOptions: {
+        tabBarIcon: () => <FontAwesome5 name="plus" size={24} color="#CDCCCE" />
+      }
+    },
+    Recipes:{
+      screen: ListItem,
+      navigationOptions: {
+        tabBarIcon: () => <FontAwesome5 name="user" size={24} color="#CDCCCE" />
+      }
+    },
+
   },
   {
-    transitionConfig: () => springyFadeIn(),
+      tabBarOptions: {
+        showLabel: false
+      }
   }
-);
+)
+
 
 const AuthSwitchNav = createSwitchNavigator ({
   Loading: LoadingScreen,
@@ -41,7 +77,7 @@ const AuthSwitchNav = createSwitchNavigator ({
 
 const AppSwitchNav = createSwitchNavigator ({
   Auth: AuthSwitchNav,
-  App : RootStack
+  App : TabNav
 })
 
 const AppContainer = createAppContainer(AppSwitchNav);
