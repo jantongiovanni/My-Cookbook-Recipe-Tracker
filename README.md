@@ -53,8 +53,8 @@ This is a work in progress and some aspects are not representative of the final 
 - [ ] Facebook login
 - [ ] Email verification
 - [ ] User Discovery
-  -[ ] Find other users
-  -[ ] Able to follow other users
+  - [ ] Find other users
+  - [ ] Able to follow other users
 - [ ] Ad integration
   
 ## Deploy:
