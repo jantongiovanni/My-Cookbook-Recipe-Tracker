@@ -13,12 +13,10 @@ This is a work in progress and some aspects are not representative of the final 
 ## Features of the app so far:
 
 - [x] Home Screen
-  - [x] Video loop background
   - [x] Search bar
   - [x] Main suggested recipe
-  - [x] Horizontal scroll recipe cards
-  - [x] Horizontal/Vertical swipe to new pages
-  - [x] Swipe snaps to pages
+  - [x] Recipe cards
+  - [x] Swipe to new pages
 - [x] Animated Touch Feedback
 - [x] Firebase Firestore backend 
 - [x] List of recipes pull from Firestore
@@ -33,22 +31,30 @@ This is a work in progress and some aspects are not representative of the final 
   - [x] Image picker w/ permissions 
   - [x] Photo saved in Firestore Storage
   - [x] Post saved in Firestore Database
+  - [x] Recipes can be toggled public/private
 - [x] Recipe deletion
   - [x] Deletion of post deletes associated image
-  
+- [x] User Authentication
+  - [x] Login/Logout using Google Account (more to come)
+  - [x] User persists app restarts
+  - [x] Automatic Auth flow
+  - [x] User can see all of their own recipes
+  - [x] User page
+- [x] Discover recipes created by other users
+- [x] Save recipes created by other users
+ 
 ## Work In Progress / To-Do:
 
-- [ ] Recipe variations
+- [ ] Save recipe drafts
 - [ ] Ability to edit a recipe once posted
 - [ ] Check off ingredients and steps
-- [ ] User Authentication
-  - [ ] user id linked with recipe
-  - [ ] user can only see their own recipes
-  - [ ] user page
-  - [ ] find other users
-- [ ] Liking a recipe
-- [ ] Filters
-- [ ] Seperate recipe categories (ie. My Recipes, Liked, Suggested)
+- [ ] Filter recipes by category, tag, etc
+- [ ] Show Recently viewed
+- [ ] Facebook login
+- [ ] Email verification
+- [ ] User Discovery
+  -[ ] Find other users
+  -[ ] Able to follow other users
 - [ ] Ad integration
   
 ## Deploy:
