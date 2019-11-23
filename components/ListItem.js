@@ -8,12 +8,7 @@ import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
-
 import RecipeListPlaceholderComponent from '../components/RecipeListPlaceholder';
-//import {recipes, fullRecipes} from '../data/DataArray';
-//import {getRecipes} from '../data/MockDataAPI';
-
-//Access Firebase data
 import {db} from '../constants/firebase';
 import firebase from 'firebase';
 //https://levelup.gitconnected.com/react-native-firebase-cloud-firestore-implementing-infinite-scroll-lazy-loading-with-flatlist-a9e942cf66c6
@@ -36,7 +31,7 @@ class ListItem extends Component {
 };
 
 retrieveData = async () => {
-    console.log("Retrieving Data");
+    console.log("Retrieving Data: Users Recipes");
     try{
       var user = firebase.auth().currentUser.uid;
       console.log("user: " + user);

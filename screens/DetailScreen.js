@@ -31,7 +31,6 @@ export default class Detail extends React.Component {
   getSavedState = async () => {
     const { navigation } = this.props
     const item = navigation.getParam('item');
-    //this.setState({item: item, isDataFetched: true});
     if(item.savedRef === undefined){
       console.log("I am a full recipe");
       this.setState({item: item, isDataFetched: true});
@@ -43,11 +42,8 @@ export default class Detail extends React.Component {
         var user = firebase.auth().currentUser.uid;
         console.log("user: " + user);
         var docRef = item.recipeRef;
-        //var docRef = db.collection("recipes").doc("Bow3GEc7quuz6srBkjNr");
-        //console.log(db.docRef.get());
         await docRef.get().then((doc) => {
             if (doc.exists) {
-                //console.log("Document data:", doc.data());
                 this.setState({item: doc.data(), isDataFetched: true});
             } else {
                 // doc.data() will be undefined in this case
@@ -56,11 +52,6 @@ export default class Detail extends React.Component {
         }).catch(function(error) {
             console.log("Error getting document:", error);
         });
-
-
-        // await initialQuery.onSnapshot( snapshot => {
-        // this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
-        // });
        }
       catch (error) {
         console.log(error);

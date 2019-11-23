@@ -8,8 +8,6 @@ import DetailScreen from '../screens/DetailScreen';
 import CreateRecipe from '../screens/CreateRecipeScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
-
-import {app} from '../constants/firebase';
 import {springyFadeIn} from '../transitions/springyFadeIn';
 
 const RootStack = createStackNavigator(
@@ -47,8 +45,6 @@ const AppSwitchNav = createSwitchNavigator ({
 })
 
 const AppContainer = createAppContainer(AppSwitchNav);
-
-//const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component {
   render() {

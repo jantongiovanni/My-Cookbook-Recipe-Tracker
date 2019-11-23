@@ -10,10 +10,6 @@ import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
 
 import RecipeListPlaceholderComponent from '../components/RecipeListPlaceholder';
-//import {recipes, fullRecipes} from '../data/DataArray';
-//import {getRecipes} from '../data/MockDataAPI';
-
-//Access Firebase data
 import {db} from '../constants/firebase';
 import firebase from 'firebase';
 //https://levelup.gitconnected.com/react-native-firebase-cloud-firestore-implementing-infinite-scroll-lazy-loading-with-flatlist-a9e942cf66c6
@@ -36,14 +32,13 @@ class SavedScreen extends Component {
 };
 
 retrieveData = async () => {
-    console.log("Retrieving Saved Data");
+    console.log("Retrieving Data: Saved Recipes");
     try{
       var user = firebase.auth().currentUser.uid;
       console.log("user: " + user);
       const initialQuery = await db.collection("saved_recipes").where("uid", "==", user);
-      //const initialQuery = await db.collection("recipes").where("uid", "==", user).orderBy("createdAt", "desc");
       await initialQuery.onSnapshot( snapshot => {
-      this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
+        this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched: true });
       });
     }
     catch (error) {

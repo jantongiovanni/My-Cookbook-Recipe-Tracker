@@ -139,25 +139,6 @@ const homeOffset = [screenHeight];
         <ProfileSceen/>
       </View>
         <SafeAreaView style={styles.container}>
-
-            {/* <Image
-            source={require('../assets/images/Italian-Sausage-Poutine.jpg')}
-            resizeMode="contain"
-            fadeDuration={0}
-            //source={require('../assets/videos/Chinese.mp4')}
-            style={{ position: 'absolute',
-            top: 0,
-            left: -150,
-            bottom: 0,
-            right: 0,}}
-          />
-            <View style={{ position: 'absolute',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0, backgroundColor: 'rgba(52, 52, 52, 0.15)'}}>
-            </View>
-            */}
           <View style={{    flex: 1,
               paddingTop: 12,
               justifyContent: 'space-around',
@@ -194,40 +175,6 @@ const homeOffset = [screenHeight];
             <View style={{flex: 1, alignContent:'center'}}>
               <PlayfairText style={{color:'black', fontSize: 28, marginHorizontal: 20, paddingTop:30, alignSelf:'flex-start'}}>Explore new recipes</PlayfairText>
             </View>
-          {/*  <View style={{
-              flex: 3,
-              flexDirection: 'column',
-              justifyContent: 'center',
-              padding: 20,
-              margin: 30,
-              borderRadius: 8,
-              borderWidth: 1,
-              borderColor: 'white',
-              overflow: 'hidden',
-              shadowColor: "#000",
-              shadowOffset: {
-              	width: 0,
-              	height: 2.5,
-              },
-              shadowOpacity: 0.3,
-              shadowRadius: 4.00,
-
-              elevation: 5,
-            }}>
-              <PlayfairText style={{fontSize: 46, color: 'black', paddingBottom: 14}}>Shrimp Hot Pot with Tofu</PlayfairText>
-              <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400',paddingBottom: 20}}>This is a classic, healthy Asian dish that is quick and easy to make! </RobotoText>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate('Details', {
-                    itemId: 1,
-                    otherParam: 'test param',
-                  });
-                }}>
-                <Text style={styles.buttonText}> Read More </Text>
-              </TouchableOpacity>
-            </View>
-            */}
             <CarouselComponent/>
           </View>
         </SafeAreaView>

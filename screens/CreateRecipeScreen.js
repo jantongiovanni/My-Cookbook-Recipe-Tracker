@@ -18,7 +18,6 @@ import { withNavigation } from 'react-navigation'
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-//import ListItem from '../components/ListItem';
 import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
 
@@ -176,11 +175,9 @@ class CreateRecipe extends Component {
   joinIngredientData = () => {
     this.state.ingredients.push(this.state.ingredientsHolder);
     this.setState({ingredientsHolder: ''})
-    //console.log("time " + db.Timestamp.now().toMillis());
   }
 
   renderIngredients = ({item}) => {
-  //  console.log(item);
     return (
       <View>
         <RobotoText style={styles.contentText}>{item}</RobotoText>
@@ -194,7 +191,6 @@ class CreateRecipe extends Component {
   }
 
   renderDirections = ({item}) => {
-  //  console.log(item);
     return (
       <View>
         <RobotoText style={styles.contentText}>{item}</RobotoText>
