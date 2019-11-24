@@ -30,62 +30,6 @@ import {recipes} from '../data/DataArray';
 const { width: screenWidth } = Dimensions.get('window')
 const { height: screenHeight} = Dimensions.get('window')
 
-export class CarouselComponent extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
-    state = {
-    //  fadeValue: new Animated.Value(0)
-    };
-
-    // _start = () => {
-    //   console.log("start car");
-    //   Animated.timing(this.state.fadeValue, {
-    //     toValue: 1,
-    //     delay:700,
-    //     duration: 700,
-    //     useNativeDriver: true
-    //   }).start();
-    // };
-    componentDidMount() {
-      //this._start();
-    }
-
-    _renderItem({item,index}){
-        return (
-          <CarouselItem
-            data = {item}
-          />
-        )
-    }
-
-    render() {
-        return (
-        <View style={{
-          flex: 1,
-          justifyContent: 'flex-start',
-          alignContent: 'flex-start',
-          paddingBottom: 16,
-          marginLeft: 20
-        }}>
-            <Carousel
-                    data={recipes}
-                    useScrollView={false}
-                    useNativeDriver
-                    sliderWidth={screenWidth}
-                    itemWidth={screenWidth - 100}
-                    renderItem={this._renderItem}
-                    enableMomentum={true}
-                    activeSlideAlignment={'start'}
-                    removeClippedSubviews={false}
-                />
-        </View>
-        );
-    }
-}
-
-
 export default class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   header: null,

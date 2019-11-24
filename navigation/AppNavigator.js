@@ -11,10 +11,10 @@ import DetailScreen from '../screens/DetailScreen';
 import CreateRecipe from '../screens/CreateRecipeScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
-import DiscoverScreen from '../screens/DiscoverScreen';
+//import DiscoverScreen from '../screens/DiscoverScreen';
 import ListItem from '../components/ListItem';
-
-import AddButton from '../components/AddButton';
+//import AddButton from '../components/AddButton';
+import HomeContainer from '../components/HomeContainer';
 //import {springyFadeIn} from '../transitions/springyFadeIn';
 
 // const RootStack = createStackNavigator(
@@ -43,7 +43,7 @@ import AddButton from '../components/AddButton';
 
 const DiscoverStack = createStackNavigator(
   {
-      Discover: {screen: DiscoverScreen},
+      Discover: {screen: HomeContainer},
       Details: {screen: DetailScreen}
   }
 );
@@ -60,10 +60,11 @@ const TabNav = createBottomTabNavigator(
     Discover:{
       screen: DiscoverStack,
       navigationOptions: {
-        tabBarIcon: ({ focused, tintColor }) => {focused ?
-          <FontAwesome5 name="home" size={24} color="#f6b425" />
+        tabBarIcon: ({ focused, tintColor }) => {
+          focused ?
+            <FontAwesome5 name="home" size={24} color="#f6b425" />
           :
-          <FontAwesome5 name="home" size={24} color="#CDCCCE" />
+            <FontAwesome5 name="home" size={24} color="#CDCCCE" />
       }
     }
   },

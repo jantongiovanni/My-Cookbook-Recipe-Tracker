@@ -94,9 +94,9 @@ render () {
       <View style={{flex: 1, paddingTop: 12,}}>
       {isDataFetched1 && isDataFetched2 ? (
         <FlatList
-          ListHeaderComponent = {
-            <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Discover</PlayfairText>
-          }
+          // ListHeaderComponent = {
+          //   <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Discover</PlayfairText>
+          // }
 
           data={ this.state.itemArr.concat(this.state.itemArr2) }
           renderItem={this.renderRecipes}
