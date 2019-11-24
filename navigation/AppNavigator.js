@@ -14,6 +14,7 @@ import LoginScreen from '../screens/LoginScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import ListItem from '../components/ListItem';
 
+import AddButton from '../components/AddButton';
 //import {springyFadeIn} from '../transitions/springyFadeIn';
 
 // const RootStack = createStackNavigator(
@@ -59,13 +60,18 @@ const TabNav = createBottomTabNavigator(
     Discover:{
       screen: DiscoverStack,
       navigationOptions: {
-        tabBarIcon: () => <FontAwesome5 name="home" size={24} color="#CDCCCE" />
+        tabBarIcon: ({ focused, tintColor }) => {focused ?
+          <FontAwesome5 name="home" size={24} color="#f6b425" />
+          :
+          <FontAwesome5 name="home" size={24} color="#CDCCCE" />
       }
-    },
-    Create:{
+    }
+  },
+
+    Add: {
       screen: CreateRecipe,
       navigationOptions: {
-        tabBarIcon: () => <FontAwesome5 name="plus" size={24} color="#CDCCCE" />
+          tabBarIcon: () => <FontAwesome5 name="plus" size={24} color="#CDCCCE" />
       }
     },
     Recipes:{
@@ -78,8 +84,10 @@ const TabNav = createBottomTabNavigator(
   },
   {
       tabBarOptions: {
-        showLabel: false
-      }
+        showLabel: false,
+        activeTintColor: "#f6b425",
+        inactiveTintColor: "#CDCCCE",
+      },
   }
 )
 
