@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   View,
@@ -13,8 +13,10 @@ import {db} from '../constants/firebase';
 import firebase from 'firebase';
 //https://levelup.gitconnected.com/react-native-firebase-cloud-firestore-implementing-infinite-scroll-lazy-loading-with-flatlist-a9e942cf66c6
 
-class ListItem extends Component {
-
+class ListItem extends React.PureComponent {
+  static navigationOptions = ({ navigation }) => ({
+    header: null,
+  });
   state = {
     isDataFetched: false,
     itemArr: []

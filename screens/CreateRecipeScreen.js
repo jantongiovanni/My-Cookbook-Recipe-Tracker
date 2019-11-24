@@ -109,7 +109,7 @@ class CreateRecipe extends Component {
           { cancelable: true }
         );
       } else {
-      navigation.navigate('Home')
+      navigation.navigate('Discover');
       recipeRef = db.collection('recipes').doc();
        if(this.state.image !== null){
          console.log("not null!");
