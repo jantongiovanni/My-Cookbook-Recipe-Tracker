@@ -60,26 +60,28 @@ const TabNav = createBottomTabNavigator(
     Discover:{
       screen: DiscoverStack,
       navigationOptions: {
-        tabBarIcon: () => <FontAwesome5 name="home" size={24} color="#CDCCCE" />
-      //    ({ focused, tintColor }) => {
-      //     focused ?
-      //       <FontAwesome5 name="home" size={24} color="#f6b425" />
-      //     :
-      //       <FontAwesome5 name="home" size={24} color="#CDCCCE" />
-      // }
+        tabBarIcon: ({tintColor}) => <FontAwesome5 name="home" size={24} color={tintColor} />
     }
   },
 
     Add: {
       screen: CreateRecipe,
       navigationOptions: {
-          tabBarIcon: () => <FontAwesome5 name="plus" size={24} color="#CDCCCE" />
+          tabBarIcon: () => <FontAwesome5 name="plus-circle" size={40} color="#f6b425"
+          style={{
+            shadowColor: "#f6b425",
+            shadowOffset: {width: 0, height: 0},
+            shadowRadius: 8,
+            shadowOpacity: 0.5,
+            elevation: 3,
+            zIndex: 999
+          }}/>
       }
     },
     Recipes:{
       screen: RecipeStack,
       navigationOptions: {
-        tabBarIcon: () => <FontAwesome5 name="user" size={24} color="#CDCCCE" />
+        tabBarIcon: ({tintColor}) => <FontAwesome5 name="user" size={24} color={tintColor} />
       }
     },
 
@@ -87,8 +89,8 @@ const TabNav = createBottomTabNavigator(
   {
       tabBarOptions: {
         showLabel: false,
-        activeTintColor: "#f6b425",
-        inactiveTintColor: "#CDCCCE",
+        activeTintColor: "#161f3d",
+        inactiveTintColor: "#b8bbc4",
       },
   }
 )
