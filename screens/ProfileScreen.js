@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Button, StyleSheet, Text} from 'react-native';
+import { View, Button, StyleSheet, Text, Image, SafeAreaView} from 'react-native';
 import firebase from 'firebase';
 import { RobotoText } from '../components/StyledText';
 
@@ -12,7 +12,7 @@ class ProfileScreen extends Component {
     this.state = {
       name: '',
       email: '',
-      photoUrl : '',
+      photoURL : '',
       emailVerified : '',
       uid : ''
     }
@@ -28,11 +28,10 @@ componentDidMount(){
       this.setState({
         name : user.displayName,
         email : user.email,
-        photoUrl : user.photoURL,
+        photoURL : user.photoURL,
         emailVerified : user.emailVerified,
         uid : user.uid
       });
-
     } else {
       console.log("null user");
     }
@@ -40,25 +39,28 @@ componentDidMount(){
 
   render() {
     return (
-      <View style = {styles.container}>
-        <Button title="Sign Out"
-          onPress={() => firebase.auth().signOut() }/>
-        <RobotoText style={styles.smallText}>
-          {this.state.name}
-        </RobotoText>
-        <RobotoText style={styles.smallText}>
-          {this.state.email}
-        </RobotoText>
-        <RobotoText style={styles.smallText}>
-          {this.state.photoUrl}
-        </RobotoText>
-        <RobotoText style={styles.smallText}>
-          {this.state.emailVerified ? "true" : "false"}
-        </RobotoText>
-        <RobotoText style={styles.smallText}>
-          {this.state.uid}
-        </RobotoText>
+      <View style={{flex:1, paddingTop:40, paddingBottom: 20}}>
+        <View style = {styles.container}>
+          <Image
+            source={{ uri: this.state.photoURL}}
+            style={{width: 60, height: 60, borderRadius: 60/ 2}}
+          />
+          <View style={{flexDirection: 'column'}}>
+            <View style={{flexDirection: 'row'}}>
+              <RobotoText style={styles.smallText}>
+                {this.state.name}
+              </RobotoText>
+              <RobotoText style={styles.smallText}>
+                {this.state.email}
+              </RobotoText>
+            </View>
+          <View style={{paddingTop: 20}}>
+            <Button title="Sign Out"
+              onPress={() => firebase.auth().signOut() }/>
+          </View>
+        </View>
       </View>
+    </View>
     );
   }
 }
@@ -67,8 +69,9 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent:'space-around',
   },
   smallText : {
     fontSize: 16,
