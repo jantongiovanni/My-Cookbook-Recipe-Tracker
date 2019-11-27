@@ -87,12 +87,13 @@ const TabNav = createBottomTabNavigator(
 
   },
   {
+      lazy: false,
       tabBarOptions: {
         showLabel: false,
         activeTintColor: "#161f3d",
         inactiveTintColor: "#b8bbc4",
       },
-  }
+  },
 )
 
 
