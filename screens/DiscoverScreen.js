@@ -9,7 +9,7 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
 
-import RecipeListPlaceholderComponent from '../components/RecipeListPlaceholder';
+import RecipeListPlaceholderComponent from '../components/Placeholders/RecipeListPlaceholder';
 //import {recipes, fullRecipes} from '../data/DataArray';
 //import {getRecipes} from '../data/MockDataAPI';
 

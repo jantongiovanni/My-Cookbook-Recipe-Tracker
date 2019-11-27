@@ -9,7 +9,7 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation } from 'react-navigation'
 
-import RecipeListPlaceholderComponent from '../components/RecipeListPlaceholder';
+import RecipeListPlaceholderComponent from '../components/Placeholders/RecipeListPlaceholder';
 import {db} from '../constants/firebase';
 import firebase from 'firebase';
 //https://levelup.gitconnected.com/react-native-firebase-cloud-firestore-implementing-infinite-scroll-lazy-loading-with-flatlist-a9e942cf66c6

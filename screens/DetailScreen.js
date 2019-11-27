@@ -6,7 +6,7 @@ import {
 import firebase from 'firebase';
 
 import DetailRender from '../components/DetailRender';
-import  DetailPlaceholderComponent from '../components/DetailPlaceholder';
+import  DetailPlaceholderComponent from '../components/Placeholders/DetailPlaceholder';
 
 export default class Detail extends React.Component {
 

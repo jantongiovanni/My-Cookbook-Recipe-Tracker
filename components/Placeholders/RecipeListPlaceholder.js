@@ -6,7 +6,7 @@ import {
   PlaceholderLine,
   ShineOverlay,
 } from 'rn-placeholder';
-import { PlayfairText } from '../components/StyledText';
+import { PlayfairText } from '../../components/StyledText';
 
 const RecipeListPlaceholderComponent = () => (
 <View style={{flex:1}}>
