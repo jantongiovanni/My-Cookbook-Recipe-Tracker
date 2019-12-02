@@ -115,21 +115,34 @@ class CreateRecipe extends Component {
          console.log("not null!");
          this.state.remoteUri = await this.uploadPhotoAsync(this.state.image);
         }
+
        const docData = {
          uid : firebase.auth().currentUser.uid,
          ref: recipeRef,
          title: this.state.title,
-         time: this.state.time,
-         description: this.state.description,
          ingredients: this.state.ingredients,
          instructions: this.state.directions,
-         makes: this.state.makes,
-         notes: this.state.notes,
          image: this.state.remoteUri,
          imagePath: this.state.imagePath,
          createdAt: Date.now(),
          isPublic: this.state.isPublic
        }
+       if(this.state.time !== ''){
+         docData.time = this.state.time;
+       }
+       if(this.state.description !== ''){
+         docData.description = this.state.description;
+       }
+       if(this.state.notes !== ''){
+         docData.notes = this.state.notes;
+       }
+       if(this.state.makes !== ''){
+         docData.makes = this.state.makes;
+       }
+       if(this.state.time !== ''){
+         docData.time = this.state.time;
+       }
+
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");

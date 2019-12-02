@@ -184,21 +184,25 @@ class DetailRenderComponent extends React.Component {
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
           <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
-            <View style={{flexDirection:'column'}}>
-              <RobotoText style={styles.contentText}>Time:</RobotoText>
-              <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
-            </View>
-            <View style={{flexDirection:'column', paddingLeft: 20}}>
-              <RobotoText style={styles.contentText}>Makes:</RobotoText>
-              <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
-            </View>
+            {item.hasOwnProperty("time") &&
+              <View style={{flexDirection:'column'}}>
+                <RobotoText style={styles.contentText}>Time:</RobotoText>
+                <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
+              </View>
+            }
+            {item.hasOwnProperty("makes") &&
+              <View style={{flexDirection:'column', paddingLeft: 20}}>
+                <RobotoText style={styles.contentText}>Makes:</RobotoText>
+                <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
+              </View>
+            }
           </View>
-          {item.description !== '' &&
+          {item.hasOwnProperty("description") &&
             <View>
               <View style={styles.line}/>
               <PlayfairText style={styles.subtitleText}>Description</PlayfairText>
               <RobotoText style={styles.contentText}>{item.description}</RobotoText>
-              </View>
+            </View>
           }
 
           {item.ingredients.length > 0 &&
@@ -213,7 +217,7 @@ class DetailRenderComponent extends React.Component {
               />
             </View>
           }
-          {item.notes !== '' &&
+          {item.hasOwnProperty("notes") &&
             <View>
               <View style={styles.line}/>
               <PlayfairText style={styles.subtitleText}>Notes</PlayfairText>
