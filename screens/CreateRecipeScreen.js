@@ -120,10 +120,6 @@ class CreateRecipe extends Component {
          uid : firebase.auth().currentUser.uid,
          ref: recipeRef,
          title: this.state.title,
-         ingredients: this.state.ingredients,
-         instructions: this.state.directions,
-         image: this.state.remoteUri,
-         imagePath: this.state.imagePath,
          createdAt: Date.now(),
          isPublic: this.state.isPublic
        }
@@ -141,6 +137,18 @@ class CreateRecipe extends Component {
        }
        if(this.state.time !== ''){
          docData.time = this.state.time;
+       }
+       if(this.state.ingredients.length > 0){
+         docData.ingredients = this.state.ingredients;
+       }
+       if(this.state.directions.length > 0){
+         docData.instructions = this.state.directions;
+       }
+       if(this.state.image !== null){
+         docData.image = this.state.image;
+       }
+       if(this.state.imagePath !== ''){
+         docData.imagePath = this.state.imagePath;
        }
 
        return new Promise(() => {

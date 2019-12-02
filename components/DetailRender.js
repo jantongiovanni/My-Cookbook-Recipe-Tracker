@@ -141,7 +141,7 @@ class DetailRenderComponent extends React.Component {
            />
          </Modal>
         </View>
-      {item.image !== null &&
+      {item.hasOwnProperty("image") &&
         <TouchableScale
           activeScale={0.95}
           tension={150}
@@ -205,7 +205,7 @@ class DetailRenderComponent extends React.Component {
             </View>
           }
 
-          {item.ingredients.length > 0 &&
+          {item.hasOwnProperty("ingredients") &&
             <View>
               <View style={styles.line}/>
               <FlatList
@@ -224,7 +224,7 @@ class DetailRenderComponent extends React.Component {
               <RobotoText style={styles.contentText}>{item.notes}</RobotoText>
             </View>
           }
-          {item.instructions.length > 0 &&
+          {item.hasOwnProperty("instructions") &&
             <View>
               <View style={styles.line}/>
               <FlatList

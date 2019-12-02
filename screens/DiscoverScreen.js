@@ -72,7 +72,7 @@ renderRecipes = ({item}) => (
     useNativeDriver
     onPress={() => this.onPressRecipe(item)}
   >
-  {item.image === null ? (
+  {!item.hasOwnProperty("image") ? (
     <Image
       source={require('../assets/images/icon.png')} style={{flex:2, width: undefined, height: undefined}}
       resizeMode="cover"/>
