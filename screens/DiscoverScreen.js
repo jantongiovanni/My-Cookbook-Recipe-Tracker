@@ -91,19 +91,19 @@ renderRecipes = ({item}) => (
 render () {
   const {isDataFetched1, isDataFetched2} = this.state;
     return (
-      <View style={{flex: 1, paddingTop: 12,}}>
+      <View style={{flex: 1, paddingTop: 20,}}>
       {isDataFetched1 && isDataFetched2 ? (
         <FlatList
-          // ListHeaderComponent = {
-          //   <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Discover</PlayfairText>
-          // }
+          ListHeaderComponent = {
+            <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Discover</PlayfairText>
+          }
 
           data={ this.state.itemArr.concat(this.state.itemArr2) }
           renderItem={this.renderRecipes}
           keyExtractor={(item, index) => index.toString()}
         />
         ) : (
-          <RecipeListPlaceholderComponent/>
+          <RecipeListPlaceholderComponent title='Discover'/>
         )}
       </View>
     )

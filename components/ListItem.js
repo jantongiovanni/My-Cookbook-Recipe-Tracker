@@ -91,7 +91,7 @@ retrieveData = async () => {
               keyExtractor={(item, index) => index.toString()}
             />
             ) : (
-              <RecipeListPlaceholderComponent/>
+              <RecipeListPlaceholderComponent title='Your Recipes'/>
             )}
           </View>
         )

@@ -21,9 +21,11 @@ class HomeContainer extends Component {
       return (
         <SafeAreaView style={{flex: 1}}>
           <ScrollView style={{flex: 1}}>
+          {/*
             <SearchBar/>
             <LargeRecipeCard/>
             <CarouselRender/>
+          */}
             <DiscoverScreen/>
           </ScrollView>
         </SafeAreaView>

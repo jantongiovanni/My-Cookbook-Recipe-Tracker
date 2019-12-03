@@ -8,10 +8,10 @@ import {
 } from 'rn-placeholder';
 import { PlayfairText } from '../../components/StyledText';
 
-const RecipeListPlaceholderComponent = () => (
+const RecipeListPlaceholderComponent = ({title}) => (
 <View style={{flex:1}}>
   <ScrollView>
-      <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Your Recipes</PlayfairText>
+      <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>{title}</PlayfairText>
 
       <Placeholder
         style={{height: 100, margin:20, backgroundColor: 'white'}}
