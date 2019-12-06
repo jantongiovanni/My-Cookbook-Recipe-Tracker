@@ -12,7 +12,7 @@ export default class Detail extends React.Component {
 
   state = {
     user: '',
-    savedState: false,
+    saved: false,
     isDataFetched : false,
     item: []
   }
@@ -44,7 +44,7 @@ export default class Detail extends React.Component {
         var docRef = item.recipeRef;
         await docRef.get().then((doc) => {
             if (doc.exists) {
-                this.setState({item: doc.data(), isDataFetched: true});
+                this.setState({item: doc.data(), isDataFetched: true, saved: true});
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -67,12 +67,12 @@ export default class Detail extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const {isDataFetched, item} = this.state;
+    const { isDataFetched, item, saved } = this.state;
 
     return (
       <View style={{flex: 1}}>
         {isDataFetched ? (
-          <DetailRender item={item} nav={navigation}/>
+          <DetailRender item={item} nav={navigation} saved={saved}/>
         ) : (
           <DetailPlaceholderComponent />
         )}

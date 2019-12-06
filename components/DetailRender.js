@@ -180,17 +180,31 @@ class DetailRenderComponent extends React.Component {
             <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
           </TouchableScale>
         ) : (
-          <TouchableScale
-            style={styles.saveButton}
-            activeScale={0.95}
-            tension={150}
-            friction={7}
-            useNativeDriver
-            activeOpacity={1}
-            onPress={() => this.onPressSave(item)}
-          >
-            <RobotoText style = {styles.saveButtonText} > Add To My Saved Recipes</RobotoText>
-          </TouchableScale>
+            !this.props.saved ? (
+            <TouchableScale
+              style={styles.saveButton}
+              activeScale={0.95}
+              tension={150}
+              friction={7}
+              useNativeDriver
+              activeOpacity={1}
+              onPress={() => this.onPressSave(item)}
+            >
+              <RobotoText style = {styles.saveButtonText} > Add To My Saved Recipes</RobotoText>
+            </TouchableScale>
+          ) : (
+            <TouchableScale
+              style={styles.saveButton}
+              activeScale={0.95}
+              tension={150}
+              friction={7}
+              useNativeDriver
+              activeOpacity={1}
+              onPress={() => this.onPressSave(item)}
+            >
+              <RobotoText style = {styles.saveButtonText} > Unsave Recipe </RobotoText>
+            </TouchableScale>
+          )
         )}
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
