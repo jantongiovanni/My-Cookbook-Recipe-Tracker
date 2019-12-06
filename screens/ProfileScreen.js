@@ -12,7 +12,7 @@ class ProfileScreen extends Component {
     this.state = {
       name: '',
       email: '',
-      photoURL : '',
+      photoURL : null,
       emailVerified : '',
       uid : ''
     }
