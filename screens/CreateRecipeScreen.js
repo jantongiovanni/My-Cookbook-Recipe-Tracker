@@ -136,9 +136,6 @@ class CreateRecipe extends Component {
        if(this.state.makes !== ''){
          docData.makes = this.state.makes;
        }
-       if(this.state.time !== ''){
-         docData.time = this.state.time;
-       }
        if(this.state.ingredients.length > 0){
          docData.ingredients = this.state.ingredients;
        }
