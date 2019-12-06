@@ -9,7 +9,6 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
-  Alert,
   ToastAndroid
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
@@ -93,8 +92,12 @@ class DetailRenderComponent extends React.Component {
       recipeRef: item.ref,
       savedRef : savedRecipeRef,
       title: item.title,
-      image: item.image,
-      time: item.time
+    }
+    if(item.hasOwnProperty("time")){
+      docData.time = item.time;
+    }
+    if(item.hasOwnProperty("image")){
+      docData.image = item.image;
     }
     return new Promise(() => {
       savedRecipeRef.set(docData).then(function() {
