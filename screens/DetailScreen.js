@@ -13,6 +13,7 @@ export default class Detail extends React.Component {
   state = {
     user: '',
     saved: false,
+    savedRef : '',
     isDataFetched : false,
     item: []
   }
@@ -29,6 +30,8 @@ export default class Detail extends React.Component {
   };
 
   getSavedState = async () => {
+    //FIX NEEDED : need to switch over to seperate top level collection and fetch each time
+    // current implmentation will not show correct saved state from discover screen
     const { navigation } = this.props
     const item = navigation.getParam('item');
     if(item.savedRef === undefined){
@@ -44,7 +47,7 @@ export default class Detail extends React.Component {
         var docRef = item.recipeRef;
         await docRef.get().then((doc) => {
             if (doc.exists) {
-                this.setState({item: doc.data(), isDataFetched: true, saved: true});
+                this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -67,12 +70,12 @@ export default class Detail extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const { isDataFetched, item, saved } = this.state;
+    const { isDataFetched, item, saved, savedRef} = this.state;
 
     return (
       <View style={{flex: 1}}>
         {isDataFetched ? (
-          <DetailRender item={item} nav={navigation} saved={saved}/>
+          <DetailRender item={item} nav={navigation} saved={saved} savedRef={savedRef}/>
         ) : (
           <DetailPlaceholderComponent />
         )}

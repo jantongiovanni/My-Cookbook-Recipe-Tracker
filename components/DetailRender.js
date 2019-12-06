@@ -27,7 +27,9 @@ class DetailRenderComponent extends React.Component {
     count: 0,
     user: '',
     modalVisible: false,
-    item: this.props.item
+    item: this.props.item,
+    saved: this.props.saved,
+    savedRef : this.props.savedRef
   }
 
   renderIngredients = ({item}) => {
@@ -84,8 +86,26 @@ class DetailRenderComponent extends React.Component {
     }
   }
 
+  onPressUnsave = async (savedRef, navigation) => {
+    console.log("savedRef: " + savedRef);
+    savedRef.delete().then(function() {
+        ToastAndroid.showWithGravityAndOffset(
+          'Recipe Unsaved',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          0,
+          200
+        );
+        console.log("Document successfully deleted!");
+        navigation.navigate('Recipes');
+      }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
+  }
+
   onPressSave = async (item) => {
     savedRecipeRef = db.collection('saved_recipes').doc();
+    this.setState({savedRef: savedRecipeRef, saved: true});
 
     const docData = {
       uid : firebase.auth().currentUser.uid,
@@ -101,7 +121,7 @@ class DetailRenderComponent extends React.Component {
     }
     return new Promise(() => {
       savedRecipeRef.set(docData).then(function() {
-        console.log("Document written");
+        console.log("Document saved");
         ToastAndroid.showWithGravityAndOffset(
           'Recipe Saved',
           ToastAndroid.LONG,
@@ -117,10 +137,12 @@ class DetailRenderComponent extends React.Component {
     });
   }
 
+
+
+
   render () {
-    const item = this.state.item;
+    const {item, saved, savedRef } = this.state;
     const { navigation } = this.props.nav;
-    console.log("ive gotten here");
     console.log(item.title);
     return (
       <ScrollView>
@@ -180,7 +202,7 @@ class DetailRenderComponent extends React.Component {
             <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
           </TouchableScale>
         ) : (
-            !this.props.saved ? (
+            !saved ? (
             <TouchableScale
               style={styles.saveButton}
               activeScale={0.95}
@@ -200,7 +222,7 @@ class DetailRenderComponent extends React.Component {
               friction={7}
               useNativeDriver
               activeOpacity={1}
-              onPress={() => this.onPressSave(item)}
+              onPress={() => this.onPressUnsave(savedRef, this.props.navigation)}
             >
               <RobotoText style = {styles.saveButtonText} > Unsave Recipe </RobotoText>
             </TouchableScale>
