@@ -24,7 +24,6 @@ const { width: screenWidth } = Dimensions.get('window')
 
 class DetailRenderComponent extends React.Component {
   state = {
-    count: 0,
     user: '',
     modalVisible: false,
     item: this.props.item,
@@ -40,12 +39,11 @@ class DetailRenderComponent extends React.Component {
     )
   }
 
-  renderInstructions = ({item}) => {
-    this.state.count++
+  renderInstructions = ({item, index}) => {
     return (
         <View style={{flex: 1, flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
           <View style={{flexDirection:'column'}}>
-            <PlayfairText style={styles.numberText}>{this.state.count}</PlayfairText>
+            <PlayfairText style={styles.numberText}>{index+1}</PlayfairText>
           </View>
           <View style={{flexDirection:'column', paddingLeft: 20}}>
             <RobotoText style={styles.contentText}>{item}</RobotoText>
@@ -133,7 +131,7 @@ class DetailRenderComponent extends React.Component {
         .catch(function(error) {
             console.error("Error adding document: ", error);
       });
-      item.ref.update({saved_refs : firebase.firestore.FieldValue.arrayUnion(savedRecipeRef)});
+      // item.ref.update({saved_refs : firebase.firestore.FieldValue.arrayUnion(savedRecipeRef)});
     });
   }
 
@@ -154,7 +152,7 @@ class DetailRenderComponent extends React.Component {
             visible={this.state.modalVisible}
             onRequestClose={() => {
               console.log('Modal has been closed.');
-              this.setState({modalVisible: false, count:0});
+              this.setState({modalVisible: false});
             }}
             >
             <TouchableOpacity style={{ position: 'absolute',
@@ -162,10 +160,10 @@ class DetailRenderComponent extends React.Component {
               left: 0,
               bottom: 0,
               right: 0, backgroundColor: 'rgba(52, 52, 52, 0.85)'}}
-              onPress={() => {console.log("pressed"); this.setState({modalVisible: false, count:0});}}>
+              onPress={() => {console.log("pressed"); this.setState({modalVisible: false});}}>
             </TouchableOpacity>
           <Gallery
-             onSingleTapConfirmed={()=> {console.log("pressed"); this.setState({modalVisible: false, count:0});}}
+             onSingleTapConfirmed={()=> {console.log("pressed"); this.setState({modalVisible: false});}}
              images={[
               {source: { uri: item.image }},
               {source: { uri: item.image }},
@@ -294,6 +292,7 @@ export default withNavigation(DetailRenderComponent);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 20
   },
   saveButtonText: {
     color: '#FFFFFF',
@@ -337,7 +336,7 @@ const styles = StyleSheet.create({
   numberText:{
     fontSize: 36,
     color: '#f6b425',
-    paddingTop: 16,
+    paddingTop: 4,
     paddingLeft: 20,
 
   },
