@@ -9,7 +9,8 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
@@ -17,6 +18,7 @@ import { RobotoText } from '../components/StyledText';
 import Gallery from 'react-native-image-gallery';
 import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
+import { withNavigation } from 'react-navigation'
 
 
 const { width: screenWidth } = Dimensions.get('window')
@@ -51,14 +53,21 @@ class DetailRenderComponent extends React.Component {
       )
     }
 
-  onPressDelete = (item) => {
-    const { navigation } = this.props.nav
+  onPressDelete = (item, navigation) => {
+    //const { navigation } = this.props.nav
     if(item.ref === undefined){
         console.log("cannot delete item in app");
     } else {
       item.ref.delete().then(function() {
-            console.log("Document successfully deleted!");
-          //  navigation.navigate('Home');
+          ToastAndroid.showWithGravityAndOffset(
+            'Recipe Deleted',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            0,
+            200
+          );
+          console.log("Document successfully deleted!");
+          navigation.navigate('Recipes');
         }).catch(function(error) {
             console.error("Error removing document: ", error);
         });
@@ -76,7 +85,7 @@ class DetailRenderComponent extends React.Component {
     }
   }
 
-  onPressSave = async (item, navigation) => {
+  onPressSave = async (item) => {
     savedRecipeRef = db.collection('saved_recipes').doc();
 
     const docData = {
@@ -90,13 +99,12 @@ class DetailRenderComponent extends React.Component {
     return new Promise(() => {
       savedRecipeRef.set(docData).then(function() {
         console.log("Document written");
-        Alert.alert(
+        ToastAndroid.showWithGravityAndOffset(
           'Recipe Saved',
-          docData.title + ' was saved successfully',
-          [
-            { text: 'OK'},
-          ],
-          { cancelable: true }
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          0,
+          200
         );
         })
         .catch(function(error) {
@@ -164,7 +172,7 @@ class DetailRenderComponent extends React.Component {
             friction={7}
             useNativeDriver
             activeOpacity={1}
-            onPress={() => this.onPressDelete(item)}
+            onPress={() => this.onPressDelete(item, this.props.navigation)}
           >
             <RobotoText style = {styles.saveButtonText} > Delete </RobotoText>
           </TouchableScale>
@@ -176,7 +184,7 @@ class DetailRenderComponent extends React.Component {
             friction={7}
             useNativeDriver
             activeOpacity={1}
-            onPress={() => this.onPressSave(item, navigation)}
+            onPress={() => this.onPressSave(item)}
           >
             <RobotoText style = {styles.saveButtonText} > Add To My Saved Recipes</RobotoText>
           </TouchableScale>
@@ -242,7 +250,7 @@ class DetailRenderComponent extends React.Component {
     }
 }
 
-export default DetailRenderComponent;
+export default withNavigation(DetailRenderComponent);
 
 const styles = StyleSheet.create({
   container: {

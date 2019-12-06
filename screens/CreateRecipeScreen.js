@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   FlatList,
   Alert,
+  ToastAndroid
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -100,14 +101,14 @@ class CreateRecipe extends Component {
   addPost = async (navigation) => {
       console.log("add post");
       if(this.state.title === ''){
-        Alert.alert(
-          'Error',
-          'Title cannot be empty',
-          [
-            { text: 'OK'},
-          ],
-          { cancelable: true }
+        ToastAndroid.showWithGravityAndOffset(
+          'Error: Title Cannot Be Empty',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          0,
+          200
         );
+
       } else {
       navigation.navigate('Discover');
       recipeRef = db.collection('recipes').doc();
@@ -154,13 +155,12 @@ class CreateRecipe extends Component {
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
-           Alert.alert(
+           ToastAndroid.showWithGravityAndOffset(
              'Recipe Saved',
-             docData.title + ' was added successfully',
-             [
-               { text: 'OK'},
-             ],
-             { cancelable: true }
+             ToastAndroid.LONG,
+             ToastAndroid.BOTTOM,
+             0,
+             200
            );
            })
            .catch(function(error) {
