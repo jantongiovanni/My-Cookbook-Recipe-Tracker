@@ -74,12 +74,12 @@ renderRecipes = ({item}) => (
   >
   {!item.hasOwnProperty("image") ? (
     <Image
-      source={require('../assets/images/icon.png')} style={{flex:2, width: undefined, height: undefined}}
-      resizeMode="center"/>
+      source={require('../assets/images/icon.png')} style={{flex:2, width: '100%', height: '100%'}}
+      resizeMode="contain"/>
   ) : (
     <Image
-      source={{uri: item.image}} style={{flex:2,  width: undefined, height: undefined}}
-      resizeMode="cover"/>
+      source={{uri: item.image}} style={{flex:2,  width: '100%', height: '100%'}}
+      resizeMode="contain"/>
   )}
     <View style={{flex:4, justifyContent: 'center'}}>
       <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
