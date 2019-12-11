@@ -18,6 +18,8 @@ import Gallery from 'react-native-image-gallery';
 import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
 import { withNavigation } from 'react-navigation'
+import Toast, {DURATION} from 'react-native-easy-toast'
+
 
 
 const { width: screenWidth } = Dimensions.get('window')
@@ -102,6 +104,8 @@ class DetailRenderComponent extends React.Component {
   }
 
   onPressSave = async (item) => {
+  //  this.refs.toast.show('Recipe Saved Toast test ;)', DURATION.LENGTH_SHORT);
+
     savedRecipeRef = db.collection('saved_recipes').doc();
     this.setState({savedRef: savedRecipeRef, saved: true});
 
@@ -281,6 +285,7 @@ class DetailRenderComponent extends React.Component {
               />
             </View>
           }
+        {/*   <Toast ref="toast" position='bottom'/> */}
         </View>
       </ScrollView>
       )
