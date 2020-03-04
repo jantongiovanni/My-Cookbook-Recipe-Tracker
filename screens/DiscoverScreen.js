@@ -3,6 +3,8 @@ import {
   Image,
   View,
   FlatList,
+  Dimensions,
+  TouchableWithoutFeedback
   } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
@@ -16,6 +18,10 @@ import RecipeListPlaceholderComponent from '../components/Placeholders/RecipeLis
 //Access Firebase data
 import {db} from '../constants/firebase';
 import firebase from 'firebase';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+// console.log(screenWidth); 411.42
+// console.log(screenHeight); 683.42
 
 class DiscoverScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -64,28 +70,46 @@ onPressRecipe = item => {
 };
 
 renderRecipes = ({item}) => (
-  <TouchableScale
-    style={{height: 100, marginBottom: 16, marginLeft:10, marginRight:10, backgroundColor: 'white', flexDirection:'row'}}
+  <View style={{
+    borderBottomColor: '#D3D3D3',
+    borderBottomWidth: 1,
+    marginVertical: 20,
+    marginHorizontal: 16
+  }}>
+{!item.hasOwnProperty("image") ? (
+  //no image
+  <TouchableWithoutFeedback
+    style={{height: screenHeight/8, marginBottom: 16, backgroundColor: 'white', flexDirection:'row'}}
     activeScale={0.95}
     tension={150}
     friction={7}
     useNativeDriver
     onPress={() => this.onPressRecipe(item)}
   >
-  {!item.hasOwnProperty("image") ? (
-    <Image
-      source={require('../assets/images/icon.png')} style={{flex:2, width: '100%', height: '100%'}}
-      resizeMode="contain"/>
-  ) : (
-    <Image
-      source={{uri: item.image}} style={{flex:2,  width: '100%', height: '100%'}}
-      resizeMode="contain"/>
-  )}
     <View style={{flex:4, justifyContent: 'center'}}>
       <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
       <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.time}</RobotoText>
     </View>
-  </TouchableScale>
+  </TouchableWithoutFeedback>
+
+) : (
+  //has image
+  <TouchableWithoutFeedback
+    style={{height: screenWidth+40, marginBottom: 16, backgroundColor: 'white', flexDirection:'column'}}
+    onPress={() => this.onPressRecipe(item)}
+  >
+  <View>
+    <Image
+      source={{uri: item.image}} style={{width: screenWidth-32, height: screenWidth-32, marginBottom: 10}}
+      resizeMode="cover"/>
+    <View style={{ justifyContent: 'flex-start'}}>
+      <PlayfairText style={{color:'black', fontSize: 20, marginBottom:10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
+      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginBottom:10, alignSelf:'flex-start'}} >{item.time}</RobotoText>
+    </View>
+    </View>
+  </TouchableWithoutFeedback>
+)}
+</View>
 );
 
 render () {
