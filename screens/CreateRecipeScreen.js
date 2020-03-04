@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   FlatList,
   Alert,
+  Dimensions,
   ToastAndroid
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -21,6 +22,8 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
+
+const { width: screenWidth } = Dimensions.get('window')
 
 class CreateRecipe extends Component {
 
@@ -240,6 +243,8 @@ render() {
         <View>
           <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
         </View>
+        {image &&
+          <Image source={{ uri: image }} style={styles.topImage} />}
         <TouchableScale
           style={styles.saveButton}
           activeScale={0.95}
@@ -250,11 +255,10 @@ render() {
         >
           <RobotoText style = {styles.saveButtonText} > Choose Image </RobotoText>
         </TouchableScale>
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
 
-          <View style={{flex: 1, flexDirection:'row'}}>
+
           {/* ------ Title ------- */}
+          <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInput}
@@ -283,58 +287,69 @@ render() {
 
 
           {/* ------ Time ------- */}
-          <TextInput
-            type = "text"
-            style={styles.textInput}
-            placeholder = "Time"
-            maxLength = {20}
-            value={this.state.time}
-            onChangeText={this.handleTimeChange}
-          />
-          <Text>{20 - this.state.time.length}</Text>
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInput}
+              placeholder = "Time"
+              maxLength = {20}
+              value={this.state.time}
+              onChangeText={this.handleTimeChange}
+            />
+            <RobotoText style={styles.charCount}>{20 - this.state.time.length}</RobotoText>
+          </View>
           {/* ------ Makes ------- */}
-          <TextInput
-            type = "text"
-            style={styles.textInput}
-            placeholder = "Makes"
-            maxLength = {20}
-            value={this.state.makes}
-            onChangeText={this.handleMakesChange}
-          />
-          <Text>{20 - this.state.makes.length}</Text>
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInput}
+              placeholder = "Makes"
+              maxLength = {20}
+              value={this.state.makes}
+              onChangeText={this.handleMakesChange}
+            />
+            <RobotoText style={styles.charCount}>{20 - this.state.makes.length}</RobotoText>
+          </View>
           {/* ------ Description ------- */}
-          <TextInput
-            type = "text"
-            style={styles.textInputLong}
-            placeholder = "Description"
-            maxLength = {240}
-            multiline= {true}
-            value={this.state.description}
-            onChangeText={this.handleDescriptionChange}
-            textAlignVertical = "top"
-          />
-          <Text>{240 - this.state.description.length}</Text>
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInputLong}
+              placeholder = "Description"
+              maxLength = {240}
+              multiline= {true}
+              value={this.state.description}
+              onChangeText={this.handleDescriptionChange}
+              textAlignVertical = "top"
+            />
+            <RobotoText style={styles.charCountLong}>{240 - this.state.description.length}</RobotoText>
+          </View>
           {/* ------ Notes ------- */}
-          <TextInput
-            type = "text"
-            style={styles.textInputLong}
-            placeholder = "Notes"
-            maxLength = {120}
-            multiline= {true}
-            value={this.state.notes}
-            onChangeText={this.handleNotesChange}
-            textAlignVertical = "top"
-          />
-          <Text>{120 - this.state.notes.length}</Text>
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInputLong}
+              placeholder = "Notes"
+              maxLength = {120}
+              multiline= {true}
+              value={this.state.notes}
+              onChangeText={this.handleNotesChange}
+              textAlignVertical = "top"
+            />
+            <RobotoText style={styles.charCountLong}>{120 - this.state.notes.length}</RobotoText>
+          </View>
           {/* ------ Ingredients ------- */}
-          <TextInput
-            type = "text"
-            style={styles.textInput}
-            placeholder = "Ingredients"
-            maxLength = {30}
-            onChangeText={this.handleIngredientsChange}
-            value={this.state.ingredientsHolder}
-          />
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInput}
+              placeholder = "Ingredients"
+              maxLength = {30}
+              onChangeText={this.handleIngredientsChange}
+              value={this.state.ingredientsHolder}
+            />
+            <RobotoText style={styles.charCount}>{30 - this.state.ingredientsHolder.length}</RobotoText>
+          </View>
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -354,13 +369,17 @@ render() {
           />
 
           {/* ------ Directions ------- */}
-          <TextInput
-            type = "text"
-            style={styles.textInput}
-            placeholder = "Directions"
-            onChangeText={this.handleDirectionsChange}
-            value={this.state.directionsHolder}
-          />
+          <View style={{flex: 1, flexDirection:'row'}}>
+            <TextInput
+              type = "text"
+              style={styles.textInput}
+              placeholder = "Directions"
+              maxLength={240}
+              onChangeText={this.handleDirectionsChange}
+              value={this.state.directionsHolder}
+            />
+            <RobotoText style={styles.charCount}>{240 - this.state.directionsHolder.length}</RobotoText>
+          </View>
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -389,7 +408,6 @@ render() {
           >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
         </TouchableScale>
-        <View style={{ height: 100 }} />
       </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -401,8 +419,8 @@ export default withNavigation(CreateRecipe)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 12,
     justifyContent: 'space-around',
+    backgroundColor: '#f8f7fc'
   },
     inputContainer: {
     paddingTop: 15
@@ -422,17 +440,29 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   charCount: {
-    backgroundColor: '#f6b425',
-    marginRight: 10,
     flex: 1,
+    marginRight: 20,
     marginBottom: 20,
-    justifyContent:'center'
+    textAlignVertical:'center',
+    textAlign:'center',
+    alignItems: 'center'
+  },
+  charCountLong: {
+    flex: 1,
+    marginRight: 20,
+    marginTop: 10,
+    marginBottom: 20,
+    textAlignVertical:'top',
+    textAlign:'center',
+    alignItems: 'center'
   },
   textInput: {
     flex: 10,
     fontFamily: 'roboto',
     borderColor: '#CCCCCC',
+    backgroundColor: '#ffffff',
     borderWidth: 0.5,
+    borderRadius: 5,
     height: 50,
     fontSize: 20,
     marginHorizontal: 20,
@@ -441,9 +471,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   textInputLong: {
+    flex: 10,
     fontFamily: 'roboto',
     borderColor: '#CCCCCC',
+    backgroundColor: '#ffffff',
     borderWidth: 0.5,
+    borderRadius: 5,
     height: 200,
     fontSize: 20,
     paddingLeft: 20,
@@ -456,7 +489,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 46,
     color: 'black',
-    paddingBottom: 14
+    marginVertical: 20
+  },
+  topImage:{
+    flex:1,
+    width: screenWidth,
+    height: screenWidth,
+    alignSelf: 'flex-start',
+    marginBottom: 20
   },
   card:{
     marginHorizontal:20,
