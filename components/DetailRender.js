@@ -4,6 +4,7 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  SafeAreaView,
   Dimensions,
   ActivityIndicator,
   FlatList,
@@ -147,9 +148,10 @@ class DetailRenderComponent extends React.Component {
     const { navigation } = this.props.nav;
     console.log(item.title);
     return (
+      <SafeAreaView style={styles.container}>
       <ScrollView>
       {/* ------ Fullscreen Gallery Modal ------- */}
-        <View style={{marginTop: 22}}>
+        <View style={{flex:1}}>
           <Modal
             animationType="fade"
             transparent={true}
@@ -169,8 +171,6 @@ class DetailRenderComponent extends React.Component {
           <Gallery
              onSingleTapConfirmed={()=> {console.log("pressed"); this.setState({modalVisible: false});}}
              images={[
-              {source: { uri: item.image }},
-              {source: { uri: item.image }},
               {source: { uri: item.image }}
              ]}
            />
@@ -232,7 +232,7 @@ class DetailRenderComponent extends React.Component {
         )}
         <View style={styles.container}>
           <PlayfairText style={styles.titleTextLarge}>{item.title}</PlayfairText>
-          <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20}}>
+          <View style={{flexDirection:'row', alignItems: 'flex-start', paddingTop: 20, paddingRight: 20, flexWrap:'wrap'}}>
             {item.hasOwnProperty("time") &&
               <View style={{flexDirection:'column'}}>
                 <RobotoText style={styles.contentText}>Time:</RobotoText>
@@ -240,7 +240,7 @@ class DetailRenderComponent extends React.Component {
               </View>
             }
             {item.hasOwnProperty("makes") &&
-              <View style={{flexDirection:'column', paddingLeft: 20}}>
+              <View style={{flexDirection:'column'}}>
                 <RobotoText style={styles.contentText}>Makes:</RobotoText>
                 <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
               </View>
@@ -288,6 +288,7 @@ class DetailRenderComponent extends React.Component {
         {/*   <Toast ref="toast" position='bottom'/> */}
         </View>
       </ScrollView>
+      </SafeAreaView>
       )
     }
 }
@@ -297,7 +298,8 @@ export default withNavigation(DetailRenderComponent);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 20
+    marginTop: 0,
+    paddingTop: 0
   },
   saveButtonText: {
     color: '#FFFFFF',
@@ -310,8 +312,8 @@ const styles = StyleSheet.create({
     borderColor: '#f6b425',
     backgroundColor: '#f6b425',
     padding: 15,
-    marginHorizontal: 20,
-    marginBottom: 20,
+    marginHorizontal: 22,
+    marginTop: 22
   },
   topImage:{
     flex:1,
@@ -323,7 +325,7 @@ const styles = StyleSheet.create({
   titleTextLarge:{
     fontSize: 50,
     color: 'black',
-    paddingLeft: 20,
+    paddingHorizontal: 20,
     paddingTop: 14,
   },
   subtitleText:{

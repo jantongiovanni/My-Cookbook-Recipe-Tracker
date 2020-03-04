@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   View,
+  SafeAreaView
 } from 'react-native';
 
 import firebase from 'firebase';
@@ -73,13 +74,13 @@ export default class Detail extends React.Component {
     const { isDataFetched, item, saved, savedRef} = this.state;
 
     return (
-      <View style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, marginTop: 0, paddingTop: 0}}>
         {isDataFetched ? (
           <DetailRender item={item} nav={navigation} saved={saved} savedRef={savedRef}/>
         ) : (
           <DetailPlaceholderComponent />
         )}
-      </View>
+      </SafeAreaView>
     )
   }
 }
