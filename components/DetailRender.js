@@ -287,6 +287,7 @@ class DetailRenderComponent extends React.Component {
           }
         {/*   <Toast ref="toast" position='bottom'/> */}
         </View>
+        <View style={{marginVertical: 20}} />
       </ScrollView>
       </SafeAreaView>
       )
@@ -299,7 +300,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    paddingTop: 0
+    paddingTop: 0,
   },
   saveButtonText: {
     color: '#FFFFFF',
@@ -359,10 +360,7 @@ const styles = StyleSheet.create({
   line:{
     borderBottomColor: '#D3D3D3',
     borderBottomWidth: 1,
-    paddingTop: 36,
-    marginBottom: 30,
-    marginLeft: 20,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
+    marginVertical: 20,
+    marginHorizontal: 20
   },
 });
