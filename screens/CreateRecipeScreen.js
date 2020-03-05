@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
-    backgroundColor: '#f8f7fc'
+    backgroundColor: '#f7f7f7'
   },
     inputContainer: {
     paddingTop: 15

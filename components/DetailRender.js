@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 0,
     paddingTop: 0,
+    backgroundColor: '#f7f7f7'
   },
   saveButtonText: {
     color: '#FFFFFF',
