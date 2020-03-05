@@ -4,7 +4,8 @@ import {
   View,
   FlatList,
   Dimensions,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  StyleSheet
   } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
@@ -73,22 +74,43 @@ renderRecipes = ({item}) => (
   <View style={{
     borderBottomColor: '#D3D3D3',
     borderBottomWidth: 1,
-    marginVertical: 20,
+    marginTop: 10,
     marginHorizontal: 16
   }}>
 {!item.hasOwnProperty("image") ? (
   //no image
   <TouchableWithoutFeedback
-    style={{height: screenHeight/8, marginBottom: 16, backgroundColor: 'white', flexDirection:'row'}}
+    style={{height: screenHeight/8, backgroundColor: 'white', flexDirection:'column'}}
     activeScale={0.95}
     tension={150}
     friction={7}
     useNativeDriver
     onPress={() => this.onPressRecipe(item)}
   >
-    <View style={{flex:4, justifyContent: 'center'}}>
-      <PlayfairText style={{color:'black', fontSize: 20, paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
-      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', paddingBottom:10, paddingLeft: 10, alignSelf:'flex-start'}} >{item.time}</RobotoText>
+    <View style={{justifyContent: 'flex-start'}}>
+
+      <PlayfairText style={{color:'black', fontSize: 30, marginBottom:10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
+
+      <View style={{flexDirection:'row', alignItems: 'flex-start', paddingRight: 20, flexWrap:'wrap'}}>
+        {item.hasOwnProperty("time") &&
+          <View style={{flexDirection:'column'}}>
+            <RobotoText style={styles.contentText}>Time:</RobotoText>
+            <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
+          </View>
+        }
+        {item.hasOwnProperty("makes") &&
+          <View style={{flexDirection:'column'}}>
+            <RobotoText style={styles.contentText}>Makes:</RobotoText>
+            <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
+          </View>
+        }
+      </View>
+
+      {item.hasOwnProperty("description") ? (
+      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginBottom:20, alignSelf:'flex-start'}} >{item.description}</RobotoText>
+      ) : (
+        <View style={{marginBottom: 10}} />
+      )}
     </View>
   </TouchableWithoutFeedback>
 
@@ -103,8 +125,29 @@ renderRecipes = ({item}) => (
       source={{uri: item.image}} style={{width: screenWidth-32, height: screenWidth-32, marginBottom: 10}}
       resizeMode="cover"/>
     <View style={{ justifyContent: 'flex-start'}}>
-      <PlayfairText style={{color:'black', fontSize: 20, marginBottom:10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
-      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginBottom:10, alignSelf:'flex-start'}} >{item.time}</RobotoText>
+
+      <PlayfairText style={{color:'black', fontSize: 30, marginBottom:10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
+
+      <View style={{flexDirection:'row', alignItems: 'flex-start', flexWrap:'wrap'}}>
+        {item.hasOwnProperty("time") &&
+          <View style={{flexDirection:'column'}}>
+            <RobotoText style={styles.contentText}>Time:</RobotoText>
+            <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
+          </View>
+        }
+        {item.hasOwnProperty("makes") &&
+          <View style={{flexDirection:'column'}}>
+            <RobotoText style={styles.contentText}>Makes:</RobotoText>
+            <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
+          </View>
+        }
+      </View>
+
+      {item.hasOwnProperty("description") ? (
+      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginBottom:20, alignSelf:'flex-start'}} >{item.description}</RobotoText>
+      ) : (
+        <View style={{marginBottom: 10}} />
+      )}
     </View>
     </View>
   </TouchableWithoutFeedback>
@@ -134,3 +177,21 @@ render () {
 }
 }
 export default withNavigation(DiscoverScreen)
+
+const styles = StyleSheet.create({
+  titleTextMin:{
+    fontSize: 24,
+    color: 'black',
+    paddingRight: 20,
+    fontWeight: '100',
+    marginBottom: 20
+  },
+  contentText:{
+    fontSize: 20,
+    color: 'black',
+    fontWeight:'400',
+    paddingTop: 10,
+    marginRight:20,
+    paddingRight: 20,
+  },
+});
