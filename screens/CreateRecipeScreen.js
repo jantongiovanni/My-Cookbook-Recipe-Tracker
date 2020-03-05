@@ -154,7 +154,7 @@ class CreateRecipe extends Component {
        }
 
        this.setState({...this.baseState, ingredients: [], directions: []});
-
+       this.refs._scrollView.scrollTo({x: 0, y: 0, animated: false});
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
@@ -240,7 +240,7 @@ render() {
   return(
     <SafeAreaView style={styles.container}>
     <KeyboardAvoidingView behavior="padding" enabled>
-      <ScrollView
+      <ScrollView ref='_scrollView'
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps={'handled'}>
         <View>
