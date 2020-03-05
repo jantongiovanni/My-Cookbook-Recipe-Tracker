@@ -57,6 +57,7 @@ class CreateRecipe extends Component {
        remoteUri: null,
        isPublic: true
      }
+     this.baseState = this.state;
   }
 
   componentDidMount() {
@@ -151,6 +152,8 @@ class CreateRecipe extends Component {
        if(this.state.imagePath !== ''){
          docData.imagePath = this.state.imagePath;
        }
+
+       this.setState({...this.baseState, ingredients: [], directions: []});
 
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
