@@ -32,9 +32,7 @@ class DiscoverScreen extends Component {
   //necessary to split into seperate queries and combine on the client side
   state = {
     isDataFetched1: false,
-    isDataFetched2: false,
     itemArr: [],
-    itemArr2: []
   }
 
   componentDidMount = () => {
@@ -52,13 +50,9 @@ retrieveData = async () => {
     try{
       var user = firebase.auth().currentUser.uid;
       console.log("discover user: " + user);
-      const initialQuery = await db.collection("recipes").where("uid", "<", user).where("isPublic", "==", true);
-      const secondQuery = await db.collection("recipes").where("uid", ">", user).where("isPublic", "==", true);
+      const initialQuery = await db.collection("recipes").where("isPublic", "==", true).orderBy("createdAt", "desc");
       await initialQuery.onSnapshot( snapshot => {
       this.setState({ itemArr : snapshot.docs.map(document => document.data()), isDataFetched1: true});
-      });
-      await secondQuery.onSnapshot( snapshot => {
-      this.setState({ itemArr2 : snapshot.docs.map(document => document.data()), isDataFetched2: true});
       });
     }
     catch (error) {
@@ -77,53 +71,16 @@ renderRecipes = ({item}) => (
     marginTop: 10,
     marginHorizontal: 16
   }}>
-{!item.hasOwnProperty("image") ? (
-  //no image
-  <TouchableWithoutFeedback
-    style={{height: screenHeight/8, backgroundColor: 'white', flexDirection:'column'}}
-    activeScale={0.95}
-    tension={150}
-    friction={7}
-    useNativeDriver
-    onPress={() => this.onPressRecipe(item)}
-  >
-    <View style={{justifyContent: 'flex-start'}}>
-
-      <PlayfairText style={{color:'black', fontSize: 30, marginBottom:10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
-
-      <View style={{flexDirection:'row', alignItems: 'flex-start', paddingRight: 20, flexWrap:'wrap'}}>
-        {item.hasOwnProperty("time") &&
-          <View style={{flexDirection:'column'}}>
-            <RobotoText style={styles.contentText}>Time:</RobotoText>
-            <PlayfairText style={styles.titleTextMin}>{item.time}</PlayfairText>
-          </View>
-        }
-        {item.hasOwnProperty("makes") &&
-          <View style={{flexDirection:'column'}}>
-            <RobotoText style={styles.contentText}>Makes:</RobotoText>
-            <PlayfairText style={styles.titleTextMin}>{item.makes}</PlayfairText>
-          </View>
-        }
-      </View>
-
-      {item.hasOwnProperty("description") ? (
-      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginBottom:20, alignSelf:'flex-start'}} >{item.description}</RobotoText>
-      ) : (
-        <View style={{marginBottom: 10}} />
-      )}
-    </View>
-  </TouchableWithoutFeedback>
-
-) : (
-  //has image
   <TouchableWithoutFeedback
     style={{height: screenWidth+40, marginBottom: 16, backgroundColor: 'white', flexDirection:'column'}}
     onPress={() => this.onPressRecipe(item)}
   >
   <View>
-    <Image
-      source={{uri: item.image}} style={{width: screenWidth-32, height: screenWidth-32, marginBottom: 10}}
-      resizeMode="cover"/>
+    {item.hasOwnProperty("image") &&
+      <Image
+        source={{uri: item.image}} style={{width: screenWidth-32, height: screenWidth-32, marginBottom: 10}}
+        resizeMode="cover"/>
+    }
     <View style={{ justifyContent: 'flex-start'}}>
 
       <PlayfairText style={{color:'black', fontSize: 30, marginBottom:10, alignSelf:'flex-start'}}>{item.title}</PlayfairText>
@@ -151,21 +108,20 @@ renderRecipes = ({item}) => (
     </View>
     </View>
   </TouchableWithoutFeedback>
-)}
 </View>
 );
 
 render () {
-  const {isDataFetched1, isDataFetched2} = this.state;
+  const {isDataFetched1} = this.state;
     return (
       <View style={{flex: 1, paddingTop: 20, backgroundColor: '#f7f7f7'}}>
-      {isDataFetched1 && isDataFetched2 ? (
-        <FlatList
+      {isDataFetched1 ? (
+        <FlatList  ref='_discoverFlatList'
           ListHeaderComponent = {
             <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Discover</PlayfairText>
           }
 
-          data={ this.state.itemArr.concat(this.state.itemArr2) }
+          data={ this.state.itemArr }
           renderItem={this.renderRecipes}
           keyExtractor={(item, index) => index.toString()}
         />
