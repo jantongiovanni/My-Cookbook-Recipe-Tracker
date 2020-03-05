@@ -115,6 +115,13 @@ class CreateRecipe extends Component {
 
       } else {
       navigation.navigate('Discover');
+      ToastAndroid.showWithGravityAndOffset(
+        'Posting...',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        0,
+        200
+      );
       recipeRef = db.collection('recipes').doc();
        if(this.state.image !== null){
          console.log("not null!");
@@ -155,6 +162,7 @@ class CreateRecipe extends Component {
 
        this.setState({...this.baseState, ingredients: [], directions: []});
        this.refs._scrollView.scrollTo({x: 0, y: 0, animated: false});
+
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
