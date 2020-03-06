@@ -7,12 +7,14 @@ import {
   ScrollView,
   SafeAreaView,
   Text,
-  KeyboardAvoidingView,
+  Keyboard,
   FlatList,
   Alert,
+  Platform,
   Dimensions,
   ToastAndroid
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
@@ -230,6 +232,20 @@ class CreateRecipe extends Component {
     )
   }
 
+
+
+  combinedFunctions = async () =>{
+    //if keyboard is open when image picker is launched, the bottom tab bar will not be visible if an image is not selected
+    //this is fixed if the keyboard is reopened and then closed, but navigating away before doing this will leave you stranded with no tab bar -_-
+    //leaving in to fix later because this is still better than the keyboardavoidingview solution previously
+    await this.dismissKb();
+    this.onChooseImagePress();
+  }
+
+  dismissKb = () => {
+    Keyboard.dismiss();
+  }
+
   onChooseImagePress = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -239,6 +255,7 @@ class CreateRecipe extends Component {
     console.log(result);
     if (!result.cancelled) {
       this.setState({ image: result.uri });
+
     }
   }
 
@@ -247,10 +264,11 @@ render() {
 
   return(
     <SafeAreaView style={styles.container}>
-    <KeyboardAvoidingView behavior="padding" enabled>
-      <ScrollView ref='_scrollView'
-        keyboardDismissMode="on-drag"
-        keyboardShouldPersistTaps={'handled'}>
+    <KeyboardAwareScrollView
+    enableOnAndroid
+    extraHeight={250}
+    keyboardShouldPersistTaps="handled"
+    >
         <View>
           <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
         </View>
@@ -262,7 +280,7 @@ render() {
           tension={150}
           friction={7}
           useNativeDriver
-          onPress={this.onChooseImagePress}
+          onPress={this.combinedFunctions}
         >
           <RobotoText style = {styles.saveButtonText} > Choose Image </RobotoText>
         </TouchableScale>
@@ -419,8 +437,8 @@ render() {
           >
           <RobotoText style = {styles.saveButtonText} > Save </RobotoText>
         </TouchableScale>
-      </ScrollView>
-      </KeyboardAvoidingView>
+
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   )
 }
