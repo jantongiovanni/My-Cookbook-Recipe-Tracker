@@ -235,9 +235,12 @@ class CreateRecipe extends Component {
 
 
   combinedFunctions = async () =>{
+<<<<<<< HEAD
     //if keyboard is open when image picker is launched, the bottom tab bar will not be visible if an image is not selected
     //this is fixed if the keyboard is reopened and then closed, but navigating away before doing this will leave you stranded with no tab bar -_-
     //leaving in to fix later because this is still better than the keyboardavoidingview solution previously
+=======
+>>>>>>> 81089df248482065a577846c055a186eb1a55f7f
     await this.dismissKb();
     this.onChooseImagePress();
   }
