@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Image,
   View,
-  FlatList,
   Dimensions,
   TouchableWithoutFeedback,
   StyleSheet
@@ -10,7 +9,7 @@ import {
 import TouchableScale from 'react-native-touchable-scale';
 import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
-import { withNavigation } from 'react-navigation'
+import { withNavigation, FlatList } from 'react-navigation'
 
 import RecipeListPlaceholderComponent from '../components/Placeholders/RecipeListPlaceholder';
 //import {recipes, fullRecipes} from '../data/DataArray';
@@ -36,6 +35,9 @@ class DiscoverScreen extends Component {
   }
 
   componentDidMount = () => {
+  this.props.navigation.setParams({
+    tapOnTabNavigator: this._tapOnTabNavigator
+  });
   try {
     // Cloud Firestore: Initial Query
     this.retrieveData();
@@ -59,6 +61,12 @@ retrieveData = async () => {
       console.log(error);
     }
 };
+
+_tapOnTabNavigator = () => {
+    console.log("tapped in discover");
+    this.refs._discoverFlatList.scrollToIndex({index: 0, animated: true});
+};
+
 
 onPressRecipe = item => {
   this.props.navigation.navigate('Details', {item});

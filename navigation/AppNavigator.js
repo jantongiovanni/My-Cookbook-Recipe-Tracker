@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import { createAppContainer, createSwitchNavigator} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, FlatList} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -12,6 +12,7 @@ import CreateRecipe from '../screens/CreateRecipeScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProfileContainer from '../components/ProfileContainer';
+import DiscoverScreen from '../screens/DiscoverScreen';
 //import ListItem from '../components/ListItem';
 //import AddButton from '../components/AddButton';
 import HomeContainer from '../components/HomeContainer';
@@ -60,7 +61,13 @@ const TabNav = createBottomTabNavigator(
     Discover:{
       screen: DiscoverStack,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => <FontAwesome5 name="home" size={24} color={tintColor} />
+        tabBarIcon: ({tintColor}) => <FontAwesome5 name="home" size={24} color={tintColor} />,
+        //tabBarOnPress: ({navigation}) => {
+          //console.log("discover tapped");
+          //navigation.navigate("Discover");
+          //navigation.getParam('tapOnTabNavigator');
+        //}
+
     }
   },
 
