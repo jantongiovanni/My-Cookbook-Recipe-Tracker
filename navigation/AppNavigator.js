@@ -17,7 +17,7 @@ import DiscoverScreen from '../screens/DiscoverScreen';
 //import AddButton from '../components/AddButton';
 import HomeContainer from '../components/HomeContainer';
 //import {springyFadeIn} from '../transitions/springyFadeIn';
-
+//import { _tapOnTabNavigator} from '../screens/DiscoverScreen';
 // const RootStack = createStackNavigator(
 //   {
 //     Home: HomeScreen,
@@ -62,11 +62,14 @@ const TabNav = createBottomTabNavigator(
       screen: DiscoverStack,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => <FontAwesome5 name="home" size={24} color={tintColor} />,
-        //tabBarOnPress: ({navigation}) => {
+        tabBarOnPress: ({navigation}) => {
           //console.log("discover tapped");
-          //navigation.navigate("Discover");
+          navigation.navigate("Discover");
           //navigation.getParam('tapOnTabNavigator');
-        //}
+          //new DiscoverScreen()._tapOnTabNavigator();
+          //_tapOnTabNavigator();
+          //tapOnTabNavigator();
+        }
 
     }
   },
@@ -121,6 +124,12 @@ const AppSwitchNav = createSwitchNavigator ({
 const AppContainer = createAppContainer(AppSwitchNav);
 
 export default class App extends React.Component {
+
+  constructor(props) {
+      super(props)
+      Obj = new DiscoverScreen();
+     }
+
   render() {
     return (
       <SafeAreaView style={{flex:1}}>

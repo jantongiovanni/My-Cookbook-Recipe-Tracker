@@ -19,6 +19,12 @@ import RecipeListPlaceholderComponent from '../components/Placeholders/RecipeLis
 import {db} from '../constants/firebase';
 import firebase from 'firebase';
 
+export const tapOnTabNavigator = () => {
+    console.log("function tapOnTabNavigator hit");
+    this.refs._discoverFlatList.scrollToIndex({index: 0, animated: true});
+};
+
+
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 // console.log(screenWidth); 411.42
 // console.log(screenHeight); 683.42
@@ -26,6 +32,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 class DiscoverScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null,
+
   });
   //limitation of firestore queries makes != operations impossile.
   //necessary to split into seperate queries and combine on the client side
@@ -35,9 +42,9 @@ class DiscoverScreen extends Component {
   }
 
   componentDidMount = () => {
-  this.props.navigation.setParams({
-    tapOnTabNavigator: this._tapOnTabNavigator
-  });
+  // this.props.navigation.setParams({
+  //   tapOnTabNavigator: this._tapOnTabNavigator
+  // });
   try {
     // Cloud Firestore: Initial Query
     this.retrieveData();
@@ -45,6 +52,11 @@ class DiscoverScreen extends Component {
   catch (error) {
     console.log(error);
   }
+};
+
+_tapOnTabNavigator = () => {
+    console.log("function _tapOnTabNavigator hit");
+    this.refs._discoverFlatList.scrollToIndex({index: 0, animated: true});
 };
 
 retrieveData = async () => {
@@ -61,12 +73,6 @@ retrieveData = async () => {
       console.log(error);
     }
 };
-
-_tapOnTabNavigator = () => {
-    console.log("tapped in discover");
-    this.refs._discoverFlatList.scrollToIndex({index: 0, animated: true});
-};
-
 
 onPressRecipe = item => {
   this.props.navigation.navigate('Details', {item});
