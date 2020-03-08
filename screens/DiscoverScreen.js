@@ -11,7 +11,7 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import { withNavigation, FlatList } from 'react-navigation'
 
-import RecipeListPlaceholderComponent from '../components/Placeholders/RecipeListPlaceholder';
+import DiscoverPlaceholderComponent from '../components/Placeholders/DiscoverPlaceholder';
 //import {recipes, fullRecipes} from '../data/DataArray';
 //import {getRecipes} from '../data/MockDataAPI';
 
@@ -140,7 +140,7 @@ render () {
           keyExtractor={(item, index) => index.toString()}
         />
         ) : (
-          <RecipeListPlaceholderComponent title='Discover'/>
+          <DiscoverPlaceholderComponent title='Discover'/>
         )}
       </View>
     )
