@@ -212,53 +212,90 @@ class CreateRecipe extends Component {
     this.state.ingredients.push(this.state.ingredientsHolder);
     this.setState({ingredientsHolder: ''})
   }
-
+  removeFromIngredientsList = ({item}) => {
+    //console.log("ingredients x test: " +  JSON.stringify(item));
+    this.setState({ingredients: this.state.ingredients.filter(arrItem => arrItem !== item)});
+  }
   renderIngredients = ({item}) => {
     return (
       <View style={{
-      flexDirection:'row',
-      justifyContent:'space-between',
-      marginHorizontal:20,
-      marginBottom: 15,
-      height: 30,
-      borderColor: '#CCCCCC',
-      backgroundColor: '#ffffff',
-      borderWidth: 0.5,
-      borderRadius: 15,
-      paddingRight: 6,
-      paddingLeft: 14,
-      alignItems:'center'}}>
-        <RobotoText style={styles.contentText}>{item}</RobotoText>
-        <FontAwesome5 name="times-circle" size={20} color='black'  onPress={() => this.removeFromList({item})}/>
+        flex:1,
+        flexDirection:'row',
+        minHeight: 30,
+        borderColor: '#CCCCCC',
+        backgroundColor: '#ffffff',
+        borderWidth: 0.5,
+        borderRadius: 15,
+        marginHorizontal:20,
+        marginBottom: 15,
+      }}>
+        <RobotoText style={{
+          flexShrink:1,
+          fontSize: 20,
+          color: 'black',
+          fontWeight:'400',
+          flexWrap:'wrap',
+          marginRight: 'auto',
+          alignSelf:'flex-start',
+          marginTop: 3,
+          marginLeft: 14
+        }}>{item}</RobotoText>
+        <FontAwesome5 name="times-circle" size={20} color='black'  style={{
+          marginLeft:10,
+          marginRight: 6,
+          alignSelf:'center'}} onPress={() => this.removeFromIngredientsList({item})}/>
       </View>
     )
-  }
-
-  removeFromList = ({item}) => {
-    console.log("ingredients x test: " +  JSON.stringify(item));
-    //this.state.ingredients.
-  //  this.setState({people: this.state.people.filter(item => item !== e.target.value);});
-    this.setState({ingredients: this.state.ingredients.filter(arrItem => arrItem !== item)});
-    //this.setState(prevState => ({ ingredients: prevState.ingredients.filter(ingredient => ingredient !== item.target.value)}));
-    //this.setState({ingredients: this.state.ingredients.filter(function(anItem){return anItem !== item.target.value})});
-    //ingredientsCopy: [...this.state.ingredients]
-
   }
 
   joinDirectionsData = () => {
     this.state.directions.push(this.state.directionsHolder);
     this.setState({directionsHolder: ''})
   }
-
-  renderDirections = ({item}) => {
+  removeFromDirectionsList = ({item}) => {
+    //console.log("ingredients x test: " +  JSON.stringify(item));
+    this.setState({directions: this.state.directions.filter(arrItem => arrItem !== item)});
+  }
+  renderDirections = ({item, index}) => {
     return (
-      <View>
-        <RobotoText style={styles.contentText}>{item}</RobotoText>
+      <View style={{
+        flex:1,
+        flexDirection:'row',
+        minHeight: 30,
+        borderColor: '#CCCCCC',
+        backgroundColor: '#ffffff',
+        borderWidth: 0.5,
+        borderRadius: 15,
+        marginHorizontal:20,
+        marginBottom: 15,
+      }}>
+          <RobotoText style={{
+            fontSize: 20,
+            color: 'black',
+            fontWeight:'400',
+            marginRight: 10,
+            alignSelf:'flex-start',
+            marginTop: 3,
+            marginLeft: 14
+          }}>{index+1}.</RobotoText>
+          <RobotoText style={{
+            flexShrink:1,
+            fontSize: 20,
+            color: 'black',
+            fontWeight:'400',
+            flexWrap:'wrap',
+            marginRight: 'auto',
+            alignSelf:'flex-start',
+            marginTop: 3
+          }}>{item}</RobotoText>
+          <FontAwesome5 name="times-circle" size={20} color='black' style={{
+            marginLeft:10,
+            marginRight: 6,
+            alignSelf:'center'}} onPress={() => this.removeFromDirectionsList({item})}/>
+
       </View>
     )
   }
-
-
 
   combinedFunctions = async () =>{
     //if keyboard is open when image picker is launched, the bottom tab bar will not be visible if an image is not selected
@@ -424,6 +461,7 @@ render() {
             extraData={this.state}
             keyExtractor={(item, index) => String(index)}
             renderItem={this.renderIngredients}
+            style={{flex:1}}
           />
 
           {/* ------ Directions ------- */}
@@ -576,5 +614,22 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: 'black',
       fontWeight:'400',
+      flexWrap:'wrap',
+      marginRight: 10
     },
+    listRender:{
+      flex:1,
+      flexDirection:'row',
+      justifyContent:'space-between',
+      marginHorizontal:20,
+      marginBottom: 15,
+      minHeight: 30,
+      borderColor: '#CCCCCC',
+      backgroundColor: '#ffffff',
+      borderWidth: 0.5,
+      borderRadius: 15,
+      paddingRight: 6,
+      paddingLeft: 14,
+      alignItems:'center',
+    }
 });
