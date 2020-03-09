@@ -37,7 +37,6 @@
     "react-native-image-gallery": "^2.1.5",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-reanimated": "~1.2.0",
-    "react-native-screens": "^1.0.0-alpha.22",
     "react-native-snap-carousel": "^3.8.0",
     "react-native-swiper": "^1.6.0-nightly.5",
     "react-native-tab-view": "^2.11.0",

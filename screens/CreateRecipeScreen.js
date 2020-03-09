@@ -30,7 +30,9 @@ import {FontAwesome5} from '@expo/vector-icons';
 const { width: screenWidth } = Dimensions.get('window')
 
 class CreateRecipe extends Component {
-
+  static defaultProps = {
+     editable: true,
+   }
   constructor(props){
      super(props);
 
@@ -59,13 +61,21 @@ class CreateRecipe extends Component {
        image: null,
        imagePath: '',
        remoteUri: null,
-       isPublic: true
+       isPublic: true,
+       editable: !props.editable,
+       androidWidth: '99%',
      }
      this.baseState = this.state;
   }
 
   componentDidMount() {
     this.getPermissionAsync();
+    if (this.props.editable) {
+      setTimeout(() => {
+        console.log("setState");
+        this.setState({ editable: true, androidWidth:'100%' });
+      }, 100);
+    }
   }
 
   getPermissionAsync = async () => {
@@ -323,14 +333,18 @@ class CreateRecipe extends Component {
   }
 
 render() {
-  let { image, isPublic } = this.state;
+  let { image, isPublic, editable } = this.state;
 
   return(
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}
+    removeClippedSubviews={false}
+    >
     <KeyboardAwareScrollView
     enableOnAndroid
     extraHeight={250}
     keyboardShouldPersistTaps="handled"
+    removeClippedSubviews={false}
+
     // innerRef={(ref) => { scroll = ref; }}
     // ref='scroll'
     >
@@ -418,14 +432,18 @@ render() {
           <PlayfairText style={styles.titleTextLarge}>Description</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
+              {...this.props}
+              editable={editable}
+              selectable={editable}
+              caretHidden={false}
+              contextMenuHidden={false}
               type = "text"
-              style={styles.textInputLong}
+              style={[styles.textInputLong, { width: this.state.androidWidth}]}
               placeholder = "A summary of what this recipe is"
               maxLength = {240}
               multiline= {true}
               value={this.state.description}
               onChangeText={this.handleDescriptionChange}
-              textAlignVertical = "top"
             />
             <RobotoText style={styles.charCountLong}>{240 - this.state.description.length}</RobotoText>
           </View>
@@ -435,12 +453,11 @@ render() {
             <TextInput
               type = "text"
               style={styles.textInputLong}
-              placeholder = "Any additional information you think is important"
+              placeholder = "Any additional information"
               maxLength = {120}
               multiline= {true}
               value={this.state.notes}
               onChangeText={this.handleNotesChange}
-              textAlignVertical = "top"
             />
             <RobotoText style={styles.charCountLong}>{120 - this.state.notes.length}</RobotoText>
           </View>
@@ -482,7 +499,7 @@ render() {
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
-              style={styles.textInput}
+              style={styles.textInputLong}
               placeholder = "The directions to follow"
               maxLength={240}
               onChangeText={this.handleDirectionsChange}
@@ -588,13 +605,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderWidth: 0.5,
     borderRadius: 5,
-    height: 200,
+    minHeight: 50,
+    flexWrap:'wrap',
+    justifyContent:'center',
+    maxHeight: 200,
     fontSize: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
     marginHorizontal: 20,
-    paddingTop: 10,
     marginBottom: 20,
+    ...Platform.select({
+      ios: {
+        paddingBottom: 16,
+        paddingTop: 16
+      },
+      android: {
+        paddingVertical: 10,
+      },
+    }),
+
   },
   titleTextLarge:{
     alignSelf: 'flex-start',
