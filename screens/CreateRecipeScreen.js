@@ -12,7 +12,8 @@ import {
   Alert,
   Platform,
   Dimensions,
-  ToastAndroid
+  ToastAndroid,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'expo-image-picker';
@@ -24,6 +25,7 @@ import { PlayfairText } from '../components/StyledText';
 import { RobotoText } from '../components/StyledText';
 import {db, storage} from '../constants/firebase';
 import firebase from 'firebase';
+import {FontAwesome5} from '@expo/vector-icons';
 
 const { width: screenWidth } = Dimensions.get('window')
 
@@ -163,8 +165,8 @@ class CreateRecipe extends Component {
        }
 
        this.setState({...this.baseState, ingredients: [], directions: []});
-       this.refs._scrollView.scrollTo({x: 0, y: 0, animated: false});
-
+       //this.refs._scrollView.scrollTo({x: 0, y: 0, animated: false});
+       //this.refs.scroll.props.scrollToPosition(0, 0)
        return new Promise(() => {
          recipeRef.set(docData).then(function() {
            console.log("Document written");
@@ -213,10 +215,34 @@ class CreateRecipe extends Component {
 
   renderIngredients = ({item}) => {
     return (
-      <View>
+      <View style={{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      marginHorizontal:20,
+      marginBottom: 15,
+      height: 30,
+      borderColor: '#CCCCCC',
+      backgroundColor: '#ffffff',
+      borderWidth: 0.5,
+      borderRadius: 15,
+      paddingRight: 6,
+      paddingLeft: 14,
+      alignItems:'center'}}>
         <RobotoText style={styles.contentText}>{item}</RobotoText>
+        <FontAwesome5 name="times-circle" size={20} color='black'  onPress={() => this.removeFromList({item})}/>
       </View>
     )
+  }
+
+  removeFromList = ({item}) => {
+    console.log("ingredients x test: " +  JSON.stringify(item));
+    //this.state.ingredients.
+  //  this.setState({people: this.state.people.filter(item => item !== e.target.value);});
+    this.setState({ingredients: this.state.ingredients.filter(arrItem => arrItem !== item)});
+    //this.setState(prevState => ({ ingredients: prevState.ingredients.filter(ingredient => ingredient !== item.target.value)}));
+    //this.setState({ingredients: this.state.ingredients.filter(function(anItem){return anItem !== item.target.value})});
+    //ingredientsCopy: [...this.state.ingredients]
+
   }
 
   joinDirectionsData = () => {
@@ -268,6 +294,8 @@ render() {
     enableOnAndroid
     extraHeight={250}
     keyboardShouldPersistTaps="handled"
+    // innerRef={(ref) => { scroll = ref; }}
+    // ref='scroll'
     >
         <View>
           <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
@@ -390,10 +418,11 @@ render() {
             <RobotoText style = {styles.saveButtonText} > Add Ingredient </RobotoText>
           </TouchableScale>
           <FlatList
+            keyboardShouldPersistTaps='always'
             inverted
             data={this.state.ingredients}
             extraData={this.state}
-            keyExtractor={(index) => index.toString()}
+            keyExtractor={(item, index) => String(index)}
             renderItem={this.renderIngredients}
           />
 
@@ -420,10 +449,11 @@ render() {
             <RobotoText style = {styles.saveButtonText} > Add Direction </RobotoText>
           </TouchableScale>
           <FlatList
+            keyboardShouldPersistTaps='always'
             inverted
             data={this.state.directions}
             extraData={this.state}
-            keyExtractor={(index) => index.toString()}
+            keyExtractor={(item, index) => String(index)}
             renderItem={this.renderDirections}
           />
           {/* ------ Save ------- */}
@@ -546,9 +576,5 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: 'black',
       fontWeight:'400',
-      paddingTop: 20,
-      paddingLeft: 20,
-      marginRight:20,
-      paddingRight: 20,
     },
 });
