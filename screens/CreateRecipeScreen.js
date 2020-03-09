@@ -445,7 +445,7 @@ render() {
               value={this.state.description}
               onChangeText={this.handleDescriptionChange}
             />
-            <RobotoText style={styles.charCountLong}>{240 - this.state.description.length}</RobotoText>
+            <RobotoText style={styles.charCount}>{240 - this.state.description.length}</RobotoText>
           </View>
           {/* ------ Notes ------- */}
           <PlayfairText style={styles.titleTextLarge}>Notes</PlayfairText>
@@ -459,7 +459,7 @@ render() {
               value={this.state.notes}
               onChangeText={this.handleNotesChange}
             />
-            <RobotoText style={styles.charCountLong}>{120 - this.state.notes.length}</RobotoText>
+            <RobotoText style={styles.charCount}>{120 - this.state.notes.length}</RobotoText>
           </View>
           {/* ------ Ingredients ------- */}
           <PlayfairText style={styles.titleTextLarge}>Ingredients</PlayfairText>
@@ -573,14 +573,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlignVertical:'center',
     textAlign:'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        paddingBottom: 16,
+        paddingTop: 17
+      },
+      android: {
+        paddingTop: 10,
+        paddingBottom: 12
+      }
+    }),
   },
   charCountLong: {
     flex: 1,
     marginRight: 20,
-    marginTop: 10,
     marginBottom: 20,
-    textAlignVertical:'top',
+    textAlignVertical:'center',
     textAlign:'center',
     alignItems: 'center'
   },
