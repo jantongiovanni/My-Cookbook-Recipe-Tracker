@@ -335,7 +335,13 @@ render() {
     // ref='scroll'
     >
         <View>
-          <PlayfairText style={styles.titleTextLarge}>Add a new recipe</PlayfairText>
+          <PlayfairText style={{
+            alignSelf: 'center',
+            fontSize: 46,
+            color: 'black',
+            marginVertical: 20}}>
+              Add a new recipe
+          </PlayfairText>
         </View>
         {image &&
           <Image source={{ uri: image }} style={styles.topImage} />}
@@ -352,17 +358,19 @@ render() {
 
 
           {/* ------ Title ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Title</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInput}
-              placeholder = "Title"
+              placeholder = "What will you name your recipe?"
               maxLength = {30}
               value={this.state.title}
               onChangeText={this.handleTitleChange}
             />
             <RobotoText style={styles.charCount}>{30 - this.state.title.length}</RobotoText>
           </View>
+          <PlayfairText style={styles.titleTextLarge}>Visibility</PlayfairText>
           <TouchableScale
             style={styles.saveButton}
             activeScale={0.95}
@@ -381,11 +389,12 @@ render() {
 
 
           {/* ------ Time ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Time</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInput}
-              placeholder = "Time"
+              placeholder = "How long will it take to make?"
               maxLength = {20}
               value={this.state.time}
               onChangeText={this.handleTimeChange}
@@ -393,11 +402,12 @@ render() {
             <RobotoText style={styles.charCount}>{20 - this.state.time.length}</RobotoText>
           </View>
           {/* ------ Makes ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Makes</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInput}
-              placeholder = "Makes"
+              placeholder = "How many servings will it be?"
               maxLength = {20}
               value={this.state.makes}
               onChangeText={this.handleMakesChange}
@@ -405,11 +415,12 @@ render() {
             <RobotoText style={styles.charCount}>{20 - this.state.makes.length}</RobotoText>
           </View>
           {/* ------ Description ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Description</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInputLong}
-              placeholder = "Description"
+              placeholder = "A summary of what this recipe is"
               maxLength = {240}
               multiline= {true}
               value={this.state.description}
@@ -419,11 +430,12 @@ render() {
             <RobotoText style={styles.charCountLong}>{240 - this.state.description.length}</RobotoText>
           </View>
           {/* ------ Notes ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Notes</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInputLong}
-              placeholder = "Notes"
+              placeholder = "Any additional information you think is important"
               maxLength = {120}
               multiline= {true}
               value={this.state.notes}
@@ -433,11 +445,12 @@ render() {
             <RobotoText style={styles.charCountLong}>{120 - this.state.notes.length}</RobotoText>
           </View>
           {/* ------ Ingredients ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Ingredients</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInput}
-              placeholder = "Ingredients"
+              placeholder = "The list of required ingredients"
               maxLength = {30}
               onChangeText={this.handleIngredientsChange}
               value={this.state.ingredientsHolder}
@@ -465,11 +478,12 @@ render() {
           />
 
           {/* ------ Directions ------- */}
+          <PlayfairText style={styles.titleTextLarge}>Directions</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
             <TextInput
               type = "text"
               style={styles.textInput}
-              placeholder = "Directions"
+              placeholder = "The directions to follow"
               maxLength={240}
               onChangeText={this.handleDirectionsChange}
               value={this.state.directionsHolder}
@@ -528,7 +542,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6b425',
     padding: 15,
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginBottom: 20
   },
   saveButtonText: {
     color: '#FFFFFF',
@@ -583,10 +597,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   titleTextLarge:{
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 20,
     fontSize: 46,
     color: 'black',
-    marginVertical: 20
+    marginBottom: 20
   },
   topImage:{
     flex:1,
