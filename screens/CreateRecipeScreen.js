@@ -247,13 +247,27 @@ class CreateRecipe extends Component {
           flexWrap:'wrap',
           marginRight: 'auto',
           alignSelf:'flex-start',
-          marginTop: 3,
+          ...Platform.select({
+            ios: {
+              marginTop:6
+            },
+            android: {
+              marginTop:3
+            },
+          }),
           marginLeft: 14
         }}>{item}</RobotoText>
         <FontAwesome5 name="times-circle" size={20} color='black'  style={{
           marginLeft:10,
           marginRight: 6,
-          alignSelf:'center'}} onPress={() => this.removeFromIngredientsList({item})}/>
+          alignSelf:'center',
+          ...Platform.select({
+            ios: {
+              marginTop:3
+            },
+          }),
+        }}
+        onPress={() => this.removeFromIngredientsList({item})}/>
       </View>
     )
   }
@@ -285,8 +299,15 @@ class CreateRecipe extends Component {
             fontWeight:'400',
             marginRight: 10,
             alignSelf:'flex-start',
-            marginTop: 3,
-            marginLeft: 14
+            marginLeft: 14,
+            ...Platform.select({
+              ios: {
+                marginTop:6
+              },
+              android: {
+                marginTop:3
+              },
+            }),
           }}>{index+1}.</RobotoText>
           <RobotoText style={{
             flexShrink:1,
@@ -296,12 +317,26 @@ class CreateRecipe extends Component {
             flexWrap:'wrap',
             marginRight: 'auto',
             alignSelf:'flex-start',
-            marginTop: 3
+            ...Platform.select({
+              ios: {
+                marginTop:6
+              },
+              android: {
+                marginTop:3
+              },
+            }),
           }}>{item}</RobotoText>
           <FontAwesome5 name="times-circle" size={20} color='black' style={{
             marginLeft:10,
             marginRight: 6,
-            alignSelf:'center'}} onPress={() => this.removeFromDirectionsList({item})}/>
+            alignSelf:'center',
+            ...Platform.select({
+              ios: {
+                marginTop:3
+              },
+            }),
+          }}
+          onPress={() => this.removeFromDirectionsList({item})}/>
 
       </View>
     )
@@ -502,6 +537,7 @@ render() {
               style={styles.textInputLong}
               placeholder = "The directions to follow"
               maxLength={240}
+              multiline= {true}
               onChangeText={this.handleDirectionsChange}
               value={this.state.directionsHolder}
             />
