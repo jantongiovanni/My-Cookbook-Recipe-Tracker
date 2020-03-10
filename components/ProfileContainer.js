@@ -45,8 +45,8 @@ renderTabBar(props) {
 
 render () {
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor:'#f7f7f7'}}>
+        <ScrollView style={{flex: 1, backgroundColor:'#f7f7f7'}} contentContainerStyle={{flexGrow:1}}>
           <ProfileScreen/>
           <TabView
             navigationState={this.state}
@@ -56,7 +56,10 @@ render () {
               second: SecondRoute,
             })}
             onIndexChange={index => this.setState({ index })}
-            initialLayout={{ width: Dimensions.get('window').width }}
+            initialLayout={{
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height
+            }}
           />
         </ScrollView>
       </SafeAreaView>

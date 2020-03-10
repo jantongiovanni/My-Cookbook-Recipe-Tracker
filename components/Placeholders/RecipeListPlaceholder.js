@@ -14,22 +14,14 @@ const RecipeListPlaceholderComponent = ({title}) => (
       <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>{title}</PlayfairText>
 
       <Placeholder
-        style={{height: 100, margin:20, backgroundColor: 'white'}}
+        style={{height: 100, margin:20, backgroundColor: '#f7f7f7'}}
         Left={PlaceholderMedia}
         Animation={ShineOverlay}>
         <PlaceholderLine width={80} />
         <PlaceholderLine width={30} />
       </Placeholder>
       <Placeholder
-        style={{height: 100, margin:20, backgroundColor: 'white'}}
-        Left={PlaceholderMedia}
-        Animation={ShineOverlay}>
-        <PlaceholderLine width={80} />
-        <PlaceholderLine />
-        <PlaceholderLine width={30} />
-      </Placeholder>
-      <Placeholder
-        style={{height: 100, margin:20, backgroundColor: 'white'}}
+        style={{height: 100, margin:20, backgroundColor: '#f7f7f7'}}
         Left={PlaceholderMedia}
         Animation={ShineOverlay}>
         <PlaceholderLine width={80} />
@@ -37,7 +29,7 @@ const RecipeListPlaceholderComponent = ({title}) => (
         <PlaceholderLine width={30} />
       </Placeholder>
       <Placeholder
-        style={{height: 100, margin:20, backgroundColor: 'white'}}
+        style={{height: 100, margin:20, backgroundColor: '#f7f7f7'}}
         Left={PlaceholderMedia}
         Animation={ShineOverlay}>
         <PlaceholderLine width={80} />
@@ -45,7 +37,7 @@ const RecipeListPlaceholderComponent = ({title}) => (
         <PlaceholderLine width={30} />
       </Placeholder>
       <Placeholder
-        style={{height: 100, margin:20, backgroundColor: 'white'}}
+        style={{height: 100, margin:20, backgroundColor: '#f7f7f7'}}
         Left={PlaceholderMedia}
         Animation={ShineOverlay}>
         <PlaceholderLine width={80} />
@@ -53,7 +45,15 @@ const RecipeListPlaceholderComponent = ({title}) => (
         <PlaceholderLine width={30} />
       </Placeholder>
       <Placeholder
-        style={{height: 100, margin:20, backgroundColor: 'white'}}
+        style={{height: 100, margin:20, backgroundColor: '#f7f7f7'}}
+        Left={PlaceholderMedia}
+        Animation={ShineOverlay}>
+        <PlaceholderLine width={80} />
+        <PlaceholderLine />
+        <PlaceholderLine width={30} />
+      </Placeholder>
+      <Placeholder
+        style={{height: 100, margin:20, backgroundColor: '#f7f7f7'}}
         Left={PlaceholderMedia}
         Animation={ShineOverlay}>
         <PlaceholderLine width={80} />

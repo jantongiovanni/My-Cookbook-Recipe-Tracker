@@ -52,7 +52,7 @@ retrieveData = async () => {
 
   renderRecipes = ({item}) => (
     <TouchableScale
-      style={{height: 100, marginBottom: 16, marginLeft:10, marginRight:10, backgroundColor: 'white', flexDirection:'row'}}
+      style={{height: 100, marginBottom: 16, marginLeft:10, marginRight:10, backgroundColor: '#f7f7f7', flexDirection:'row'}}
       activeScale={0.95}
       tension={150}
       friction={7}
@@ -76,10 +76,11 @@ retrieveData = async () => {
   );
 
     render () {
-      const {isDataFetched} = this.state;
+      const {isDataFetched, itemArr} = this.state;
         return (
-          <View style={{flex: 1, paddingTop: 12,}}>
+          <View style={{flex: 1, paddingTop: 12, backgroundColor: '#f7f7f7'}}>
           {isDataFetched ? (
+            itemArr.length > 0 ? (
             <FlatList
               ListHeaderComponent = {
                 <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Saved Recipes</PlayfairText>
@@ -89,9 +90,14 @@ retrieveData = async () => {
               renderItem={this.renderRecipes}
               keyExtractor={(item, index) => index.toString()}
             />
-            ) : (
-              <RecipeListPlaceholderComponent title='Saved Recipes'/>
-            )}
+            ):(
+              <View style={{alignItems:'center', justifyContent:'center'}}>
+              <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingHorizontal: 10, alignSelf:'flex-start'}}>This is where your saved recipes will go</PlayfairText>
+              </View>
+            )
+          ) : (
+            <RecipeListPlaceholderComponent title='Saved Recipes'/>
+          )}
           </View>
         )
     }

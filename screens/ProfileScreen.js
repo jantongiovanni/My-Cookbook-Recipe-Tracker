@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Button, StyleSheet, Text, Image, SafeAreaView} from 'react-native';
+import { View, Button, StyleSheet, Text, Image, SafeAreaView, Dimensions} from 'react-native';
 import firebase from 'firebase';
 import { RobotoText } from '../components/StyledText';
 import {FontAwesome5} from '@expo/vector-icons';
@@ -40,7 +40,7 @@ componentDidMount(){
 
   render() {
     return (
-      <View style={{flex:1, paddingTop:40, paddingBottom: 20, backgroundColor: '#f7f7f7'}}>
+      <View style={{flex:1, maxHeight: Dimensions.get('window').width/3, paddingTop:40, paddingBottom: 20, backgroundColor: '#f7f7f7'}}>
         <View style = {styles.container}>
           <Image
             source={{ uri: this.state.photoURL}}

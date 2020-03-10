@@ -132,7 +132,7 @@ render () {
       {isDataFetched1 ? (
         <FlatList  ref='_discoverFlatList'
           ListHeaderComponent = {
-            <PlayfairText style={{color:'black', fontSize: 46, paddingBottom:16, paddingLeft: 10, alignSelf:'flex-start'}}>Discover</PlayfairText>
+            <PlayfairText style={{color:'black', fontSize: 54, marginVertical:20, alignSelf:'center'}}>My Cookbook</PlayfairText>
           }
 
           data={ this.state.itemArr }
