@@ -277,38 +277,68 @@ class CreateRecipe extends Component {
     this.setState({directionsHolder: ''})
   }
   removeFromDirectionsList = ({item}) => {
-    //console.log("ingredients x test: " +  JSON.stringify(item));
+    //console.log("ingredients x test: " +  index);
     this.setState({directions: this.state.directions.filter(arrItem => arrItem !== item)});
+  }
+  sortUpDirection = ({item, index}) => {
+
+    console.log("sort up test: " +  index);
+    this.setState([this.state.directions[index], this.state.directions[index+1]] = [this.state.directions[index+1], this.state.directions[index]]);
+    //this.setState({directions: this.state.directions.filter(arrItem => arrItem !== item)});
+
+  }
+  sortDownDirection = ({item, index}) => {
+    console.log("sort down test: " +  index);
+    this.setState([this.state.directions[index], this.state.directions[index-1]] = [this.state.directions[index-1], this.state.directions[index]]);
   }
   renderDirections = ({item, index}) => {
     return (
+      <View style={{flex: 1, flexDirection:'row', marginBottom: 15,
+      minHeight: 60,
+      borderColor: '#CCCCCC',
+      backgroundColor: '#ffffff',
+      borderWidth: 0.5,
+      borderRadius: 15,
+      marginHorizontal:20}}>
+      <View style={{
+        flexDirection:'column',
+        alignSelf: 'center',
+        marginLeft: 10,
+      }}>
+      {index != this.state.directions.length-1 ? (
+      <FontAwesome5 name="sort-up" size={20} color='black' style={{
+        marginVertical:3,
+        alignSelf:'flex-start',
+      }}
+      onPress={() => this.sortUpDirection({item, index})}/>
+    ): (
+      <View style={{marginVertical: 13}}>
+      </View>
+    )}
+    <RobotoText style={{
+      fontSize: 20,
+      color: 'black',
+      fontWeight:'400',
+      alignSelf:'center',
+    }}>{index+1}</RobotoText>
+    {index!=0 ? (
+      <FontAwesome5 name="sort-down" size={20} color='black' style={{
+        marginVertical:3,
+        alignSelf:'flex-start',
+      }}
+      onPress={() => this.sortDownDirection({item, index})}/>
+    ): (
+      <View style={{marginVertical: 13}}>
+      </View>
+    )}
+    </View>
       <View style={{
         flex:1,
         flexDirection:'row',
-        minHeight: 30,
-        borderColor: '#CCCCCC',
-        backgroundColor: '#ffffff',
-        borderWidth: 0.5,
-        borderRadius: 15,
-        marginHorizontal:20,
-        marginBottom: 15,
+        marginLeft:20,
+        alignSelf: 'center'
       }}>
-          <RobotoText style={{
-            fontSize: 20,
-            color: 'black',
-            fontWeight:'400',
-            marginRight: 10,
-            alignSelf:'flex-start',
-            marginLeft: 14,
-            ...Platform.select({
-              ios: {
-                marginTop:6
-              },
-              android: {
-                marginTop:3
-              },
-            }),
-          }}>{index+1}.</RobotoText>
+
           <RobotoText style={{
             flexShrink:1,
             fontSize: 20,
@@ -317,12 +347,12 @@ class CreateRecipe extends Component {
             flexWrap:'wrap',
             marginRight: 'auto',
             alignSelf:'flex-start',
+            justifyContent: 'center',
             ...Platform.select({
               ios: {
-                marginTop:6
+                marginTop:3
               },
               android: {
-                marginTop:3
               },
             }),
           }}>{item}</RobotoText>
@@ -337,7 +367,7 @@ class CreateRecipe extends Component {
             }),
           }}
           onPress={() => this.removeFromDirectionsList({item})}/>
-
+      </View>
       </View>
     )
   }
