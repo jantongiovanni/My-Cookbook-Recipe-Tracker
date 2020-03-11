@@ -4,16 +4,15 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  ScrollView,
   SafeAreaView,
-  Text,
   Keyboard,
   FlatList,
-  Alert,
   Platform,
   Dimensions,
   ToastAndroid,
-  TouchableWithoutFeedback
+  TouchableOpacity,
+  UIManager,
+  LayoutAnimation
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'expo-image-picker';
@@ -28,6 +27,13 @@ import firebase from 'firebase';
 import {FontAwesome5} from '@expo/vector-icons';
 
 const { width: screenWidth } = Dimensions.get('window')
+
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 class CreateRecipe extends Component {
   static defaultProps = {
@@ -218,15 +224,37 @@ class CreateRecipe extends Component {
        });
    };
 
+   animationConfig = {
+      duration: 300,
+      create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.scaleXY
+      },
+      update: {
+        type: LayoutAnimation.Types.linear,
+        property: LayoutAnimation.Properties.scaleXY
+      },
+      delete: {
+        type: LayoutAnimation.Types.linear,
+        property: LayoutAnimation.Properties.scaleXY
+      }
+   }
+
+   listAnimation() {
+     LayoutAnimation.configureNext(this.animationConfig);
+   }
+
   joinIngredientData = () => {
+    this.listAnimation();
     this.state.ingredients.push(this.state.ingredientsHolder);
     this.setState({ingredientsHolder: ''})
   }
-  removeFromIngredientsList = ({item}) => {
-    //console.log("ingredients x test: " +  JSON.stringify(item));
-    this.setState({ingredients: this.state.ingredients.filter(arrItem => arrItem !== item)});
+  removeFromIngredientsList = ({item, index}) => {
+    this.listAnimation();
+    this.setState({ingredients: this.state.ingredients.slice(0, index).concat(this.state.ingredients.slice(index+1, this.state.ingredients.length))});
+    //this.setState({ingredients: this.state.ingredients.filter(arrItem => arrItem !== item)});
   }
-  renderIngredients = ({item}) => {
+  renderIngredients = ({item, index}) => {
     return (
       <View style={{
         flex:1,
@@ -267,28 +295,33 @@ class CreateRecipe extends Component {
             },
           }),
         }}
-        onPress={() => this.removeFromIngredientsList({item})}/>
+        onPress={() => this.removeFromIngredientsList({item, index})}/>
       </View>
     )
   }
 
   joinDirectionsData = () => {
+    this.listAnimation();
     this.state.directions.push(this.state.directionsHolder);
     this.setState({directionsHolder: ''})
   }
-  removeFromDirectionsList = ({item}) => {
+  removeFromDirectionsList = ({item, index}) => {
     //console.log("ingredients x test: " +  index);
-    this.setState({directions: this.state.directions.filter(arrItem => arrItem !== item)});
+    this.listAnimation();
+    this.setState({directions: this.state.directions.slice(0, index).concat(this.state.directions.slice(index+1, this.state.directions.length))});
+    //this.setState({directions: this.state.directions.filter(arrItem => arrItem !== item)});
   }
   sortUpDirection = ({item, index}) => {
 
     console.log("sort up test: " +  index);
+    this.listAnimation();
     this.setState([this.state.directions[index], this.state.directions[index+1]] = [this.state.directions[index+1], this.state.directions[index]]);
     //this.setState({directions: this.state.directions.filter(arrItem => arrItem !== item)});
 
   }
   sortDownDirection = ({item, index}) => {
     console.log("sort down test: " +  index);
+    this.listAnimation();
     this.setState([this.state.directions[index], this.state.directions[index-1]] = [this.state.directions[index-1], this.state.directions[index]]);
   }
   renderDirections = ({item, index}) => {
@@ -366,7 +399,7 @@ class CreateRecipe extends Component {
               },
             }),
           }}
-          onPress={() => this.removeFromDirectionsList({item})}/>
+          onPress={() => this.removeFromDirectionsList({item, index})}/>
       </View>
       </View>
     )
@@ -527,70 +560,73 @@ render() {
             <RobotoText style={styles.charCount}>{120 - this.state.notes.length}</RobotoText>
           </View>
           {/* ------ Ingredients ------- */}
-          <PlayfairText style={styles.titleTextLarge}>Ingredients</PlayfairText>
-          <View style={{flex: 1, flexDirection:'row'}}>
-            <TextInput
-              type = "text"
-              style={styles.textInput}
-              placeholder = "The list of required ingredients"
-              maxLength = {30}
-              onChangeText={this.handleIngredientsChange}
-              value={this.state.ingredientsHolder}
+          <View>
+            <PlayfairText style={styles.titleTextLarge}>Ingredients</PlayfairText>
+            <View style={{flex: 1, flexDirection:'row'}}>
+              <TextInput
+                type = "text"
+                style={styles.textInput}
+                placeholder = "The list of required ingredients"
+                maxLength = {30}
+                onChangeText={this.handleIngredientsChange}
+                value={this.state.ingredientsHolder}
+              />
+              <RobotoText style={styles.charCount}>{30 - this.state.ingredientsHolder.length}</RobotoText>
+            </View>
+            <TouchableScale
+              style={styles.saveButton}
+              activeScale={0.95}
+              tension={150}
+              friction={7}
+              useNativeDriver
+              onPress={this.joinIngredientData}
+            >
+              <RobotoText style = {styles.saveButtonText} > Add Ingredient </RobotoText>
+            </TouchableScale>
+            <FlatList
+              keyboardShouldPersistTaps='always'
+              inverted
+              data={this.state.ingredients}
+              extraData={this.state}
+              keyExtractor={(item, index) => String(index)}
+              renderItem={this.renderIngredients}
+              style={{flex:1}}
             />
-            <RobotoText style={styles.charCount}>{30 - this.state.ingredientsHolder.length}</RobotoText>
           </View>
-          <TouchableScale
-            style={styles.saveButton}
-            activeScale={0.95}
-            tension={150}
-            friction={7}
-            useNativeDriver
-            onPress={this.joinIngredientData}
-          >
-            <RobotoText style = {styles.saveButtonText} > Add Ingredient </RobotoText>
-          </TouchableScale>
-          <FlatList
-            keyboardShouldPersistTaps='always'
-            inverted
-            data={this.state.ingredients}
-            extraData={this.state}
-            keyExtractor={(item, index) => String(index)}
-            renderItem={this.renderIngredients}
-            style={{flex:1}}
-          />
-
           {/* ------ Directions ------- */}
-          <PlayfairText style={styles.titleTextLarge}>Directions</PlayfairText>
-          <View style={{flex: 1, flexDirection:'row'}}>
-            <TextInput
-              type = "text"
-              style={styles.textInputLong}
-              placeholder = "The directions to follow"
-              maxLength={240}
-              multiline= {true}
-              onChangeText={this.handleDirectionsChange}
-              value={this.state.directionsHolder}
+          <View>
+            <PlayfairText style={styles.titleTextLarge}>Directions</PlayfairText>
+            <View style={{flex: 1, flexDirection:'row'}}>
+              <TextInput
+                type = "text"
+                style={styles.textInputLong}
+                placeholder = "The directions to follow"
+                maxLength={240}
+                multiline= {true}
+                onChangeText={this.handleDirectionsChange}
+                value={this.state.directionsHolder}
+              />
+              <RobotoText style={styles.charCount}>{240 - this.state.directionsHolder.length}</RobotoText>
+            </View>
+            <TouchableScale
+              style={styles.saveButton}
+              activeScale={0.95}
+              tension={150}
+              friction={7}
+              useNativeDriver
+              onPress={this.joinDirectionsData}
+            >
+              <RobotoText style = {styles.saveButtonText} > Add Direction </RobotoText>
+            </TouchableScale>
+            <FlatList
+              keyboardShouldPersistTaps='always'
+              inverted
+              data={this.state.directions}
+              extraData={this.state}
+              keyExtractor={(item, index) => String(index)}
+              renderItem={this.renderDirections}
             />
-            <RobotoText style={styles.charCount}>{240 - this.state.directionsHolder.length}</RobotoText>
           </View>
-          <TouchableScale
-            style={styles.saveButton}
-            activeScale={0.95}
-            tension={150}
-            friction={7}
-            useNativeDriver
-            onPress={this.joinDirectionsData}
-          >
-            <RobotoText style = {styles.saveButtonText} > Add Direction </RobotoText>
-          </TouchableScale>
-          <FlatList
-            keyboardShouldPersistTaps='always'
-            inverted
-            data={this.state.directions}
-            extraData={this.state}
-            keyExtractor={(item, index) => String(index)}
-            renderItem={this.renderDirections}
-          />
           {/* ------ Save ------- */}
           <TouchableScale
             style={styles.saveButton}
