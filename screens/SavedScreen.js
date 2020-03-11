@@ -29,6 +29,12 @@ class SavedScreen extends React.PureComponent {
   catch (error) {
     console.log(error);
   }
+  const { navigation } = this.props;
+   this.focusListener = navigation.addListener('didFocus', () => {
+     // The screen is focused
+     // Call any action
+     console.log("screen is focused")
+   });
 };
 
 retrieveData = async () => {

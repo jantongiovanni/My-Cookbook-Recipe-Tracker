@@ -49,6 +49,7 @@ render () {
         <ScrollView style={{flex: 1, backgroundColor:'#f7f7f7'}} contentContainerStyle={{flexGrow:1}}>
           <ProfileScreen/>
           <TabView
+            lazy
             navigationState={this.state}
             renderTabBar={this.renderTabBar}
             renderScene={SceneMap({
@@ -58,7 +59,6 @@ render () {
             onIndexChange={index => this.setState({ index })}
             initialLayout={{
               width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height
             }}
           />
         </ScrollView>
