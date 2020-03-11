@@ -49,12 +49,46 @@ const DiscoverStack = createStackNavigator(
   }
 );
 
+DiscoverStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible;
+  if (navigation.state.routes.length > 1) {
+    navigation.state.routes.map(route => {
+      if (route.routeName === "Details") {
+        tabBarVisible = false;
+      } else {
+        tabBarVisible = true;
+      }
+    });
+  }
+
+  return {
+    tabBarVisible
+  };
+};
+
 const RecipeStack = createStackNavigator(
   {
       Recipes: {screen: ProfileContainer},
       Details: {screen: DetailScreen}
   }
 );
+
+RecipeStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible;
+  if (navigation.state.routes.length > 1) {
+    navigation.state.routes.map(route => {
+      if (route.routeName === "Details") {
+        tabBarVisible = false;
+      } else {
+        tabBarVisible = true;
+      }
+    });
+  }
+
+  return {
+    tabBarVisible
+  };
+};
 
 const TabNav = createBottomTabNavigator(
   {

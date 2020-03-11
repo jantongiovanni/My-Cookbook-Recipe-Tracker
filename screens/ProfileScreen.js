@@ -40,7 +40,7 @@ componentDidMount(){
 
   render() {
     return (
-      <View style={{flex:1, maxHeight: Dimensions.get('window').width/3, paddingTop:40, paddingBottom: 20, backgroundColor: '#f7f7f7'}}>
+      <View style={{flex:1, maxHeight: Dimensions.get('window').width/3, minHeight: Dimensions.get('window').width/3, paddingTop:40, paddingBottom: 20, backgroundColor: '#f7f7f7'}}>
         <View style = {styles.container}>
           <Image
             source={{ uri: this.state.photoURL}}
