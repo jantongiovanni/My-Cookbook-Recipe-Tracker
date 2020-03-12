@@ -143,29 +143,45 @@ class CreateRecipe extends Component {
         200
       );
       recipeRef = db.collection('recipes').doc();
+      smallRecipeRef = db.collection('small_recipe').doc();
+      var user = firebase.auth().currentUser;
+
        if(this.state.image !== null){
          console.log("not null!");
          this.state.remoteUri = await this.uploadPhotoAsync(this.state.image);
         }
 
        const docData = {
-         uid : firebase.auth().currentUser.uid,
+         uid : user.uid,
+         name : user.displayName,
+         profile_picture : user.photoURL,
          ref: recipeRef,
          title: this.state.title,
          createdAt: Date.now(),
          isPublic: this.state.isPublic
        }
+       const smallDocData = {
+         uid : docData.uid,
+         name : docData.name,
+         profile_picture : docData.profile_picture,
+         ref: docData.ref,
+         title: docData.title,
+       }
        if(this.state.time !== ''){
          docData.time = this.state.time;
+         smallDocData.time = this.state.time;
        }
        if(this.state.description !== ''){
          docData.description = this.state.description;
+         smallDocData.description = this.state.description;
        }
        if(this.state.notes !== ''){
          docData.notes = this.state.notes;
        }
        if(this.state.makes !== ''){
          docData.makes = this.state.makes;
+         smallDocData.makes = this.state.makes;
+
        }
        if(this.state.ingredients.length > 0){
          docData.ingredients = this.state.ingredients;
@@ -175,6 +191,7 @@ class CreateRecipe extends Component {
        }
        if(this.state.image !== null){
          docData.image = this.state.image;
+         smallDocData.image = this.state.image;
        }
        if(this.state.imagePath !== ''){
          docData.imagePath = this.state.imagePath;
@@ -193,7 +210,9 @@ class CreateRecipe extends Component {
              0,
              200
            );
-           })
+         }).then(smallRecipeRef.set(smallDocData).then(function(){
+           console.log("Small doc written");
+         }))
            .catch(function(error) {
                console.error("Error adding document: ", error);
          });
