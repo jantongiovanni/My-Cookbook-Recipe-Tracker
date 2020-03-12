@@ -83,6 +83,7 @@ renderRecipes = ({item}) => (
     borderBottomColor: '#D3D3D3',
     borderBottomWidth: 1,
     marginTop: 10,
+    paddingBottom: 10,
     marginHorizontal: 16
   }}>
   <TouchableWithoutFeedback
@@ -90,6 +91,19 @@ renderRecipes = ({item}) => (
     onPress={() => this.onPressRecipe(item)}
   >
   <View>
+    <View style={{flexDirection:'row', alignItems:'center', justifyContent:'flex-start', marginBottom: 10}}>
+      {item.hasOwnProperty("profile_picture") &&
+        <Image
+          source={{ uri: item.profile_picture}}
+          style={{width: 30, height: 30, borderRadius: 15, marginRight: 10}}
+        />
+      }
+      {item.hasOwnProperty("name") &&
+        <RobotoText style={styles.largeText}>
+          {item.name}
+        </RobotoText>
+      }
+    </View>
     {item.hasOwnProperty("image") &&
       <Image
         source={{uri: item.image}} style={{width: screenWidth-32, height: screenWidth-32, marginBottom: 10}}
@@ -115,9 +129,9 @@ renderRecipes = ({item}) => (
       </View>
 
       {item.hasOwnProperty("description") ? (
-      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginBottom:20, alignSelf:'flex-start'}} >{item.description}</RobotoText>
+      <RobotoText style={{fontSize: 16, color: 'black', fontWeight:'400', marginVertical: 10, alignSelf:'flex-start'}} >{item.description}</RobotoText>
       ) : (
-        <View style={{marginBottom: 10}} />
+        <View style={{marginBottom: 0}} />
       )}
     </View>
     </View>
@@ -154,7 +168,7 @@ const styles = StyleSheet.create({
     color: 'black',
     paddingRight: 20,
     fontWeight: '100',
-    marginBottom: 20
+    marginBottom: 10
   },
   contentText:{
     fontSize: 20,
@@ -164,4 +178,9 @@ const styles = StyleSheet.create({
     marginRight:20,
     paddingRight: 20,
   },
+  largeText : {
+    fontSize: 14,
+    color: 'black',
+    fontWeight:'bold',
+  }
 });
