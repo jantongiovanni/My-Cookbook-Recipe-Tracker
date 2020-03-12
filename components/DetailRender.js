@@ -69,7 +69,7 @@ class DetailRenderComponent extends React.Component {
             200
           );
           console.log("Document successfully deleted!");
-          navigation.navigate('Recipes');
+          navigation.goBack();
         }).catch(function(error) {
             console.error("Error removing document: ", error);
         });
