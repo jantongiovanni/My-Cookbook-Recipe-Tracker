@@ -15,6 +15,7 @@ export default class Detail extends React.Component {
     user: '',
     saved: false,
     savedRef : '',
+    smallRef : '',
     isDataFetched : false,
     item: []
   }
@@ -35,11 +36,12 @@ export default class Detail extends React.Component {
     // current implmentation will not show correct saved state from discover screen
     const { navigation } = this.props
     const item = navigation.getParam('item');
-    if(item.savedRef === undefined){
-      console.log("I am a full recipe");
+    //console.log(item.savedRef, item.smallRef);
+    if(item.savedRef === undefined && item.smallRef === undefined){
+      console.log("I am a not saved not small recipe");
       this.setState({item: item, isDataFetched: true});
 
-    } else {
+    } else if ( item.savedRef !== undefined ){
       console.log("I am a saved recipe");
       console.log("Retrieving Data");
       try{
@@ -49,6 +51,27 @@ export default class Detail extends React.Component {
         await docRef.get().then((doc) => {
             if (doc.exists) {
                 this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+       }
+      catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("I am a not saved small recipe");
+      console.log("Retrieving Data");
+      try{
+        var user = firebase.auth().currentUser.uid;
+        console.log("user: " + user);
+        var docRef = item.recipeRef;
+        await docRef.get().then((doc) => {
+            if (doc.exists) {
+                this.setState({item: doc.data(), isDataFetched: true, saved: false, savedRef: item.savedRef});
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");

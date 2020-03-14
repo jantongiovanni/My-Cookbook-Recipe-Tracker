@@ -161,11 +161,14 @@ class CreateRecipe extends Component {
          isPublic: this.state.isPublic
        }
        const smallDocData = {
+         smallRef : smallRecipeRef,
          uid : docData.uid,
          name : docData.name,
          profile_picture : docData.profile_picture,
-         ref: docData.ref,
+         recipeRef: docData.ref,
          title: docData.title,
+         isPublic: docData.isPublic,
+         createdAt: docData.createdAt
        }
        if(this.state.time !== ''){
          docData.time = this.state.time;
