@@ -6,20 +6,31 @@ The app's concept is to be able to store recipes you have created, follow along 
 
 This is a work in progress and some aspects are not representative of the final product
 
-## GIF Showcase 
-### (Original proof of concept - gif showing new features coming soon)
+## Showcase 
+### Original proof of concept
 <img src="/recipe2_1.gif?raw=true" width="300px">
+
+### Latest Iteration Screenshots
+| Home Feed | Add a recipe |
+| :-------: | :-------: |
+| <img src="/Screenshot_20200314-134624.png?raw=true" width="300px"> | <img src="/Screenshot_20200314-134634.png?raw=true" width="300px"> |
+
+| Details | Profile |
+| :-------: | :-------: |
+| <img src="/Screenshot_20200314-134703.png?raw=true" width="300px"> | <img src="/Screenshot_20200314-134954.png?raw=true" width="300px"> |
+
 
 ## Features of the app so far:
 
 - [x] Home Screen
-  - [x] Search bar
-  - [x] Main suggested recipe
-  - [x] Recipe cards
-  - [x] Swipe to new pages
+  - [x] Dynamic Recipe cards
+    - [x] Username and icon
+    - [x] Image
+    - [x] Title, time, makes, and description
 - [x] Animated Touch Feedback
 - [x] Firebase Firestore backend 
-- [x] List of recipes pull from Firestore
+  - [x] List of recipes pull from Firestore
+  - [x] Uses seperate top level subcollections
   - [x] Automatic refresh using snapshot
   - [x] Ordered by newest posts first
   - [x] Placeholder rows during loading
@@ -27,13 +38,17 @@ This is a work in progress and some aspects are not representative of the final 
 - [x] Detail screen
   - [x] Dynamic render of fields if relevant data exists
   - [x] Tapping on image opens fullscreen, scalable, paged view
+  - [x] Shows saved state or gives ability to delete
 - [x] Recipe creation
   - [x] Image picker w/ permissions 
   - [x] Photo saved in Firestore Storage
   - [x] Post saved in Firestore Database
   - [x] Recipes can be toggled public/private
+  - [x] Adding ingredients and directions is animated
+  - [x] Ability to delete added ingredients/directions
+  - [x] Ability to reorder directions
 - [x] Recipe deletion
-  - [x] Deletion of post deletes associated image
+  - [x] Deletion of post deletes associated image and data
 - [x] User Authentication
   - [x] Login/Logout using Google Account (more to come)
   - [x] User persists app restarts
@@ -46,7 +61,6 @@ This is a work in progress and some aspects are not representative of the final 
 ## Work In Progress / To-Do:
 
 - [ ] Save recipe drafts
-- [ ] Ability to edit a recipe once posted
 - [ ] Check off ingredients and steps
 - [ ] Filter recipes by category, tag, etc
 - [ ] Show Recently viewed
