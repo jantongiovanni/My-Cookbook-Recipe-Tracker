@@ -32,8 +32,17 @@ export default class Detail extends React.Component {
   };
 
   getSavedState = async () => {
-    //FIX NEEDED : need to switch over to seperate top level collection and fetch each time
-    // current implmentation will not show correct saved state from discover screen
+
+    //logic tree
+    //Check if saved or small recipe
+    //No -> full recipe, load full details
+      //check if saved recipe
+      // Yes -> grab full recipe
+      // No -> check if small ref is a saved recipe
+       // Yes -> grab full, saved
+       // No -> grab full, not saved
+
+
     const { navigation } = this.props
     const item = navigation.getParam('item');
     //console.log(item.savedRef, item.smallRef);
@@ -62,29 +71,62 @@ export default class Detail extends React.Component {
       catch (error) {
         console.log(error);
       }
-    } else {
-      console.log("I am a not saved small recipe");
-      console.log("Retrieving Data");
-      try{
-        var user = firebase.auth().currentUser.uid;
-        console.log("user: " + user);
-        var docRef = item.recipeRef;
-        await docRef.get().then((doc) => {
-            if (doc.exists) {
-                this.setState({item: doc.data(), isDataFetched: true, saved: false, savedRef: item.savedRef});
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-       }
-      catch (error) {
-        console.log(error);
-      }
-    }
+    } else { //checking if small ref is a saved recipe for current user
+
+        try{
+          var user = firebase.auth().currentUser.uid;
+          console.log("checking if small ref is a saved recipe for user: " + user);
+          //const initialQuery = await db.collection("saved_recipes").where("uid", "==", user).where("recipeRef", "==", item.recipeRef);
+          var savedCollection = db.collection("saved_recipes");
+          await savedCollection.get().where("uid", "==", user).where("recipeRef", "==", item.recipeRef).get().then((doc) => {
+              if (doc.exists) {
+                  //this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
+                  try{
+                    console.log("reccipe is a saved recipe, getting full recipe");
+                    var docRef = item.recipeRef;
+                    await docRef.get().then((doc) => {
+                        if (doc.exists) {
+                            this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
+                        } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                        }
+                    }).catch(function(error) {
+                        console.log("Error getting document:", error);
+                    });
+                   }
+                  catch (error) {
+                    console.log(error);
+                  }
+              } else {
+                  console.log("No such document! Not a saved recipe, grabbing full recipe");
+                  try{
+                    console.log("recipe is NOT a saved recipe, getting full recipe");
+                    var docRef = item.recipeRef;
+                    await docRef.get().then((doc) => {
+                        if (doc.exists) {
+                            this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
+                        } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                        }
+                    }).catch(function(error) {
+                        console.log("Error getting document:", error);
+                    });
+                   }
+                  catch (error) {
+                    console.log(error);
+                  }
+              }
+          }).catch(function(error) {
+              console.log("Error getting document:", error);
+          });
+        }
+        catch (error) {
+          console.log(error);
+        }
   }
+}
 
   static navigationOptions = ({ navigation }) => {
     return {
