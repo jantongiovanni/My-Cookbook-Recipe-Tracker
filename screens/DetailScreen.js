@@ -55,9 +55,6 @@ export default class Detail extends React.Component {
     }
   }
 
-
-
-
   getSavedState = async () => {
     //logic tree
     //Check if saved or small recipe
@@ -68,32 +65,24 @@ export default class Detail extends React.Component {
        // Yes -> grab full, saved
        // No -> grab full, not saved
 
-
     const { navigation } = this.props
     const item = navigation.getParam('item');
     //console.log();
 
     //console.log(item.savedRef, item.smallRef);
     if(item.savedRef === undefined && item.smallRef === undefined){
-      console.log("I am a not saved not small recipe");
+      console.log("I am an unsaved full recipe");
       this.setState({item: item, isDataFetched: true});
-
     } else if ( item.savedRef !== undefined ){
       this.savedGet(item);
     } else { //checking if small ref is a saved recipe for current user
-
         try{
           var user = firebase.auth().currentUser.uid;
-          console.log("checking if small ref is a saved recipe for user: " + user);
-          //const initialQuery = await db.collection("saved_recipes").where("uid", "==", user).where("recipeRef", "==", item.recipeRef);
           var savedCollection = db.collection("saved_recipes");
           await savedCollection.where("uid", "==", user).where("recipeRef", "==", item.recipeRef).limit(1).get().then( (querySnapshot) => {
-            console.log("im in the snapshot");
             if(!querySnapshot.empty){
             querySnapshot.forEach( (doc) => {
-              console.log("im in the snapshot loop");
               if (doc.exists) {
-                  //this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
                   try{
                     console.log("recipe IS a saved recipe, getting full recipe");
                     var docRef = item.recipeRef;
@@ -101,7 +90,6 @@ export default class Detail extends React.Component {
                         if (doc.exists) {
                             this.setState({item: doc.data(), isDataFetched: true, saved: true, savedRef: item.savedRef});
                         } else {
-                            // doc.data() will be undefined in this case
                             console.log("No such document!");
                         }
                     }).catch(function(error) {
@@ -112,34 +100,30 @@ export default class Detail extends React.Component {
                     console.log(error);
                   }
               } else {
-                //error
-                console.log("else condition");
-
+                console.log("there was a problem grabbing document data");
               }
             });
           } else {
             console.log("NOT a saved recipe, grabbing full recipe");
-            try{
-              var docRef = item.recipeRef;
-              docRef.get().then((doc) => {
-                  if (doc.exists) {
-                      this.setState({item: doc.data(), isDataFetched: true, saved: false, savedRef: item.savedRef});
-                  } else {
-                      // doc.data() will be undefined in this case
-                      console.log("No such document!");
-                  }
-              }).catch(function(error) {
-                  console.log("Error getting document:", error);
-              });
-             }
-            catch (error) {
-              console.log(error);
+              try{
+                var docRef = item.recipeRef;
+                docRef.get().then((doc) => {
+                    if (doc.exists) {
+                        this.setState({item: doc.data(), isDataFetched: true, saved: false, savedRef: item.savedRef});
+                    } else {
+                        console.log("No such document!");
+                    }
+                }).catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
+               }
+              catch (error) {
+                console.log(error);
+              }
             }
-          }
           }).catch(function(error) {
               console.log("Error getting document:", error);
           });
-
         }
         catch (error) {
           console.log(error);
