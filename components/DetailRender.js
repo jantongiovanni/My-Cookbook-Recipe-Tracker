@@ -57,6 +57,9 @@ class DetailRenderComponent extends React.Component {
 
   onPressDelete = (item, navigation) => {
     //const { navigation } = this.props.nav
+
+    //consider moving this to cloud function
+
     if(item.ref === undefined){
         console.log("cannot delete item in app");
     } else {
@@ -91,6 +94,27 @@ class DetailRenderComponent extends React.Component {
               console.error("Error removing smallRef", error);
           });
       }
+
+      try{
+        var savedCollection = db.collection("saved_recipes");
+        savedCollection.where("recipeRef", "==", item.ref).get().then((querySnapshot) => {
+          if(!querySnapshot.empty){
+          querySnapshot.forEach( (doc) => {
+            doc.data().savedRef.delete();
+          });
+        } else {
+          console.log("nothing to delete");
+        }
+        }).catch(function(error) {
+            console.log("Error getting snapshot:", error);
+        });
+      }
+      catch (error) {
+        console.log(error);
+      }
+
+
+
     }
   }
 
