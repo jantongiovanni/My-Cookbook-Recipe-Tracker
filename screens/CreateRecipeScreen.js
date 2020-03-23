@@ -156,6 +156,7 @@ class CreateRecipe extends Component {
          name : user.displayName,
          profile_picture : user.photoURL,
          ref: recipeRef,
+         smallRef : smallRecipeRef,
          title: this.state.title,
          createdAt: Date.now(),
          isPublic: this.state.isPublic
