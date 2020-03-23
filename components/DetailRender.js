@@ -87,8 +87,8 @@ class DetailRenderComponent extends React.Component {
             console.log("Uh-oh, an error occurred!" + error);
           });
       }
-      if(item.smallRef){
-        item.smallRef.delete().then(function() {
+      if(item.smallRecRef){
+        item.smallRecRef.delete().then(function() {
             console.log("smallRef successfully deleted!");
           }).catch(function(error) {
               console.error("Error removing smallRef", error);
