@@ -434,6 +434,7 @@ class CreateRecipe extends Component {
     //leaving in to fix later because this is still better than the keyboardavoidingview solution previously
     await this.dismissKb();
     this.onChooseImagePress();
+    //this.onChooseCameraPress();
   }
 
   dismissKb = () => {
@@ -449,9 +450,21 @@ class CreateRecipe extends Component {
     console.log(result);
     if (!result.cancelled) {
       this.setState({ image: result.uri });
-
     }
   }
+
+  onChooseCameraPress = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+    console.log(result);
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  }
+
 
 render() {
   let { image, isPublic, editable } = this.state;
@@ -480,18 +493,29 @@ render() {
         </View>
         {image &&
           <Image source={{ uri: image }} style={styles.topImage} />}
-        <TouchableScale
-          style={styles.saveButton}
-          activeScale={0.95}
-          tension={150}
-          friction={7}
-          useNativeDriver
-          onPress={this.combinedFunctions}
-        >
-          <RobotoText style = {styles.saveButtonText} > Choose Image </RobotoText>
-        </TouchableScale>
-
-
+        <View style={{flexDirection:'row'}}>
+          <TouchableScale
+            style={styles.imageButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            onPress={this.onChooseImagePress}
+          >
+            <FontAwesome5 name="image" size={24} />
+          </TouchableScale>
+          <RobotoText style={{alignSelf: 'center', paddingBottom: 20}}>or</RobotoText>
+          <TouchableScale
+            style={styles.imageButton}
+            activeScale={0.95}
+            tension={150}
+            friction={7}
+            useNativeDriver
+            onPress={this.onChooseCameraPress}
+          >
+            <FontAwesome5 name="camera" size={24} />
+          </TouchableScale>
+        </View>
           {/* ------ Title ------- */}
           <PlayfairText style={styles.titleTextLarge}>Title</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
@@ -678,7 +702,18 @@ const styles = StyleSheet.create({
     inputContainer: {
     paddingTop: 15
   },
-    saveButton: {
+  imageButton:{
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#f7f7f7',
+    backgroundColor: '#f7f7f7',
+    padding: 20,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    alignItems:'center',
+    justifyContent:'center'
+    },
+  saveButton: {
     borderWidth: 1,
     borderColor: '#f6b425',
     backgroundColor: '#f6b425',
