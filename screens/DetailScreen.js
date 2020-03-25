@@ -67,7 +67,7 @@ export default class Detail extends React.Component {
 
     const { navigation } = this.props
     const item = navigation.getParam('item');
-    //console.log();
+    //console.log(item.name);
 
     //console.log(item.savedRef, item.smallRef);
     if(item.savedRef === undefined && item.smallRef === undefined){
@@ -129,6 +129,7 @@ export default class Detail extends React.Component {
           console.log(error);
         }
   }
+  //console.log("end of function", item.name)
 }
 
   static navigationOptions = ({ navigation }) => {

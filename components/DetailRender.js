@@ -177,7 +177,7 @@ class DetailRenderComponent extends React.Component {
   render () {
     const {item, saved, savedRef } = this.state;
     const { navigation } = this.props.nav;
-    console.log(item.title);
+    console.log(item.name);
     return (
       <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -222,6 +222,21 @@ class DetailRenderComponent extends React.Component {
             PlaceholderContent={<ActivityIndicator />}/>
           </TouchableScale>
       }
+      <View style={{flexDirection:'row', alignItems:'center', justifyContent:'flex-start', marginBottom: 10, paddingBottom: 10, marginHorizontal: 16}}>
+        {item.hasOwnProperty("profile_picture") &&
+          <Image
+            source={{ uri: item.profile_picture}}
+            style={{width: 30, height: 30, borderRadius: 15, marginRight: 10}}
+          />
+        }
+        {item.hasOwnProperty("name") &&
+          <RobotoText style={{fontSize: 14,
+            color: 'black',
+            fontWeight:'bold',}}>
+            {item.name}
+          </RobotoText>
+        }
+      </View>
       {item.uid === firebase.auth().currentUser.uid ? (
           <TouchableScale
             style={styles.saveButton}
@@ -345,14 +360,15 @@ const styles = StyleSheet.create({
     borderColor: '#f6b425',
     backgroundColor: '#f6b425',
     padding: 15,
-    marginHorizontal: 22,
-    marginTop: 22
+    marginHorizontal: 20,
+    marginBottom: 20
   },
   topImage:{
     flex:1,
     width: screenWidth,
     height: screenWidth,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    marginBottom: 10
   },
 
   titleTextLarge:{
