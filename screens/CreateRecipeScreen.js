@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Image,
+  ImageBackground,
   TextInput,
   StyleSheet,
   SafeAreaView,
@@ -491,8 +492,18 @@ render() {
               Add a new recipe
           </PlayfairText>
         </View>
-        {image &&
-          <Image source={{ uri: image }} style={styles.topImage} />}
+        {image ? (
+          <View style={{flex: 1, flexDirection: 'column'}}>
+            <ImageBackground source={{ uri: image }} style={styles.topImage}>
+            <View style={{flexDirection:'row', height: screenWidth,  alignItems:'baseline', justifyContent:'flex-end'}}>
+              <FontAwesome5 name="image" size={24} />
+              <FontAwesome5 name="camera" size={24} />
+              </View>
+            </ImageBackground>
+          </View>
+
+
+        ) : (
         <View style={{flexDirection:'row'}}>
           <TouchableScale
             style={styles.imageButton}
@@ -516,6 +527,8 @@ render() {
             <FontAwesome5 name="camera" size={24} />
           </TouchableScale>
         </View>
+        )
+        }
           {/* ------ Title ------- */}
           <PlayfairText style={styles.titleTextLarge}>Title</PlayfairText>
           <View style={{flex: 1, flexDirection:'row'}}>
