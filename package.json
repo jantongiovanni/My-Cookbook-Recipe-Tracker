@@ -21,7 +21,7 @@
     "expo": "^35.0.1",
     "expo-asset": "~7.0.0",
     "expo-av": "~7.0.1",
-    "expo-cli": "^3.11.1",
+    "expo-cli": "^6.0.6",
     "expo-constants": "~7.0.0",
     "expo-font": "^7.0.0",
     "expo-google-app-auth": "^7.0.0",
